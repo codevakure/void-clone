@@ -558,7 +558,7 @@ export const walkthroughs: GettingStartedWalkthroughContent = [
 					id: 'terminal',
 					title: localize('gettingStarted.terminal.title', "Built-in terminal"),
 					description: localize('gettingStarted.terminal.description.interpolated', "Quickly run shell commands and monitor build output, right next to your code.\n{0}", Button(localize('showTerminal', "Open Terminal"), 'command:workbench.action.terminal.toggleTerminal')),
-					when: 'workspacePlatform != \'webworker\' && remoteName != codespaces && !terminalIsOpen',
+					when: 'workspacePlatform != \'webworker\' && !terminalIsOpen',
 					media: {
 						type: 'svg', altText: 'Integrated terminal running a few npm commands', path: 'terminal.svg'
 					},

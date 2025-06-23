@@ -326,12 +326,15 @@ export class CodeApplication extends Disposable {
 
 			return callback({ cancel: false });
 		});
-
 		//#endregion
 
-		//#region Allow CORS for the PRSS CDN
+		//#region Allow CORS for the PRSS CDN - DISABLED FOR COMMERCIAL COMPLIANCE
 
+		// REMOVED: Microsoft PRSS CDN integration for VS Code server downloads
+		// This was used for remote development server downloads from Microsoft's CDN
+		// For commercial compliance, this has been disabled
 		// https://github.com/microsoft/vscode-remote-release/issues/9246
+		/*
 		session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
 			if (details.url.startsWith('https://vscode.download.prss.microsoft.com/')) {
 				const responseHeaders = details.responseHeaders ?? Object.create(null);
@@ -344,6 +347,7 @@ export class CodeApplication extends Disposable {
 
 			return callback({ cancel: false });
 		});
+		*/
 
 		//#endregion
 

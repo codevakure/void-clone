@@ -557,9 +557,8 @@ export class RemoteTunnelWorkbenchContribution extends Disposable implements IWo
 								{
 									key: 'progress.turnOn.final',
 									comment: ['{0} will be the tunnel name, {1} will the link address to the web UI, {6} an extension name, {7} a link to the extension documentation. [label](command:commandId) is a markdown link. Only translate the label, do not modify the format']
-								},
-								"You can now access this machine anywhere via the secure tunnel [{0}](command:{4}). To connect via a different machine, use the generated [{1}]({2}) link or use the [{6}]({7}) extension in the desktop or web. You can [configure](command:{3}) or [turn off](command:{5}) this access via the VS Code Accounts menu.",
-								connectionInfo.tunnelName, connectionInfo.domain, linkToOpenForMarkdown, RemoteTunnelCommandIds.manage, RemoteTunnelCommandIds.configure, RemoteTunnelCommandIds.turnOff, remoteExtension.friendlyName, 'https://code.visualstudio.com/docs/remote/tunnels'
+								},								"You can now access this machine anywhere via the secure tunnel [{0}](command:{4}). To connect via a different machine, use the generated [{1}]({2}) link or use the [{6}]({7}) extension in the desktop or web. You can [configure](command:{3}) or [turn off](command:{5}) this access via the VS Code Accounts menu.",
+								connectionInfo.tunnelName, connectionInfo.domain, linkToOpenForMarkdown, RemoteTunnelCommandIds.manage, RemoteTunnelCommandIds.configure, RemoteTunnelCommandIds.turnOff, remoteExtension.friendlyName, '#remote-tunnel-documentation'
 							),
 						actions: {
 							primary: [
@@ -720,11 +719,12 @@ export class RemoteTunnelWorkbenchContribution extends Disposable implements IWo
 					category: REMOTE_TUNNEL_CATEGORY,
 					menu: []
 				});
-			}
-
-			async run(accessor: ServicesAccessor) {
+			}			async run(accessor: ServicesAccessor) {
 				const openerService = accessor.get(IOpenerService);
-				await openerService.open('https://aka.ms/vscode-server-doc');
+				// TODO: Replace with custom remote tunnel documentation
+				// Original Microsoft URL removed for commercial compliance
+				// await openerService.open('https://aka.ms/vscode-server-doc');
+				await openerService.open('https://github.com/your-org/your-remote-docs');
 			}
 		}));
 	}

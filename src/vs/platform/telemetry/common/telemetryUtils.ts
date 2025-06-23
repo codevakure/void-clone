@@ -203,7 +203,7 @@ export function validateTelemetryData(data?: any): { properties: Properties; mea
 	};
 }
 
-const telemetryAllowedAuthorities = new Set(['ssh-remote', 'dev-container', 'attached-container', 'wsl', 'tunnel', 'codespaces', 'amlext']);
+const telemetryAllowedAuthorities = new Set(['ssh-remote', 'dev-container', 'attached-container', 'wsl', 'tunnel', 'amlext']);
 
 export function cleanRemoteAuthority(remoteAuthority?: string): string {
 	if (!remoteAuthority) {
