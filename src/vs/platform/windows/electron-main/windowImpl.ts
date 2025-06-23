@@ -11,7 +11,7 @@ import { Emitter, Event } from '../../../base/common/event.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 import { FileAccess, Schemas } from '../../../base/common/network.js';
 import { getMarks, mark } from '../../../base/common/performance.js';
-import { isBigSurOrNewer, isMacintosh, isWindows } from '../../../base/common/platform.js';
+import { isBigSurOrNewer, isMacintosh, isWindows, isLinux } from '../../../base/common/platform.js';
 import { URI } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
 import { release } from 'os';
@@ -25,6 +25,7 @@ import { isLaunchedFromCli } from '../../environment/node/argvHelper.js';
 import { IFileService } from '../../files/common/files.js';
 import { ILifecycleMainService } from '../../lifecycle/electron-main/lifecycleMainService.js';
 import { ILogService } from '../../log/common/log.js';
+import { FocusMode } from '../../native/common/native.js';
 import { IProductService } from '../../product/common/productService.js';
 import { IIPCObjectUrl, IProtocolMainService } from '../../protocol/electron-main/protocol.js';
 import { resolveMarketplaceHeaders } from '../../externalServices/common/marketplace.js';
@@ -101,9 +102,11 @@ export abstract class BaseWindow extends Disposable implements IBaseWindow {
 
 	private readonly _onDidEnterFullScreen = this._register(new Emitter<void>());
 	readonly onDidEnterFullScreen = this._onDidEnterFullScreen.event;
-
 	private readonly _onDidLeaveFullScreen = this._register(new Emitter<void>());
 	readonly onDidLeaveFullScreen = this._onDidLeaveFullScreen.event;
+
+	private readonly _onDidChangeAlwaysOnTop = this._register(new Emitter<boolean>());
+	readonly onDidChangeAlwaysOnTop = this._onDidChangeAlwaysOnTop.event;
 
 	//#endregion
 
@@ -127,9 +130,9 @@ export abstract class BaseWindow extends Disposable implements IBaseWindow {
 		}));
 		this._register(Event.fromNodeEventEmitter(win, 'focus')(() => {
 			this._lastFocusTime = Date.now();
-		}));
-		this._register(Event.fromNodeEventEmitter(this._win, 'enter-full-screen')(() => this._onDidEnterFullScreen.fire()));
+		}));		this._register(Event.fromNodeEventEmitter(this._win, 'enter-full-screen')(() => this._onDidEnterFullScreen.fire()));
 		this._register(Event.fromNodeEventEmitter(this._win, 'leave-full-screen')(() => this._onDidLeaveFullScreen.fire()));
+		this._register(Event.fromNodeEventEmitter(this._win, 'always-on-top-changed', (_, alwaysOnTop) => alwaysOnTop)(alwaysOnTop => this._onDidChangeAlwaysOnTop.fire(alwaysOnTop)));
 
 		// Sheet Offsets
 		const useCustomTitleStyle = !hasNativeTitlebar(this.configurationService, options?.titleBarStyle === 'hidden' ? TitlebarStyle.CUSTOM : undefined /* unknown */);
@@ -297,12 +300,34 @@ export abstract class BaseWindow extends Disposable implements IBaseWindow {
 
 		return !!this.documentEdited;
 	}
+	focus(options?: { mode: FocusMode }): void {
+		switch (options?.mode ?? FocusMode.Transfer) {
+			case FocusMode.Transfer:
+				this.doFocusWindow();
+				break;			case FocusMode.Notify:
+				if (isMacintosh) {
+					// On macOS we have direct API to bounce the dock icon
+					electron.app.dock?.bounce('informational');
+				} else if (isWindows) {
+					// On Windows, calling focus() will bounce the taskbar icon
+					// https://github.com/electron/electron/issues/2867
+					this.win?.focus();
+				} else if (isLinux) {
+					// On Linux, there seems to be no way to bounce the taskbar icon
+					// as calling focus() will actually steal focus away.
+				}
+				break;
 
-	focus(options?: { force: boolean }): void {
-		if (isMacintosh && options?.force) {
-			electron.app.focus({ steal: true });
+			case FocusMode.Force:
+				if (isMacintosh) {
+					electron.app.focus({ steal: true });
+				}
+				this.doFocusWindow();
+				break;
 		}
+	}
 
+	private doFocusWindow(): void {
 		const win = this.win;
 		if (!win) {
 			return;
@@ -1060,7 +1085,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 			this._register(new RunOnceScheduler(() => {
 				if (this._win && !this._win.isVisible() && !this._win.isMinimized()) {
 					this._win.show();
-					this.focus({ force: true });
+					this.focus({ mode: FocusMode.Force });
 					this._win.webContents.openDevTools();
 				}
 			}, 10000)).schedule();

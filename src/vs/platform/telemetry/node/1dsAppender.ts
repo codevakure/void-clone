@@ -23,7 +23,7 @@ export class OneDataSystemAppender extends AbstractOneDataSystemAppender {
 		iKeyOrClientFactory: string | (() => IAppInsightsCore), // allow factory function for testing
 	) {
 		super(isInternalTelemetry, eventPrefix, defaultData, iKeyOrClientFactory);
-		
+
 		// Void: No telemetry collection in Node.js
 		console.log('[VOID TELEMETRY] Node.js telemetry disabled');
 	}

@@ -17,7 +17,7 @@ export class OneDataSystemWebAppender extends AbstractOneDataSystemAppender {
 		iKeyOrClientFactory: string | (() => IAppInsightsCore), // allow factory function for testing
 	) {
 		super(isInternalTelemetry, eventPrefix, defaultData, iKeyOrClientFactory);
-		
+
 		// Void: No telemetry collection in browser
 		console.log('[VOID TELEMETRY] Browser telemetry disabled');
 	}

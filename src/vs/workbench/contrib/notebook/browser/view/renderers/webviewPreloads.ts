@@ -500,7 +500,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 		private readonly _observer: ResizeObserver;
 
 		private readonly _observedElements = new WeakMap<Element, IObservedElement>();
-		private _outputResizeTimer: Timeout | undefined;
+		private _outputResizeTimer: NodeJS.Timeout | undefined;
 
 		constructor() {
 			this._observer = new ResizeObserver(entries => {
@@ -584,7 +584,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 	};
 
 	let previousDelta: number | undefined;
-	let scrollTimeout: Timeout | undefined;
+	let scrollTimeout: NodeJS.Timeout | undefined;
 	let scrolledElement: Element | undefined;
 	let lastTimeScrolled: number | undefined;
 	function flagRecentlyScrolled(node: Element, deltaY?: number) {
@@ -1899,7 +1899,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 
 			try {
 				const renderStart = performance.now();
-				await this._api.renderOutputItem(item, element, signal);
+				await this._api.renderOutputItem(item, element);
 				this.postDebugMessage('Rendered output item', { id: item.id, duration: `${performance.now() - renderStart}ms` });
 
 			} catch (e) {

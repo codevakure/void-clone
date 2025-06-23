@@ -13,10 +13,10 @@ export const IAuxiliaryWindowsMainService = createDecorator<IAuxiliaryWindowsMai
 export interface IAuxiliaryWindowsMainService {
 
 	readonly _serviceBrand: undefined;
-
 	readonly onDidMaximizeWindow: Event<IAuxiliaryWindow>;
 	readonly onDidUnmaximizeWindow: Event<IAuxiliaryWindow>;
 	readonly onDidChangeFullScreen: Event<{ window: IAuxiliaryWindow; fullscreen: boolean }>;
+	readonly onDidChangeAlwaysOnTop: Event<{ window: IAuxiliaryWindow; alwaysOnTop: boolean }>;
 	readonly onDidTriggerSystemContextMenu: Event<{ readonly window: IAuxiliaryWindow; readonly x: number; readonly y: number }>;
 
 	createWindow(details: HandlerDetails): BrowserWindowConstructorOptions;

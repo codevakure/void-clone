@@ -88,14 +88,11 @@ export class WorkbenchAssignmentService extends BaseAssignmentService {
 		@IProductService productService: IProductService,
 		@IEnvironmentService environmentService: IEnvironmentService
 	) {
-
 		super(
-			telemetryService.machineId,
 			configurationService,
 			productService,
 			environmentService,
-			new WorkbenchAssignmentServiceTelemetry(telemetryService, productService),
-			new MementoKeyValueStorage(new Memento('experiment.service.memento', storageService))
+			new WorkbenchAssignmentServiceTelemetry(telemetryService, productService)
 		);
 	}
 

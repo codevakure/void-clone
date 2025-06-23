@@ -303,7 +303,7 @@ class LocalStorageURLCallbackProvider extends Disposable implements IURLCallback
 
 	private pendingCallbacks = new Set<number>();
 	private lastTimeChecked = Date.now();
-	private checkCallbacksTimeout: Timeout | undefined = undefined;
+	private checkCallbacksTimeout: NodeJS.Timeout | undefined = undefined;
 	private onDidChangeLocalStorageDisposable: IDisposable | undefined;
 
 	constructor(private readonly _callbackRoute: string) {
