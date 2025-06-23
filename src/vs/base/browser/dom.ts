@@ -1526,11 +1526,10 @@ export function triggerDownload(dataOrUri: Uint8Array | URI, name: string): void
 
 	// If the data is provided as Buffer, we create a
 	// blob URL out of it to produce a valid link
-	let url: string;
-	if (URI.isUri(dataOrUri)) {
+	let url: string;	if (URI.isUri(dataOrUri)) {
 		url = dataOrUri.toString(true);
 	} else {
-		const blob = new Blob([dataOrUri]);
+		const blob = new Blob([dataOrUri instanceof ArrayBuffer ? new Uint8Array(dataOrUri) : dataOrUri]);
 		url = URL.createObjectURL(blob);
 
 		// Ensure to free the data from DOM eventually

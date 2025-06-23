@@ -76,10 +76,9 @@ export class ContiguousTokensStore {
 
 		// Ensure the last token covers the end of the text
 		tokens[tokens.length - 2] = lineTextLength;
-
 		if (tokens.byteOffset === 0 && tokens.byteLength === tokens.buffer.byteLength) {
 			// Store directly the ArrayBuffer pointer to save an object
-			return tokens.buffer;
+			return tokens.buffer instanceof ArrayBuffer ? tokens.buffer : new Uint32Array(tokens.buffer);
 		}
 		return tokens;
 	}

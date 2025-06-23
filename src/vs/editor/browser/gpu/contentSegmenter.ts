@@ -48,10 +48,9 @@ class AsciiContentSegmenter implements IContentSegmenter {
  */
 class GraphemeContentSegmenter implements IContentSegmenter {
 	private readonly _segments: (Intl.SegmentData | undefined)[] = [];
-
 	constructor(lineData: ViewLineRenderingData) {
 		const content = lineData.content;
-		const segmenter = safeIntl.Segmenter(undefined, { granularity: 'grapheme' }).value;
+		const segmenter = safeIntl.Segmenter(undefined, { granularity: 'grapheme' });
 		const segmentedContent = Array.from(segmenter.segment(content));
 		let segmenterIndex = 0;
 

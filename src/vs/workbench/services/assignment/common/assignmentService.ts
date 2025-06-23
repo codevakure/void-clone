@@ -5,10 +5,9 @@
 
 import { localize } from '../../../../nls.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import type { IKeyValueStorage, IExperimentationTelemetry } from '../../../../platform/assignment/common/assignmentService.js';
-import { MementoObject, Memento } from '../../../common/memento.js';
+import type { IExperimentationTelemetry } from '../../../../platform/assignment/common/assignmentService.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { IStorageService } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryData } from '../../../../base/common/actions.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
@@ -26,22 +25,7 @@ export interface IWorkbenchAssignmentService extends IAssignmentService {
 	getCurrentExperiments(): Promise<string[] | undefined>;
 }
 
-class MementoKeyValueStorage implements IKeyValueStorage {
-	private mementoObj: MementoObject;
-	constructor(private memento: Memento) {
-		this.mementoObj = memento.getMemento(StorageScope.APPLICATION, StorageTarget.MACHINE);
-	}
-
-	async getValue<T>(key: string, defaultValue?: T | undefined): Promise<T | undefined> {
-		const value = await this.mementoObj[key];
-		return value || defaultValue;
-	}
-
-	setValue<T>(key: string, value: T): void {
-		this.mementoObj[key] = value;
-		this.memento.saveMemento();
-	}
-}
+// Removed MementoKeyValueStorage class as it's not used in void's simplified assignment service
 
 class WorkbenchAssignmentServiceTelemetry implements IExperimentationTelemetry {
 	private _lastAssignmentContext: string | undefined;

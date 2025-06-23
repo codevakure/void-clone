@@ -774,13 +774,12 @@ export class NativeHostMainService extends Disposable implements INativeHostMain
 
 
 	//#region Screenshots
-
-	async getScreenshot(windowId: number | undefined, rect?: IRectangle, options?: INativeHostOptions): Promise<VSBuffer | undefined> {
+	async getScreenshot(windowId: number | undefined, options?: INativeHostOptions): Promise<ArrayBufferLike | undefined> {
 		const window = this.windowById(options?.targetWindowId, windowId);
-		const captured = await window?.win?.webContents.capturePage(rect);
+		const captured = await window?.win?.webContents.capturePage();
 
 		const buf = captured?.toJPEG(95);
-		return buf && VSBuffer.wrap(buf);
+		return buf?.buffer;
 	}
 
 	//#endregion
