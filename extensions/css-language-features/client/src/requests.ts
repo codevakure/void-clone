@@ -23,8 +23,7 @@ export function serveFileSystemRequests(client: BaseLanguageClient, runtime: Run
 		const uri = Uri.parse(param.uri);
 		if (uri.scheme === 'file' && runtime.fs) {
 			return runtime.fs.getContent(param.uri);
-		}
-		return workspace.fs.readFile(uri).then(buffer => {
+		} return workspace.fs.readFile(uri).then(buffer => {
 			return new runtime.TextDecoder(param.encoding).decode(buffer);
 		});
 	});

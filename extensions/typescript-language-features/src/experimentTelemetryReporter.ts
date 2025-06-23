@@ -5,9 +5,15 @@
 
 import VsCodeTelemetryReporter from '@vscode/extension-telemetry';
 import * as vscode from 'vscode';
-import * as tas from 'vscode-tas-client';
+// PROPRIETARY_API_REMOVED: Microsoft TAS client removed - see PROPRIETARY_APIS_REMOVED.md
+// import * as tas from 'vscode-tas-client';
 
-export interface IExperimentationTelemetryReporter extends tas.IExperimentationTelemetry, vscode.Disposable {
+// Open-source compatible interface replacement
+interface IExperimentationTelemetry {
+	postEventObj(eventName: string, props: { [prop: string]: string }): void;
+}
+
+export interface IExperimentationTelemetryReporter extends IExperimentationTelemetry, vscode.Disposable {
 	postEventObj(eventName: string, props: { [prop: string]: string }): void;
 }
 

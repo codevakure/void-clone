@@ -1283,10 +1283,6 @@ have to be updated for changes to the rules above, or to support more deeply nes
 	margin-top: -8px;
 }
 
-.interactive-session .interactive-item-container.interactive-item-compact.interactive-request .chat-attached-context {
-	margin-top: -4px;
-}
-
 .interactive-session .interactive-item-container.editing-session.interactive-request .chat-attached-context {
 	margin-top: 0px;
 }

@@ -33,7 +33,8 @@ const dirs = [
 	'extensions/markdown-math',
 	'extensions/media-preview',
 	'extensions/merge-conflict',
-	'extensions/microsoft-authentication',
+	// PROPRIETARY_API_REMOVED: Microsoft authentication extension removed
+	// 'extensions/microsoft-authentication',
 	'extensions/notebook-renderers',
 	'extensions/npm',
 	'extensions/php-language-features',
