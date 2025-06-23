@@ -57,6 +57,12 @@
 	"crashReporter": {},
 	"npsSurveyUrl": "",
 	"surveys": [],
+	"extensionPublisherOrgs": [],
+	"trustedExtensionPublishers": [],
+	"trustedExtensionUrlPublicKeys": {},
+	"trustedExtensionAuthAccess": [],
+	"trustedExtensionProtocolHandlers": [],
+	"extensionEnabledApiProposals": {},
 	"linkProtectionTrustedDomains": [
 		"https://voideditor.com",
 		"https://voideditor.dev",

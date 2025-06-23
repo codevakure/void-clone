@@ -338,6 +338,58 @@ If you're an extension author and want your extension available in Void:
 3. Verify extensions are available on Open VSX Registry
 4. Test recommendations in development builds
 
+## Extension Trust & Proposed API Access System
+
+**What was removed:**
+- Microsoft extension publisher organization trust (Microsoft as trusted org)
+- Whitelist allowing Microsoft-published extensions to use proposed APIs
+- Pre-configured trust for Microsoft authentication providers
+- Built-in protocol handler permissions for Microsoft extensions
+- Automatic trust for extensions from Microsoft's publisher accounts
+
+**What was added:**
+- Empty secure default configurations in `product.json`:
+  - `extensionPublisherOrgs`: Empty array (no trusted publisher organizations)
+  - `trustedExtensionPublishers`: Empty array (no pre-trusted individual publishers)
+  - `trustedExtensionUrlPublicKeys`: Empty object (no pre-configured URL signing keys)
+  - `trustedExtensionAuthAccess`: Empty array (no pre-granted authentication access)
+  - `trustedExtensionProtocolHandlers`: Empty array (no pre-trusted protocol handlers)
+  - `extensionEnabledApiProposals`: Empty object (no extensions pre-approved for proposed APIs)
+
+**Comprehensive Documentation:**
+- Created `EXTENSION_TRUST_PROPOSED_API_GUIDE.md` with complete configuration guide
+- Includes security best practices and principle of least privilege
+- Provides examples for development, enterprise, and community setups
+- Contains migration guidance from Microsoft extensions
+- Includes troubleshooting and testing procedures
+
+**Security Benefits:**
+- Principle of least privilege by default
+- No implicit trust for any publisher or organization
+- Granular control over proposed API access
+- Explicit authentication and protocol handler permissions
+- Protection against untrusted extension capabilities
+
+**Key Features:**
+- **Publisher Trust Control**: Configure trusted extension publishers and organizations
+- **Proposed API Whitelist**: Control which extensions can use unstable APIs
+- **Authentication Access**: Manage which extensions can access auth providers
+- **Protocol Handler Security**: Control which extensions can handle custom URLs
+- **URL Signing Verification**: Support for signed extension distribution
+
+**For Future Implementation:**
+1. Review which extensions need proposed API access
+2. Configure minimal necessary permissions in `product.json`
+3. Follow security best practices from the guide
+4. Test thoroughly in development environments
+5. Regularly audit and update trust configurations
+
+**Migration Considerations:**
+- Many Microsoft extensions rely on proposed APIs and won't work without explicit configuration
+- Community alternatives on Open VSX may need different API permissions
+- Some proposed APIs may have been finalized since VS Code versions
+- Custom extensions may need to be developed for missing functionality
+
 ---
 
 *This documentation is maintained as part of the Void Editor project to ensure transparency about proprietary service removal and provide guidance for alternative implementations.*
