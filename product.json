@@ -63,6 +63,8 @@
 	"trustedExtensionAuthAccess": [],
 	"trustedExtensionProtocolHandlers": [],
 	"extensionEnabledApiProposals": {},
+	"debugAdapterConfiguration": {},
+	"serverConfiguration": {},
 	"linkProtectionTrustedDomains": [
 		"https://voideditor.com",
 		"https://voideditor.dev",

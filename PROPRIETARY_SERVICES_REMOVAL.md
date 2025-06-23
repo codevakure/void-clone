@@ -390,6 +390,60 @@ If you're an extension author and want your extension available in Void:
 - Some proposed APIs may have been finalized since VS Code versions
 - Custom extensions may need to be developed for missing functionality
 
+## Debug Adapters & Server Configuration System
+
+**Microsoft Proprietary Components Identified:**
+- Microsoft's C# DevKit debug adapters (proprietary debugging components)
+- .NET Core proprietary debugging modules and native binaries
+- VS Code Server license handshake logic and authentication
+- Microsoft-specific debug protocol extensions
+- Closed-source debugger extensions dependencies
+
+**Current Status:**
+- **No explicit removal needed**: Void Editor inherits the open-source debug adapter infrastructure from VS Code OSS
+- **No proprietary handshake logic found**: The codebase uses standard Debug Adapter Protocol (DAP)
+- **Microsoft extensions not bundled**: Proprietary debug adapters are not included in the void build
+
+**What was added:**
+- Empty placeholder configurations in `product.json`:
+  - `debugAdapterConfiguration`: Empty object for custom debug adapter settings
+  - `serverConfiguration`: Empty object for remote server and collaboration settings
+
+**Comprehensive Documentation:**
+- Created `DEBUG_ADAPTERS_SERVER_GUIDE.md` with complete implementation guide
+- Includes open-source alternatives to Microsoft's proprietary debuggers
+- Provides custom debug adapter development guidance
+- Contains server configuration examples for remote development
+- Migration instructions from Microsoft's closed-source components
+
+**Key Benefits:**
+- **No Microsoft Dependencies**: Uses only open-source debug adapter protocols
+- **Extensible Architecture**: Easy to add custom debug adapters and language servers
+- **Open Source Alternatives**: Comprehensive list of community-maintained debuggers
+- **Security Focused**: Proper authentication and validation guidelines
+- **Self-Hosted Options**: Complete control over debugging and server infrastructure
+
+**Open Source Debug Adapter Alternatives:**
+- **C#/.NET**: OmniSharp + netcoredbg (replaces Microsoft C# DevKit)
+- **Python**: Community Python extension debuggers
+- **Node.js**: Built-in V8 Inspector Protocol support
+- **Java**: Eclipse JDT Language Server based debugging
+- **Go**: Delve debugger integration
+- **Rust**: LLDB/GDB integration through rust-analyzer
+
+**For Future Implementation:**
+1. Install community debug adapter extensions from Open VSX
+2. Configure custom debug adapters using the provided examples
+3. Set up self-hosted remote development servers
+4. Implement custom Language Server Protocol integrations
+5. Follow security best practices from the comprehensive guide
+
+**Legal Compliance:**
+- **No Microsoft proprietary code**: All debug infrastructure is open source
+- **No license dependencies**: No Microsoft-specific licensing requirements
+- **Community alternatives**: Documented replacements for all Microsoft-specific components
+- **Clean implementation**: No Microsoft server handshake or authentication dependencies
+
 ---
 
 *This documentation is maintained as part of the Void Editor project to ensure transparency about proprietary service removal and provide guidance for alternative implementations.*
