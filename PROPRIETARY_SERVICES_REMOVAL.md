@@ -165,6 +165,54 @@ Void Editor now uses a configuration-based approach for feature flags:
 2. Use `configurationService.getValue('features.yourFeature')` to check status
 3. Implement fallback behavior when feature is disabled
 
+## Telemetry, Surveys & Crash Reporting System
+
+**What was removed:**
+- Microsoft Application Insights keys and endpoints
+- Azure Application Insights telemetry collection
+- Microsoft's HockeyApp crash reporting URLs
+- Microsoft's experiment flags and A/B testing framework
+- Built-in NPS surveys pointing to Microsoft endpoints
+- Language-specific surveys managed by Microsoft
+
+**What was added:**
+- Privacy-focused default configuration in `product.json`:
+  - `enableTelemetry`: false (disabled by default)
+  - `enabledTelemetryLevels`: error and usage both set to false
+  - `removeTelemetryMachineId`: true (for privacy)
+  - `aiConfig`: empty object (placeholder for custom analytics)
+  - `crashReporter`: empty object (placeholder for custom crash reporting)
+  - `npsSurveyUrl`: empty string (placeholder for custom NPS surveys)
+  - `surveys`: empty array (placeholder for custom surveys)
+
+**Comprehensive Documentation:**
+- Created `TELEMETRY_SURVEYS_CRASH_REPORTING_GUIDE.md` with complete implementation guide
+- Includes privacy-first configuration examples
+- Provides open-source alternatives (PostHog, Plausible, Matomo, Sentry)
+- Contains step-by-step implementation instructions
+- Includes compliance and privacy best practices
+
+**Developer Benefits:**
+- Easy to configure custom telemetry with full privacy control
+- Support for multiple analytics platforms (self-hosted or cloud)
+- Comprehensive crash reporting setup options
+- Flexible survey system for user feedback
+- Privacy-first defaults with opt-in telemetry
+
+**Privacy Features:**
+- All telemetry disabled by default
+- Machine ID removal option
+- Granular telemetry level controls
+- Transparent data collection policies
+- GDPR/CCPA compliance guidance
+
+**For Future Implementation:**
+1. Choose your preferred analytics platform from the guide
+2. Configure the appropriate settings in `product.json`
+3. Follow implementation examples in the guide
+4. Test with privacy controls enabled
+5. Ensure user consent and transparency
+
 ## Privacy Considerations
 
 ### Telemetry Best Practices:
