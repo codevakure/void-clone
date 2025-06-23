@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 // VOID EDITOR DEVELOPER NOTE:
-// This file originally used Microsoft's proprietary TAS (Treatment Assignment Service) 
+// This file originally used Microsoft's proprietary TAS (Treatment Assignment Service)
 // for A/B testing and experimentation. This has been replaced with placeholder code
 // to maintain the interface while avoiding proprietary dependencies.
 //
@@ -23,7 +23,7 @@ import { TelemetryLevel } from '../../telemetry/common/telemetry.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
 import { IProductService } from '../../product/common/productService.js';
 import { getTelemetryLevel } from '../../telemetry/common/telemetryUtils.js';
-import { AssignmentFilterProvider, ASSIGNMENT_REFETCH_INTERVAL, ASSIGNMENT_STORAGE_KEY, IAssignmentService, TargetPopulation } from './assignment.js';
+import { IAssignmentService } from './assignment.js';
 import { IEnvironmentService } from '../../environment/common/environment.js';
 
 // Placeholder interfaces to maintain compatibility
@@ -42,11 +42,11 @@ class PlaceholderTASClient {
 	async initializePromise(): Promise<void> {
 		return Promise.resolve();
 	}
-	
+
 	get initialFetch(): Promise<void> {
 		return Promise.resolve();
 	}
-	
+
 	async getTreatmentVariableAsync<T extends string | number | boolean>(
 		configId: string,
 		name: string,
@@ -69,15 +69,15 @@ export abstract class BaseAssignmentService implements IAssignmentService {
 	}
 
 	constructor(
-		private readonly machineId: string,
+		//private readonly machineId: string,
 		protected readonly configurationService: IConfigurationService,
 		protected readonly productService: IProductService,
 		protected readonly environmentService: IEnvironmentService,
 		protected telemetry: IExperimentationTelemetry,
-		private keyValueStorage?: IKeyValueStorage
+		//private keyValueStorage?: IKeyValueStorage
 	) {
 		const isTesting = environmentService.extensionTestsLocationURI !== undefined;
-		
+
 		// DEVELOPER NOTE: Original code checked for productService.tasConfig
 		// Since we removed TAS, we now use configuration-based feature flags
 		if (!isTesting && this.experimentsEnabled && getTelemetryLevel(this.configurationService) === TelemetryLevel.USAGE) {
@@ -120,7 +120,7 @@ export abstract class BaseAssignmentService implements IAssignmentService {
 	private async setupPlaceholderClient(): Promise<PlaceholderTASClient> {
 		// DEVELOPER NOTE: This is a placeholder implementation
 		// Replace with your preferred feature flag service
-		
+
 		const client = new PlaceholderTASClient();
 		await client.initializePromise();
 		client.initialFetch.then(() => this.networkInitialized = true);
