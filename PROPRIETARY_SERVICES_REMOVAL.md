@@ -219,6 +219,43 @@ For questions about implementing alternative services or configuration:
 - Review the placeholder implementations for interface requirements
 - Consider the privacy implications of any telemetry implementation
 
+## Extension Marketplace Migration
+
+### Microsoft VS Code Marketplace → Open VSX Registry
+
+**What was changed:**
+- Updated `product.json` to use Open VSX Registry instead of Microsoft's VS Code Marketplace
+- Changed `extensionsGallery.serviceUrl` from `https://marketplace.visualstudio.com/_apis/public/gallery` to `https://open-vsx.org/vscode/gallery`
+- Changed `extensionsGallery.itemUrl` from `https://marketplace.visualstudio.com/items` to `https://open-vsx.org/vscode/item`
+- Added proper Open VSX URL templates for extension and resource downloads
+- Updated window implementation to use Open VSX domain for header injection
+- Removed references to Microsoft's vsassets.io CDN
+
+**Why this was necessary:**
+- Microsoft's VS Code Marketplace is proprietary and has licensing restrictions
+- Using Microsoft's marketplace creates dependency on Microsoft services
+- Open VSX is the open-source alternative specifically designed for VS Code forks
+
+**About Open VSX Registry:**
+- Open source extension registry maintained by the Eclipse Foundation
+- Compatible with VS Code extension format
+- Many popular extensions are available, though some Microsoft-specific ones may not be
+- Publishers can upload their extensions for free
+- Self-hostable for organizations
+
+**Extension Availability Notes:**
+- Most popular community extensions are available on Open VSX
+- Some Microsoft-authored extensions (like Python, C#) may not be available due to licensing
+- Extension authors need to manually publish to Open VSX (it's not automatic from VS Code Marketplace)
+- You can encourage extension authors to publish to Open VSX for better Void compatibility
+
+**For Extension Publishers:**
+If you're an extension author and want your extension available in Void:
+1. Visit https://open-vsx.org/
+2. Sign in with GitHub
+3. Upload your extension (same .vsix file as VS Code Marketplace)
+4. No cost to publish
+
 ---
 
 *This documentation is maintained as part of the Void Editor project to ensure transparency about proprietary service removal and provide guidance for alternative implementations.*
