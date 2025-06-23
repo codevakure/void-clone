@@ -39,8 +39,13 @@
 		"extensionUrlTemplate": "https://open-vsx.org/api/{publisher}/{name}/{version}/file/{path}",
 		"resourceUrlTemplate": "https://open-vsx.org/api/{publisher}/{name}/{version}/file/{path}",
 		"nlsBaseUrl": ""
-	},
-	"builtInExtensions": [],
+	},	"builtInExtensions": [],
+	"extensionRecommendations": {},
+	"configBasedExtensionTips": {},
+	"exeBasedExtensionTips": {},
+	"webExtensionTips": [],
+	"languageExtensionTips": [],
+	"keymapExtensionTips": [],
 	"linkProtectionTrustedDomains": [
 		"https://voideditor.com",
 		"https://voideditor.dev",

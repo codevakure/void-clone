@@ -256,6 +256,40 @@ If you're an extension author and want your extension available in Void:
 3. Upload your extension (same .vsix file as VS Code Marketplace)
 4. No cost to publish
 
+## Extension Recommendations System
+
+**What was removed:**
+- Microsoft's curated extension recommendations that promoted Microsoft-authored extensions
+- Automatic suggestions for proprietary Microsoft extensions
+- Built-in recommendations pointing to VS Code Marketplace
+
+**What was added:**
+- Empty placeholder configuration sections in `product.json`:
+  - `extensionRecommendations`: File-based and condition-based recommendations
+  - `configBasedExtensionTips`: Settings-based recommendations
+  - `exeBasedExtensionTips`: Executable detection-based recommendations
+  - `webExtensionTips`: Web development focused extensions
+  - `languageExtensionTips`: Programming language support extensions
+  - `keymapExtensionTips`: Alternative keyboard layout extensions
+
+**Comprehensive Documentation:**
+- Created `EXTENSION_RECOMMENDATIONS_GUIDE.md` with complete configuration examples
+- Includes step-by-step instructions for adding custom recommendations
+- Provides popular extension categories and IDs from Open VSX
+- Contains migration guidance from VS Code recommendations
+
+**Developer Benefits:**
+- Easy to configure custom extension recommendations
+- Support for multiple trigger conditions (file types, settings, executables)
+- Compatible with Open VSX Registry
+- Comprehensive examples and best practices included
+
+**For Future Customization:**
+1. Edit the empty objects/arrays in `product.json` 
+2. Follow examples in `EXTENSION_RECOMMENDATIONS_GUIDE.md`
+3. Verify extensions are available on Open VSX Registry
+4. Test recommendations in development builds
+
 ---
 
 *This documentation is maintained as part of the Void Editor project to ensure transparency about proprietary service removal and provide guidance for alternative implementations.*
