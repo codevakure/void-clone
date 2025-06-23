@@ -45,6 +45,47 @@ Replaced with configuration-based feature flags that can be controlled via VS Co
 - `valid-layers-check` - References Microsoft's source code organization
 - `update-distro` - Microsoft's internal distribution system
 
+### 4. Remote Development Components (SSH, Containers, Tunnels)
+
+**Files affected:**
+- `src/vs/base/common/oauth.ts`
+- `src/vs/workbench/api/common/extHostAuthentication.ts`
+- `src/vs/platform/telemetry/common/telemetryUtils.ts`
+- `src/vs/workbench/contrib/welcomeGettingStarted/common/gettingStartedContent.ts`
+- `README.md` and `.devcontainer/README.md`
+
+**What it was:**
+Microsoft's remote development infrastructure that integrated with:
+- GitHub Codespaces for cloud development environments
+- vscode.dev and github.dev web-based editors
+- Microsoft OAuth endpoints for authentication
+- GitHub's proprietary remote development services
+
+**Dependencies removed:**
+- `https://vscode.dev/redirect` OAuth redirect URI
+- `https://insiders.vscode.dev/redirect` OAuth redirect URI
+- `codespaces` authority in telemetry systems
+- Codespaces-specific getting started content
+- GitHub.dev and vscode.dev web editor references
+
+**Current status:**
+Replaced with generic remote development support that works with any remote development setup, including self-hosted solutions.
+
+**Alternative Solutions:**
+1. **SSH Remote Development**: Built-in SSH support without Microsoft dependencies
+2. **Self-hosted code-server**: Open-source VS Code server implementation
+3. **Container Development**: Standard Docker/Podman dev containers
+4. **Custom OAuth Providers**: Configurable authentication endpoints
+5. **Open Tunnel Services**: Cloudflare Tunnel, ngrok, Tailscale, WireGuard
+
+**Implementation Guide:**
+See `REMOTE_DEVELOPMENT_GUIDE.md` for comprehensive setup instructions for:
+- OAuth configuration with custom providers
+- Self-hosted remote development servers
+- Container-based development workflows
+- Secure tunnel implementations
+- Extension compatibility without Microsoft services
+
 ## Alternative Solutions
 
 ### For Telemetry (1DS Replacement)
