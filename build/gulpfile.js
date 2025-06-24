@@ -31,7 +31,8 @@ gulp.task(transpileClientTask);
 const compileClientTask = task.define('compile-client', task.series(util.rimraf('out'), compileApiProposalNamesTask, compileTask('src', 'out', false)));
 gulp.task(compileClientTask);
 
-const watchClientTask = task.define('watch-client', task.series(util.rimraf('out'), task.parallel(watchTask('out', false), watchApiProposalNamesTask)));
+// Watch client (no clean)
+const watchClientTask = task.define('watch-client', task.parallel(watchTask('out', false), watchApiProposalNamesTask));
 gulp.task(watchClientTask);
 
 // All
