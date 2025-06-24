@@ -25,6 +25,10 @@ function createDecorator(mapFn: (fn: Function, key: string) => Function): Method
 }
 
 export function memoize(_target: Object, key: string, descriptor: PropertyDescriptor) {
+	if (!descriptor) {
+		throw new Error('memoize decorator: descriptor is undefined');
+	}
+	
 	let fnKey: 'value' | 'get' | null = null;
 	let fn: Function | null = null;
 
