@@ -107,6 +107,7 @@
 	text-overflow: ellipsis;
 	margin-left: auto;
 	margin-right: auto;
+	order: 1; /* Ensure window title comes first in center area */
 }
 
 .monaco-workbench.web .part.titlebar > .titlebar-container > .titlebar-center > .window-title,
@@ -441,6 +442,86 @@
 }
 
 .monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.icon .badge.compact .badge-content {
+	position: absolute;
+	top: 10px;
+	right: 0px;
+	font-size: 9px;
+	font-weight: 600;
+	min-width: 12px;
+	height: 12px;
+	line-height: 12px;
+	padding: 0 2px;
+	border-radius: 16px;
+	text-align: center;
+}
+
+/* Center Action Tool Bar Controls (for auxiliary bar action next to command center) */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container {
+	display: none;
+	padding-left: 4px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	text-align: center;
+	position: relative;
+	z-index: 2500;
+	-webkit-app-region: no-drag;
+	height: 100%;
+	order: 2; /* Position after the window title */
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container:not(.has-no-actions) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .codicon {
+	color: inherit;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .monaco-action-bar .action-item {
+	display: flex;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .monaco-action-bar .badge {
+	top: 3px;
+	right: 6px;
+	position: absolute;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .monaco-action-bar .action-item.icon .badge {
+	top: 2px;
+	right: 4px;
+	position: absolute;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .monaco-action-bar .badge .badge-content {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	font-size: 9px;
+	font-weight: 600;
+	min-width: 16px;
+	height: 16px;
+	line-height: 16px;
+	padding: 0;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .monaco-action-bar .action-item.icon .badge.compact {
+	top: 5px;
+	right: 6px;
+	position: absolute;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .monaco-action-bar .action-item.icon .badge.compact .badge-content::before {
+	content: '';
+	position: absolute;
+	top: 2px;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .monaco-action-bar .action-item.icon .badge.compact .badge-content {
 	position: absolute;
 	top: 10px;
 	right: 0px;

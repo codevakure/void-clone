@@ -55,6 +55,12 @@ import { IHoverDelegate } from '../../../../base/browser/ui/hover/hoverDelegate.
 import { CommandsRegistry } from '../../../../platform/commands/common/commands.js';
 import { safeIntl } from '../../../../base/common/date.js';
 import { TitleBarVisibleContext } from '../../../common/contextkeys.js';
+import { Codicon } from '../../../../base/common/codicons.js';
+import { registerIcon } from '../../../../platform/theme/common/iconRegistry.js';
+import { ThemeIcon } from '../../../../base/common/themables.js';
+
+// Bot icon for center auxiliary bar action
+const auxiliaryBarBotIcon = registerIcon('auxiliarybar-bot-icon', Codicon.robot, localize('toggleAuxiliaryBot', 'Bot icon for auxiliary bar toggle.'));
 
 export interface ITitleVariable {
 	readonly name: string;
@@ -263,11 +269,14 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 	private appIconBadge: HTMLElement | undefined;
 	protected menubar?: HTMLElement;
 	private lastLayoutDimensions: Dimension | undefined;
-
 	private actionToolBar!: WorkbenchToolBar;
 	private readonly actionToolBarDisposable = this._register(new DisposableStore());
 	private readonly editorActionsChangeDisposable = this._register(new DisposableStore());
 	private actionToolBarElement!: HTMLElement;
+	// Center action toolbar for bot auxiliary bar action (next to command center)
+	private centerActionToolBar!: WorkbenchToolBar;
+	private readonly centerActionToolBarDisposable = this._register(new DisposableStore());
+	private centerActionToolBarElement!: HTMLElement;
 
 	private globalToolbarMenu: IMenu;
 	private hasGlobalToolbarEntries = false;
@@ -351,6 +360,7 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 		) {
 			if (hasCustomTitlebar(this.configurationService, this.titleBarStyle) && this.actionToolBar) {
 				this.createActionToolBar();
+				this.createLeftActionToolBar(); // Also recreate center toolbar
 				this.createActionToolBarMenus({ editorActions: true });
 				this._onDidChange.fire(undefined);
 			}
@@ -369,14 +379,12 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 				}
 			}
 		}
-
 		// Actions
 		if (hasCustomTitlebar(this.configurationService, this.titleBarStyle) && this.actionToolBar) {
 			const affectsLayoutControl = event.affectsConfiguration(LayoutSettings.LAYOUT_ACTIONS);
-			const affectsActivityControl = event.affectsConfiguration(LayoutSettings.ACTIVITY_BAR_LOCATION);
-
-			if (affectsLayoutControl || affectsActivityControl) {
+			const affectsActivityControl = event.affectsConfiguration(LayoutSettings.ACTIVITY_BAR_LOCATION); if (affectsLayoutControl || affectsActivityControl) {
 				this.createActionToolBarMenus({ layoutActions: affectsLayoutControl, activityActions: affectsActivityControl });
+				this.updateLeftActionToolBar(); // Update center toolbar when configuration changes
 
 				this._onDidChange.fire(undefined);
 			}
@@ -458,13 +466,16 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 		) {
 			this.installMenubar();
 		}
-
 		// Title
 		this.title = append(this.centerContent, $('div.window-title'));
 		this.createTitle();
 
 		// Create Toolbar Actions
-		if (hasCustomTitlebar(this.configurationService, this.titleBarStyle)) {
+		if (hasCustomTitlebar(this.configurationService, this.titleBarStyle)) {			// Create center action toolbar for bot auxiliary bar action (next to command center)
+			this.centerActionToolBarElement = append(this.centerContent, $('div.center-action-toolbar-container'));
+			this.createLeftActionToolBar();
+
+			// Create main action toolbar (right side)
 			this.actionToolBarElement = append(this.rightContent, $('div.action-toolbar-container'));
 			this.createActionToolBar();
 			this.createActionToolBarMenus();
@@ -619,6 +630,63 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 			this.actionToolBarDisposable.add(this.editorGroupsContainer.onDidChangeActiveGroup(() => this.createActionToolBarMenus({ editorActions: true })));
 		}
 	}
+	private createLeftActionToolBar() {
+		// Creates the center action tool bar for auxiliary bar action only (next to command center)
+		this.centerActionToolBarDisposable.clear();
+		this.centerActionToolBar = this.centerActionToolBarDisposable.add(this.instantiationService.createInstance(WorkbenchToolBar, this.centerActionToolBarElement, {
+			contextMenu: MenuId.TitleBarContext,
+			orientation: ActionsOrientation.HORIZONTAL,
+			ariaLabel: localize('ariaLabelCenterTitleActions', "Center title actions"),
+			getKeyBinding: action => this.getKeybinding(action),
+			anchorAlignmentProvider: () => AnchorAlignment.LEFT,
+			telemetrySource: 'titlePart',
+			highlightToggledItems: true,
+			actionViewItemProvider: (action, options) => this.actionViewItemProvider(action, options),
+			hoverDelegate: this.hoverDelegate
+		}));
+
+		// Set up the auxiliary bar action
+		this.updateLeftActionToolBar();
+	} private updateLeftActionToolBar() {
+		// Only show auxiliary bar action in the center (next to command center) with bot icon
+		const auxiliaryBarAction = this.getBotAuxiliaryBarAction();
+		if (auxiliaryBarAction) {
+			this.centerActionToolBar.setActions([auxiliaryBarAction], []);
+		} else {
+			this.centerActionToolBar.setActions([], []);
+		}
+	} private getBotAuxiliaryBarAction(): IAction | undefined {
+		// Create a bot version of the auxiliary bar action
+		const originalAction = this.getAuxiliaryBarAction();
+		if (originalAction) {
+			// Create a wrapper action with bot icon using the registered icon
+			return {
+				id: originalAction.id + '.bot',
+				label: originalAction.label,
+				tooltip: originalAction.tooltip,
+				class: ThemeIcon.asClassName(auxiliaryBarBotIcon),
+				enabled: originalAction.enabled,
+				checked: originalAction.checked,
+				run: () => originalAction.run()
+			};
+		}
+		return undefined;
+	}
+
+	private getAuxiliaryBarAction(): IAction | undefined {
+		// Get the auxiliary bar toggle action from the layout control menu
+		const layoutActions = this.layoutToolbarMenu?.getActions();
+		if (layoutActions) {
+			for (const [, actions] of layoutActions) {
+				for (const action of actions) {
+					if (action.id === 'workbench.action.toggleAuxiliaryBar') {
+						return action;
+					}
+				}
+			}
+		}
+		return undefined;
+	}
 
 	private createActionToolBarMenus(update: true | { editorActions?: boolean; layoutActions?: boolean; activityActions?: boolean } = true) {
 		if (update === true) {
@@ -649,9 +717,7 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 			fillInActionBarActions(
 				globalToolbarActions,
 				actions
-			);
-
-			// --- Layout Actions
+			);			// --- Layout Actions
 			if (this.layoutToolbarMenu) {
 				fillInActionBarActions(
 					this.layoutToolbarMenu.getActions(),
@@ -667,9 +733,10 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 				}
 
 				actions.primary.push(GLOBAL_ACTIVITY_TITLE_ACTION);
-			}
+			} this.actionToolBar.setActions(prepareActions(actions.primary), prepareActions(actions.secondary));
 
-			this.actionToolBar.setActions(prepareActions(actions.primary), prepareActions(actions.secondary));
+			// Update center toolbar with auxiliary bar action
+			this.updateLeftActionToolBar();
 		};
 
 		// Create/Update the menus which should be in the title tool bar
@@ -689,7 +756,6 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 				this.actionToolBar.context = undefined;
 			}
 		}
-
 		if (update.layoutActions) {
 			this.layoutToolbarMenuDisposables.clear();
 
@@ -701,6 +767,9 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 			} else {
 				this.layoutToolbarMenu = undefined;
 			}
+
+			// Update center toolbar when layout actions change
+			updateToolBarActions();
 		}
 
 		this.globalToolbarMenuDisposables.clear();
