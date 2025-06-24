@@ -263,7 +263,8 @@ export class ImageAttachmentWidget extends AbstractChatAttachmentWidget {
 
 		this.attachClearButton();
 	}	private createImageElements(buffer: ArrayBuffer | Uint8Array, widget: HTMLElement, hoverElement: HTMLElement) {
-		const blob = new Blob([buffer instanceof ArrayBuffer ? new Uint8Array(buffer) : buffer], { type: 'image/png' });
+		const safeBuffer = buffer instanceof ArrayBuffer ? buffer : buffer.slice().buffer;
+		const blob = new Blob([safeBuffer], { type: 'image/png' });
 		const url = URL.createObjectURL(blob);
 		const pillImg = dom.$('img.chat-attached-context-pill-image', { src: url, alt: '' });
 		const pill = dom.$('div.chat-attached-context-pill', {}, pillImg);

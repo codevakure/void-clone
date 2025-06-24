@@ -269,11 +269,14 @@ export class ChatAttachmentsContentPart extends Disposable {
 		const options: OpenInternalOptions = {
 			fromUserGesture: true,
 			editorOptions: openTextEditorOptions,
-		};
-		this.openerService.open(resource, options);
-	}	// Helper function to create and replace image
+		};		this.openerService.open(resource, options);
+	}
+
+	// Helper function to create and replace image
 	private async createImageElements(buffer: ArrayBuffer | Uint8Array, widget: HTMLElement, hoverElement: HTMLElement) {
-		const blob = new Blob([buffer instanceof ArrayBuffer ? new Uint8Array(buffer) : buffer], { type: 'image/png' });
+		// Ensure we have a proper ArrayBuffer for Blob construction
+		const safeBuffer = buffer instanceof ArrayBuffer ? buffer : buffer.slice().buffer;
+		const blob = new Blob([safeBuffer], { type: 'image/png' });
 		const url = URL.createObjectURL(blob);
 		const img = dom.$('img.chat-attached-context-image', { src: url, alt: '' });
 		const pillImg = dom.$('img.chat-attached-context-pill-image', { src: url, alt: '' });
@@ -294,10 +297,10 @@ export class ChatAttachmentsContentPart extends Disposable {
 		img.onerror = () => {
 			// reset to original icon on error or invalid image
 			const pillIcon = dom.$('div.chat-attached-context-pill', {}, dom.$('span.codicon.codicon-file-media'));
-			const pill = dom.$('div.chat-attached-context-pill', {}, pillIcon);
+			const resetPill = dom.$('div.chat-attached-context-pill', {}, pillIcon);
 			const existingPill = widget.querySelector('.chat-attached-context-pill');
 			if (existingPill) {
-				existingPill.replaceWith(pill);
+				existingPill.replaceWith(resetPill);
 			}
 		};
 	}
