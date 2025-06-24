@@ -1,9 +1,9 @@
 // =============================================================================
-// VOID EDITOR - REMOTE DEVELOPMENT PLACEHOLDER
+// ZAP EDITOR - REMOTE DEVELOPMENT PLACEHOLDER
 // =============================================================================
 //
 // This file serves as a placeholder for future remote development implementations
-// in Void Editor. All Microsoft proprietary service dependencies have been removed.
+// in Zap Editor. All Microsoft proprietary service dependencies have been removed.
 //
 // REMOVED MICROSOFT SERVICES:
 // - GitHub Codespaces integration

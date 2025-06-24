@@ -1,8 +1,8 @@
-# Void Editor: Microsoft Proprietary Services Removal Documentation
+# Zap Editor: Microsoft Proprietary Services Removal Documentation
 
 ## Overview
 
-This document outlines the Microsoft proprietary services that were removed from the Void Editor codebase and provides guidance on implementing alternative solutions.
+This document outlines the Microsoft proprietary services that were removed from the Zap Editor codebase and provides guidance on implementing alternative solutions.
 
 ## Removed Microsoft Proprietary Services
 
@@ -185,7 +185,7 @@ if (unleash.isEnabled('new-feature')) {
 
 ### Current Feature Flag System
 
-Void Editor now uses a configuration-based approach for feature flags:
+Zap Editor now uses a configuration-based approach for feature flags:
 
 1. **Override flags for development:**
    ```json
@@ -336,10 +336,10 @@ For questions about implementing alternative services or configuration:
 - Most popular community extensions are available on Open VSX
 - Some Microsoft-authored extensions (like Python, C#) may not be available due to licensing
 - Extension authors need to manually publish to Open VSX (it's not automatic from VS Code Marketplace)
-- You can encourage extension authors to publish to Open VSX for better Void compatibility
+- You can encourage extension authors to publish to Open VSX for better Zap compatibility
 
 **For Extension Publishers:**
-If you're an extension author and want your extension available in Void:
+If you're an extension author and want your extension available in Zap:
 1. Visit https://open-vsx.org/
 2. Sign in with GitHub
 3. Upload your extension (same .vsix file as VS Code Marketplace)
@@ -441,7 +441,7 @@ If you're an extension author and want your extension available in Void:
 - Closed-source debugger extensions dependencies
 
 **Current Status:**
-- **No explicit removal needed**: Void Editor inherits the open-source debug adapter infrastructure from VS Code OSS
+- **No explicit removal needed**: Zap Editor inherits the open-source debug adapter infrastructure from VS Code OSS
 - **No proprietary handshake logic found**: The codebase uses standard Debug Adapter Protocol (DAP)
 - **Microsoft extensions not bundled**: Proprietary debug adapters are not included in the void build
 
@@ -487,4 +487,4 @@ If you're an extension author and want your extension available in Void:
 
 ---
 
-*This documentation is maintained as part of the Void Editor project to ensure transparency about proprietary service removal and provide guidance for alternative implementations.*
+*This documentation is maintained as part of the Zap Editor project to ensure transparency about proprietary service removal and provide guidance for alternative implementations.*

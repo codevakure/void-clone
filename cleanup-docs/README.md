@@ -1,4 +1,4 @@
-# Void Editor - Microsoft Services Cleanup Documentation
+# Zap Editor - Microsoft Services Cleanup Documentation
 
 This folder contains all documentation related to the removal of Microsoft proprietary services from the VS Code fork to ensure legal compliance for commercial distribution.
 
@@ -24,7 +24,7 @@ This folder contains all documentation related to the removal of Microsoft propr
 
 **✅ COMPLIANT FOR COMMERCIAL DISTRIBUTION**
 
-All critical Microsoft proprietary services have been successfully removed or replaced with open-source alternatives. The Void editor is ready for commercial distribution without legal concerns regarding Microsoft intellectual property.
+All critical Microsoft proprietary services have been successfully removed or replaced with open-source alternatives. The Zap editor is ready for commercial distribution without legal concerns regarding Microsoft intellectual property.
 
 ## 🚀 Quick Start
 

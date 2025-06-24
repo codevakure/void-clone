@@ -13,3 +13,5 @@ To better understand what can be employed in smoke test to ensure its stability,
  [0aec2d6](https://github.com/microsoft/vscode/commit/0aec2d6838b5e65cc74c33b853ffbd9fa191d636)
 
 2. To be continued...
+
+3. If there is any user-facing mention of 'Void', change it to 'Zap'.

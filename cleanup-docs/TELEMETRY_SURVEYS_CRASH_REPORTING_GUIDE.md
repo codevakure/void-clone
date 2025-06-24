@@ -1,10 +1,10 @@
 # Telemetry, Surveys & Crash Reporting Configuration Guide
 
-This guide explains how to configure telemetry collection, user surveys, and crash reporting in Void Editor. These features help collect usage data, user feedback, and crash information to improve the editor experience.
+This guide explains how to configure telemetry collection, user surveys, and crash reporting in Zap Editor. These features help collect usage data, user feedback, and crash information to improve the editor experience.
 
 ## Overview
 
-Telemetry, surveys, and crash reporting in Void are configured through the `product.json` file in the following sections:
+Telemetry, surveys, and crash reporting in Zap are configured through the `product.json` file in the following sections:
 
 - `enableTelemetry` - Global telemetry enable/disable flag
 - `enabledTelemetryLevels` - Granular telemetry level controls
@@ -16,7 +16,7 @@ Telemetry, surveys, and crash reporting in Void are configured through the `prod
 
 ## Important Notes
 
-⚠️ **Privacy First**: Void Editor prioritizes user privacy. All telemetry should be:
+⚠️ **Privacy First**: Zap Editor prioritizes user privacy. All telemetry should be:
 - Completely optional and opt-in
 - Transparent about what data is collected
 - Anonymized when possible
@@ -129,7 +129,7 @@ For automatic crash reporting using Electron's crash reporter or custom service:
 {
   "crashReporter": {
     "companyName": "Your Organization",
-    "productName": "Void Editor",
+    "productName": "Zap Editor",
     "submitURL": "https://your-crash-service.example.com/submit",
     "uploadToServer": false,
     "ignoreSystemCrashHandler": false,
@@ -239,7 +239,7 @@ This configuration:
   },
   "crashReporter": {
     "companyName": "Your Company",
-    "productName": "Void Editor",
+    "productName": "Zap Editor",
     "submitURL": "https://crash-reports.yourcompany.com/submit",
     "uploadToServer": true,
     "compress": true
@@ -420,4 +420,4 @@ To add custom surveys:
 
 ---
 
-For more information about Void Editor development, see the main [VOID_CODEBASE_GUIDE.md](./VOID_CODEBASE_GUIDE.md) and [PROPRIETARY_SERVICES_REMOVAL.md](./PROPRIETARY_SERVICES_REMOVAL.md).
+For more information about Zap Editor development, see the main [VOID_CODEBASE_GUIDE.md](./VOID_CODEBASE_GUIDE.md) and [PROPRIETARY_SERVICES_REMOVAL.md](./PROPRIETARY_SERVICES_REMOVAL.md).

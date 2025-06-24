@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This document provides a comprehensive audit of all Microsoft proprietary services related to Remote Development in the Void editor fork, ensuring complete legal compliance for commercial distribution.
+This document provides a comprehensive audit of all Microsoft proprietary services related to Remote Development in the Zap editor fork, ensuring complete legal compliance for commercial distribution.
 
 ## ✅ Microsoft Services Successfully Removed
 
@@ -105,4 +105,4 @@ For implementing custom remote development services:
 3. Configure OAuth providers as needed
 4. Set up self-hosted remote servers
 
-**This audit confirms the Void editor is ready for commercial distribution without Microsoft remote development legal concerns.**
+**This audit confirms the Zap editor is ready for commercial distribution without Microsoft remote development legal concerns.**

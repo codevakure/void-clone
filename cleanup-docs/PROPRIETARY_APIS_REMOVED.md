@@ -102,3 +102,5 @@ If you need to add experimentation or advanced telemetry features, consider thes
 4. `extensions/notebook-renderers/package.json` - Fixed type definition versions
 
 This creates a clean, open-source compatible implementation while providing clear pathways for commercial extension.
+
+**Note**: If there is any user-facing mention of 'Void', change it to 'Zap'.

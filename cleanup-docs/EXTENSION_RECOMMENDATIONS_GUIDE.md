@@ -1,10 +1,10 @@
 # Extension Recommendations Configuration Guide
 
-This guide explains how to configure extension recommendations in Void Editor. Extension recommendations help users discover useful extensions for their workflow by automatically suggesting them based on file types, settings, or other conditions.
+This guide explains how to configure extension recommendations in Zap Editor. Extension recommendations help users discover useful extensions for their workflow by automatically suggesting them based on file types, settings, or other conditions.
 
 ## Overview
 
-Extension recommendations in Void are configured through the `product.json` file in the following sections:
+Extension recommendations in Zap are configured through the `product.json` file in the following sections:
 
 - `extensionRecommendations` - File-based and settings-based recommendations
 - `configBasedExtensionTips` - Recommendations based on workspace/user settings
@@ -15,7 +15,7 @@ Extension recommendations in Void are configured through the `product.json` file
 
 ## Important Notes
 
-⚠️ **Extension Availability**: Since Void uses Open VSX Registry instead of Microsoft's VS Code Marketplace, make sure the extensions you recommend are available on [Open VSX](https://open-vsx.org/).
+⚠️ **Extension Availability**: Since Zap uses Open VSX Registry instead of Microsoft's VS Code Marketplace, make sure the extensions you recommend are available on [Open VSX](https://open-vsx.org/).
 
 🔍 **Finding Extension IDs**: Visit https://open-vsx.org/, search for extensions, and use the format `publisher.extensionname` (e.g., `ms-python.python`).
 
@@ -232,7 +232,7 @@ These are simple arrays of extension IDs for specific categories:
 ## Implementation Steps
 
 1. **Edit `product.json`**: Add your extension recommendations to the appropriate sections
-2. **Test locally**: Build and test Void with your recommendations
+2. **Test locally**: Build and test Zap with your recommendations
 3. **Verify on Open VSX**: Ensure all recommended extensions are available
 4. **Document**: Update this guide if you add new recommendation patterns
 
@@ -307,8 +307,8 @@ If migrating recommendations from VS Code:
 1. Check each extension's availability on Open VSX
 2. Find alternative extensions for those not available
 3. Update extension IDs as needed (publishers may differ)
-4. Test all recommendations in Void
+4. Test all recommendations in Zap
 
 ---
 
-For more information about Void Editor development, see the main [VOID_CODEBASE_GUIDE.md](./VOID_CODEBASE_GUIDE.md).
+For more information about Zap Editor development, see the main [VOID_CODEBASE_GUIDE.md](./VOID_CODEBASE_GUIDE.md).

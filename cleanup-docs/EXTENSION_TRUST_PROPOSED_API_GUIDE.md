@@ -1,10 +1,10 @@
 # Extension Trust & Proposed API Configuration Guide
 
-This guide explains how to configure extension trust settings and proposed API access in Void Editor. These configurations control which extensions can use unstable APIs, access authentication services, handle protocol URLs, and bypass certain security restrictions.
+This guide explains how to configure extension trust settings and proposed API access in Zap Editor. These configurations control which extensions can use unstable APIs, access authentication services, handle protocol URLs, and bypass certain security restrictions.
 
 ## Overview
 
-Extension trust and proposed API configurations in Void are configured through the `product.json` file in the following sections:
+Extension trust and proposed API configurations in Zap are configured through the `product.json` file in the following sections:
 
 - `extensionPublisherOrgs` - Trusted publisher organizations
 - `trustedExtensionPublishers` - Individual trusted publishers
@@ -351,7 +351,7 @@ Here are some commonly used proposed APIs (note: these change frequently):
 - Proposed APIs can change or be removed
 - Extensions may need updates when APIs finalize
 - Keep track of VS Code release notes
-- Test extensions after Void updates
+- Test extensions after Zap updates
 
 ## Migration from Microsoft Extensions
 
@@ -417,10 +417,10 @@ If no alternatives exist, you may need to:
 ### 1. Development Testing
 ```bash
 # Test with proposed API enabled
-./void --enable-proposed-api=your-extension-id
+./zap --enable-proposed-api=your-extension-id
 
 # Test without proposed API (production simulation)
-./void
+./zap
 ```
 
 ### 2. Security Testing
@@ -451,7 +451,7 @@ If no alternatives exist, you may need to:
 
 ---
 
-For more information about Void Editor development, see:
+For more information about Zap Editor development, see:
 - [VOID_CODEBASE_GUIDE.md](./VOID_CODEBASE_GUIDE.md)
 - [PROPRIETARY_SERVICES_REMOVAL.md](./PROPRIETARY_SERVICES_REMOVAL.md)
 - [EXTENSION_RECOMMENDATIONS_GUIDE.md](./EXTENSION_RECOMMENDATIONS_GUIDE.md)

@@ -1,6 +1,6 @@
 # Debug Adapters & Server Configuration Guide
 
-This guide explains how to configure custom debug adapters and server connections in Void Editor. Debug adapters provide debugging capabilities for different programming languages, while server configurations enable remote development and collaborative features.
+This guide explains how to configure custom debug adapters and server connections in Zap Editor. Debug adapters provide debugging capabilities for different programming languages, while server configurations enable remote development and collaborative features.
 
 ## Overview
 

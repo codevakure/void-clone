@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the Microsoft proprietary authentication services that were removed from Void Editor and provides comprehensive guidance for implementing custom authentication solutions.
+This document outlines the Microsoft proprietary authentication services that were removed from Zap Editor and provides comprehensive guidance for implementing custom authentication solutions.
 
 ## Removed Microsoft Authentication Services
 
@@ -35,11 +35,11 @@ All Microsoft authentication providers have been replaced with placeholder imple
 - `src/vs/code/electron-main/app.ts`
 
 **Microsoft URLs removed:**
-- `https://go.microsoft.com/fwlink/?linkid=2239490` → `https://voideditor.com/docs/secret-storage`
-- `https://go.microsoft.com/fwlink/?linkid=2151362` → `https://voideditor.com/docs/clipboard-access`
-- `https://go.microsoft.com/fwlink/?linkid=2025315` → `https://voideditor.com/docs/workspaces`
+- `https://go.microsoft.com/fwlink/?linkid=2239490` → `https://zapeditor.com/docs/secret-storage`
+- `https://go.microsoft.com/fwlink/?linkid=2151362` → `https://zapeditor.com/docs/clipboard-access`
+- `https://go.microsoft.com/fwlink/?linkid=2025315` → `https://zapeditor.com/docs/workspaces`
 - `https://vscode.download.prss.microsoft.com/` → Custom CDN placeholder
-- `https://github.dev/microsoft/vscode-docs/` → `https://github.com/voideditor/void/`
+- `https://github.dev/microsoft/vscode-docs/` → `https://github.com/zapeditor/zap/`
 
 ## Custom Authentication Implementation
 
@@ -83,13 +83,13 @@ export interface CustomOAuthConfig {
 
 // Example Keycloak configuration
 const keycloakConfig: CustomOAuthConfig = {
-    clientId: 'void-editor',
+    clientId: 'zap-editor',
     clientSecret: 'your-client-secret',
-    authorizationEndpoint: 'https://your-keycloak.com/auth/realms/void/protocol/openid-connect/auth',
-    tokenEndpoint: 'https://your-keycloak.com/auth/realms/void/protocol/openid-connect/token',
+    authorizationEndpoint: 'https://your-keycloak.com/auth/realms/zap/protocol/openid-connect/auth',
+    tokenEndpoint: 'https://your-keycloak.com/auth/realms/zap/protocol/openid-connect/token',
     redirectUri: 'http://localhost:3000/auth/callback',
     scopes: ['openid', 'profile', 'email'],
-    userInfoEndpoint: 'https://your-keycloak.com/auth/realms/void/protocol/openid-connect/userinfo'
+    userInfoEndpoint: 'https://your-keycloak.com/auth/realms/zap/protocol/openid-connect/userinfo'
 };
 ```
 
@@ -504,4 +504,4 @@ class WebAuthFlow {
 
 ---
 
-*This documentation ensures Void Editor has complete independence from Microsoft authentication services while providing comprehensive guidance for implementing secure, open-source authentication solutions.*
+*This documentation ensures Zap Editor has complete independence from Microsoft authentication services while providing comprehensive guidance for implementing secure, open-source authentication solutions.*

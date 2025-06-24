@@ -2,7 +2,7 @@
 
 **Date**: June 23, 2025
 **Total Errors**: 68
-**Project**: Void Editor (VS Code Fork)
+**Project**: Zap Editor (VS Code Fork)
 
 ## Overview
 
@@ -220,5 +220,5 @@ This document contains a comprehensive list of all compilation errors found duri
 ---
 
 *Generated on: June 23, 2025*
-*Project: Void Editor (VS Code Fork)*
+*Project: Zap Editor (VS Code Fork)*
 *Total Issues: 68 compilation errors*

@@ -23,7 +23,7 @@ Your VS Code fork is now **legally compliant** for commercial distribution regar
 
 ### Removed Microsoft Dependencies:
 - ❌ `vscode.download.prss.microsoft.com` (server downloads)
-- ❌ Microsoft tunnel authentication endpoints  
+- ❌ Microsoft tunnel authentication endpoints
 - ❌ Codespaces API integrations
 - ❌ Microsoft OAuth redirect URIs
 - ❌ Microsoft telemetry services (1DS)
