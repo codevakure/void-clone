@@ -14,4 +14,4 @@ To better understand what can be employed in smoke test to ensure its stability,
 
 2. To be continued...
 
-3. If there is any user-facing mention of 'Void', change it to 'Zap'.
+3. If there is any user-facing mention of 'Zap', change it to 'Void'.

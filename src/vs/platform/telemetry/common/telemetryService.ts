@@ -208,7 +208,7 @@ configurationRegistry.registerConfiguration({
 	'type': 'object',
 	'title': localize('telemetryConfigurationTitle', "Telemetry"),
 	'properties': {
-		// Void commented this out because it now lives in Void's settings page, not VSCode
+		// Void commented this out because it now lives in Zap's Settings page, not VSCode
 		// [TELEMETRY_SETTING_ID]: {
 		// 	'type': 'string',
 		// 	'enum': [TelemetryConfiguration.ON, TelemetryConfiguration.ERROR, TelemetryConfiguration.CRASH, TelemetryConfiguration.OFF],

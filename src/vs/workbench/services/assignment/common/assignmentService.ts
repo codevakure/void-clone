@@ -25,7 +25,7 @@ export interface IWorkbenchAssignmentService extends IAssignmentService {
 	getCurrentExperiments(): Promise<string[] | undefined>;
 }
 
-// Removed MementoKeyValueStorage class as it's not used in void's simplified assignment service
+// Removed MementoKeyValueStorage class as it's not used in zap's simplified assignment service
 
 class WorkbenchAssignmentServiceTelemetry implements IExperimentationTelemetry {
 	private _lastAssignmentContext: string | undefined;

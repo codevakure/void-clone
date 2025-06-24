@@ -284,7 +284,7 @@ class EditCodeService extends Disposable implements IEditCodeService {
 	// 			secondary: [{
 	// 				id: 'void.onerror.opensettings',
 	// 				enabled: true,
-	// 				label: `Open Void's settings`,
+	// 				label: `Open Zap's Settings`,
 	// 				tooltip: '',
 	// 				class: undefined,
 	// 				run: () => { this._commandService.executeCommand(VOID_OPEN_SETTINGS_ACTION_ID) }
