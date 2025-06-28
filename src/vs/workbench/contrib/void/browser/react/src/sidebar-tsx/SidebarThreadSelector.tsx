@@ -13,7 +13,7 @@ import { IsRunningType, ThreadType } from '../../../chatThreadService.js';
 
 const numInitialThreads = 3
 
-export const PastThreadsList = ({ className = '' }: { className?: string }) => {
+export const PastThreadsList = ({ className = '', onThreadSelect }: { className?: string, onThreadSelect?: () => void }) => {
 	const [showAll, setShowAll] = useState(false);
 
 	const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
@@ -60,6 +60,7 @@ export const PastThreadsList = ({ className = '' }: { className?: string }) => {
 							hoveredIdx={hoveredIdx}
 							setHoveredIdx={setHoveredIdx}
 							isRunning={runningThreadIds[pastThread.id]}
+							onThreadSelect={onThreadSelect}
 						/>
 					);
 				})
@@ -168,12 +169,13 @@ const TrashButton = ({ threadId }: { threadId: string }) => {
 	)
 }
 
-const PastThreadElement = ({ pastThread, idx, hoveredIdx, setHoveredIdx, isRunning }: {
+const PastThreadElement = ({ pastThread, idx, hoveredIdx, setHoveredIdx, isRunning, onThreadSelect }: {
 	pastThread: ThreadType,
 	idx: number,
 	hoveredIdx: number | null,
 	setHoveredIdx: (idx: number | null) => void,
 	isRunning: IsRunningType | undefined,
+	onThreadSelect?: () => void,
 }
 
 ) => {
@@ -237,6 +239,7 @@ const PastThreadElement = ({ pastThread, idx, hoveredIdx, setHoveredIdx, isRunni
 		`}
 		onClick={() => {
 			chatThreadsService.switchToThread(pastThread.id);
+			onThreadSelect?.();
 		}}
 		onMouseEnter={() => setHoveredIdx(idx)}
 		onMouseLeave={() => setHoveredIdx(null)}

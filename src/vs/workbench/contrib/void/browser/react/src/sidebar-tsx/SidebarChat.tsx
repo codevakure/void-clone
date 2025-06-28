@@ -22,7 +22,7 @@ import { ChatMode, displayInfoOfProviderName, FeatureName, isFeatureNameDisabled
 import { ICommandService } from '../../../../../../../platform/commands/common/commands.js';
 import { WarningBox } from '../void-settings-tsx/WarningBox.js';
 import { getModelCapabilities, getIsReasoningEnabledState } from '../../../../common/modelCapabilities.js';
-import { AlertTriangle, File, Ban, Check, ChevronRight, Dot, FileIcon, Pencil, Undo, Undo2, X, Flag, Copy as CopyIcon, Info, CirclePlus, Ellipsis, CircleEllipsis, Folder, ALargeSmall, TypeOutline, Text } from 'lucide-react';
+import { AlertTriangle, File, Ban, Check, ChevronRight, Dot, FileIcon, Pencil, Undo, Undo2, X, Flag, Copy as CopyIcon, Info, CirclePlus, Ellipsis, CircleEllipsis, Folder, ALargeSmall, TypeOutline, Text, History, ArrowLeft } from 'lucide-react';
 import { ChatMessage, CheckpointEntry, StagingSelectionItem, ToolMessage } from '../../../../common/chatThreadServiceTypes.js';
 import { approvalTypeOfBuiltinToolName, BuiltinToolCallParams, BuiltinToolName, ToolName, LintErrorItem, ToolApprovalType, toolApprovalTypes } from '../../../../common/toolsServiceTypes.js';
 import { CopyButton, EditToolAcceptRejectButtonsHTML, IconShell1, JumpToFileButton, JumpToTerminalButton, StatusIndicator, StatusIndicatorForApplyButton, useApplyStreamState, useEditToolStreamState } from '../markdown/ApplyBlockHoverButtons.js';
@@ -2879,6 +2879,34 @@ export const SidebarChat = () => {
 	const chatThreadsService = accessor.get('IChatThreadService')
 
 	const settingsState = useSettingsState()
+
+	// ----- VIEW STATE -----
+	// Track which view we're in: 'home', 'chat', or 'history'
+	const [currentView, setCurrentView] = useState<'home' | 'chat' | 'history'>('home')
+
+	// Expose methods for sidebar controls
+	const startNewChat = useCallback(() => {
+		chatThreadsService.openNewThread()
+		setCurrentView('home')
+	}, [chatThreadsService])
+
+	const showChatHistory = useCallback(() => {
+		setCurrentView('history')
+	}, [])
+
+	// Store methods globally so sidebar can access them
+	useEffect(() => {
+		// @ts-ignore - Global access for sidebar controls
+		window._voidChatControls = {
+			startNewChat,
+			showChatHistory
+		}
+		return () => {
+			// @ts-ignore
+			delete window._voidChatControls
+		}
+	}, [startNewChat, showChatHistory])
+
 	// ----- HIGHER STATE -----
 
 	// threads state
@@ -3084,22 +3112,41 @@ export const SidebarChat = () => {
 
 	const isLandingPage = previousMessages.length === 0
 
+	// Determine the view based on messages and current view state
+	useEffect(() => {
+		if (previousMessages.length > 0 && currentView === 'home') {
+			setCurrentView('chat')
+		} else if (previousMessages.length === 0 && (currentView === 'chat' || currentView === 'history')) {
+			setCurrentView('home')
+		}
+	}, [previousMessages.length, currentView])
 
-	const initiallySuggestedPromptsHTML = <div className='flex flex-col gap-2 w-full text-nowrap text-void-fg-3 select-none'>
-		{[
-			'Summarize my codebase',
-			'How do types work in Rust?',
-			'Create a .voidrules file for me'
-		].map((text, index) => (
-			<div
-				key={index}
-				className='py-1 px-2 rounded text-sm bg-zinc-700/5 hover:bg-zinc-700/10 dark:bg-zinc-300/5 dark:hover:bg-zinc-300/10 cursor-pointer opacity-80 hover:opacity-100'
-				onClick={() => onSubmit(text)}
-			>
-				{text}
-			</div>
-		))}
-	</div>
+	// GitHub Copilot style logo/icon for home screen
+	const VoidChatIcon = () => (
+		<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M16 2L3 9v14l13 7 13-7V9L16 2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+			<path d="M16 2v28M3 9l13 7 13-7" stroke="currentColor" strokeWidth="1.5"/>
+			<circle cx="16" cy="16" r="3" fill="currentColor" opacity="0.6"/>
+		</svg>
+	)
+
+
+	const initiallySuggestedPromptsHTML = null
+		// <div className='flex flex-col gap-2 w-full text-nowrap text-void-fg-3 select-none'>
+		// {[
+		// 	'Summarize my codebase',
+		// 	'How do types work in Rust?',
+		// 	'Create a .voidrules file for me'
+		// ].map((text, index) => (
+		// 	<div
+		// 		key={index}
+		// 		className='py-1 px-2 rounded text-sm bg-zinc-700/5 hover:bg-zinc-700/10 dark:bg-zinc-300/5 dark:hover:bg-zinc-300/10 cursor-pointer opacity-80 hover:opacity-100'
+		// 		onClick={() => onSubmit(text)}
+		// 	>
+		// 		{text}
+		// 	</div>
+		// ))}
+		// </div>
 
 
 
@@ -3112,31 +3159,59 @@ export const SidebarChat = () => {
 		</div>
 	</div>
 
-	const landingPageInput = <div>
-		<div className='pt-8'>
-			{inputChatArea}
-		</div>
+	const landingPageInput = <div className='px-2 pb-2'>
+		{inputChatArea}
 	</div>
 
 	const landingPageContent = <div
 		ref={sidebarRef}
-		className='w-full h-full max-h-full flex flex-col overflow-auto px-4'
+		className='w-full h-full max-h-full flex flex-col overflow-hidden'
 	>
-		<ErrorBoundary>
-			{landingPageInput}
-		</ErrorBoundary>
+		<div className='flex-1 flex flex-col justify-center items-center'>
+			{/* GitHub Copilot style icon and welcome */}
+			<div className='flex-1 flex flex-col items-center justify-center text-center'>
+				<div className='mb-6 text-void-fg-3'>
+					<VoidChatIcon />
+				</div>
+				<h2 className='text-lg font-medium text-void-fg-1 mb-2'>Welcome to Void Chat</h2>
+				<p className='text-sm text-void-fg-3 mb-8 max-w-sm'>
+					Start a conversation by typing a message below
+				</p>
+			</div>
 
-		{Object.keys(chatThreadsState.allThreads).length > 1 ? // show if there are threads
+			{/* Input at the bottom */}
+			<div className='w-full'>
+				<ErrorBoundary>
+					{landingPageInput}
+				</ErrorBoundary>
+			</div>
+		</div>
+	</div>
+
+	// History view content
+	const historyViewContent = <div
+		ref={sidebarRef}
+		className='w-full h-full max-h-full flex flex-col overflow-hidden'
+	>
+		{/* Simple back button header */}
+		<div className="flex items-center gap-2 p-4 border-b border-void-border-3">
+			<IconShell1
+				Icon={ArrowLeft}
+				onClick={() => setCurrentView('home')}
+				data-tooltip-id='void-tooltip'
+				data-tooltip-place='bottom'
+				data-tooltip-content='Back to home'
+				className="cursor-pointer"
+			/>
+			<span className="text-void-fg-1 font-medium">Recent Conversations</span>
+		</div>
+
+		{/* Full height scrollable history */}
+		<div className='flex-1 overflow-auto px-4 py-4'>
 			<ErrorBoundary>
-				<div className='pt-8 mb-2 text-void-fg-3 text-root select-none pointer-events-none'>Previous Threads</div>
-				<PastThreadsList />
+				<PastThreadsList onThreadSelect={() => setCurrentView('chat')} />
 			</ErrorBoundary>
-			:
-			<ErrorBoundary>
-				<div className='pt-8 mb-2 text-void-fg-3 text-root select-none pointer-events-none'>Suggestions</div>
-				{initiallySuggestedPromptsHTML}
-			</ErrorBoundary>
-		}
+		</div>
 	</div>
 
 
@@ -3170,8 +3245,8 @@ export const SidebarChat = () => {
 	return (
 		<Fragment key={threadId} // force rerender when change thread
 		>
-			{isLandingPage ?
-				landingPageContent
+			{currentView === 'history' ? historyViewContent
+				: currentView === 'home' ? landingPageContent
 				: threadPageContent}
 		</Fragment>
 	)

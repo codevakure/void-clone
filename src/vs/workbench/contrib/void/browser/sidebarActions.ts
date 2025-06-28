@@ -225,12 +225,16 @@ registerAction2(class extends Action2 {
 		}
 
 		const metricsService = accessor.get(IMetricsService)
-
-		const commandService = accessor.get(ICommandService)
-
 		metricsService.capture('Chat Navigation', { type: 'History' })
-		commandService.executeCommand(VOID_CMD_SHIFT_L_ACTION_ID)
 
+		// Call the exposed showChatHistory method
+		const voidChatControls = (window as any)._voidChatControls;
+		if (voidChatControls?.showChatHistory) {
+			voidChatControls.showChatHistory();
+		} else {
+			// Fallback: If React component isn't ready, log a warning
+			console.warn('Void chat controls not available yet. Make sure the chat component is mounted.');
+		}
 	}
 })
 

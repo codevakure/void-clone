@@ -12,6 +12,8 @@
     "buildreact": "cd ./src/vs/workbench/contrib/void/browser/react/ && node build.js && cd ../../../../../../../",
     "watchreact": "cd ./src/vs/workbench/contrib/void/browser/react/ && node build.js --watch && cd ../../../../../../../",
     "watchreactd": "deemon npm run watchreact",
+    "fresh-watch": "rimraf out/vs/workbench/contrib/void && npm run watch",
+    "code-run":"./scripts/code.sh --disable-extensions --verbose --no-cached-data",
     "clean": "rimraf .build out src/vs/workbench/contrib/void/browser/react/out src/vs/workbench/contrib/void/browser/react/src2",
     "clean-electron": "rimraf .build/electron",
     "test": "echo Please run any of the test scripts from the scripts folder.",
