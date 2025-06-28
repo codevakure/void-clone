@@ -1,0 +1,311 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Void Editor Contributors. All rights reserved.
+ *  Licensed under the MIT License.
+ *--------------------------------------------------------------------------------------------*/
+
+/* Zap API Pane Styles */
+.zap-api-pane {
+	padding: 8px;
+	height: 100%;
+	overflow-y: auto;
+}
+
+.zap-api-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+	border-bottom: 1px solid var(--vscode-panel-border);
+	padding-bottom: 8px;
+}
+
+.zap-api-header h3 {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--vscode-foreground);
+}
+
+.zap-api-header button {
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border: none;
+	width: 24px;
+	height: 24px;
+	border-radius: 2px;
+	cursor: pointer;
+	font-size: 16px;
+	line-height: 1;
+}
+
+.zap-api-header button:hover {
+	background: var(--vscode-button-hoverBackground);
+}
+
+.zap-collection {
+	margin-bottom: 12px;
+}
+
+.zap-collection-header {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-weight: 600;
+	color: var(--vscode-foreground);
+	font-size: 13px;
+	margin-bottom: 4px;
+}
+
+.zap-collection-content {
+	margin-left: 16px;
+}
+
+.zap-request {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 8px;
+	border-radius: 2px;
+	cursor: pointer;
+	font-size: 12px;
+	margin-bottom: 2px;
+}
+
+.zap-request:hover {
+	background: var(--vscode-list-hoverBackground);
+}
+
+.zap-method {
+	padding: 2px 6px;
+	border-radius: 2px;
+	font-weight: 600;
+	font-size: 10px;
+	min-width: 36px;
+	text-align: center;
+	color: white;
+}
+
+.zap-method-get { background: #4CAF50; }
+.zap-method-post { background: #FF9800; }
+.zap-method-put { background: #2196F3; }
+.zap-method-delete { background: #F44336; }
+.zap-method-patch { background: #9C27B0; }
+
+.zap-request-name {
+	color: var(--vscode-foreground);
+	flex: 1;
+}
+
+.zap-icon {
+	font-size: 14px;
+}
+
+.zap-api-panel {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background: var(--vscode-editor-background);
+	color: var(--vscode-editor-foreground);
+}
+
+.zap-api-toolbar {
+	display: flex;
+	align-items: center;
+	padding: 8px 12px;
+	border-bottom: 1px solid var(--vscode-panel-border);
+	background: var(--vscode-panel-background);
+	gap: 8px;
+}
+
+.method-selector select {
+	background: var(--vscode-dropdown-background);
+	color: var(--vscode-dropdown-foreground);
+	border: 1px solid var(--vscode-dropdown-border);
+	padding: 4px 8px;
+	border-radius: 2px;
+	font-family: var(--vscode-font-family);
+}
+
+.url-input {
+	flex: 1;
+}
+
+.url-input input {
+	width: 100%;
+	background: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+	border: 1px solid var(--vscode-input-border);
+	padding: 6px 12px;
+	border-radius: 2px;
+	font-family: var(--vscode-font-family);
+}
+
+.url-input input:focus {
+	outline: none;
+	border-color: var(--vscode-focusBorder);
+}
+
+.action-buttons {
+	display: flex;
+	gap: 8px;
+}
+
+.send-btn, .toggle-btn, .back-btn {
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border: none;
+	padding: 6px 12px;
+	border-radius: 2px;
+	cursor: pointer;
+	font-family: var(--vscode-font-family);
+	font-size: 13px;
+}
+
+.send-btn:hover, .toggle-btn:hover, .back-btn:hover {
+	background: var(--vscode-button-hoverBackground);
+}
+
+.zap-api-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.request-response-split {
+	display: flex;
+	height: 100%;
+}
+
+.request-panel, .response-panel {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	border-right: 1px solid var(--vscode-panel-border);
+}
+
+.response-panel {
+	border-right: none;
+}
+
+.panel-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 12px;
+	background: var(--vscode-panel-background);
+	border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+.panel-header h3 {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--vscode-foreground);
+}
+
+.content-type-selector select {
+	background: var(--vscode-dropdown-background);
+	color: var(--vscode-dropdown-foreground);
+	border: 1px solid var(--vscode-dropdown-border);
+	padding: 2px 6px;
+	border-radius: 2px;
+	font-size: 12px;
+}
+
+.response-status {
+	font-size: 12px;
+	padding: 2px 8px;
+	border-radius: 2px;
+	font-family: var(--vscode-editor-font-family);
+}
+
+.response-status.success {
+	background: var(--vscode-testing-iconPassed);
+	color: var(--vscode-editor-background);
+}
+
+.response-status.error {
+	background: var(--vscode-testing-iconFailed);
+	color: var(--vscode-editor-background);
+}
+
+.panel-content {
+	flex: 1;
+	padding: 0;
+}
+
+.panel-content textarea, .panel-content pre {
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	background: var(--vscode-editor-background);
+	color: var(--vscode-editor-foreground);
+	font-family: var(--vscode-editor-font-family);
+	font-size: var(--vscode-editor-font-size);
+	padding: 12px;
+	resize: none;
+	margin: 0;
+}
+
+.panel-content pre {
+	overflow: auto;
+	white-space: pre-wrap;
+}
+
+/* .bru Editor Styles */
+.bru-editor-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.file-indicator {
+	font-family: var(--vscode-editor-font-family);
+	font-size: 13px;
+	color: var(--vscode-foreground);
+}
+
+.bru-editor {
+	flex: 1;
+	padding: 0;
+}
+
+.bru-textarea {
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	background: var(--vscode-editor-background);
+	color: var(--vscode-editor-foreground);
+	font-family: var(--vscode-editor-font-family);
+	font-size: var(--vscode-editor-font-size);
+	padding: 12px;
+	resize: none;
+	margin: 0;
+	tab-size: 2;
+}
+
+/* Tree View Enhancements */
+.zap-collection-item,
+.zap-folder-item,
+.zap-request-item {
+	padding: 2px 0;
+}
+
+.zap-request-item .method-badge {
+	display: inline-block;
+	padding: 1px 4px;
+	border-radius: 2px;
+	font-size: 10px;
+	font-weight: 600;
+	margin-right: 6px;
+	min-width: 32px;
+	text-align: center;
+}
+
+.method-badge.get { background: #4CAF50; color: white; }
+.method-badge.post { background: #FF9800; color: white; }
+.method-badge.put { background: #2196F3; color: white; }
+.method-badge.delete { background: #F44336; color: white; }
+.method-badge.patch { background: #9C27B0; color: white; }

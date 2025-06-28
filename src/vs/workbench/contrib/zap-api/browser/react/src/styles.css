@@ -1,0 +1,166 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Void Editor Contributors. All rights reserved.
+ *  Licensed under the MIT License.
+ *--------------------------------------------------------------------------------------------*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+& {
+	--void-bg-1: var(--vscode-input-background);
+	--void-bg-1-alt: var(--vscode-badge-background);
+	--void-bg-2: var(--vscode-sideBar-background);
+	--void-bg-2-alt: color-mix(in srgb, var(--vscode-editor-background) 30%, var(--vscode-sideBar-background) 70%);
+	--void-bg-2-hover: color-mix(in srgb, var(--vscode-editor-foreground) 2%, var(--vscode-sideBar-background) 98%);
+	--void-bg-3: var(--vscode-editor-background);
+
+	--void-fg-0: color-mix(in srgb, var(--vscode-tab-activeForeground) 90%, black 10%);
+	--void-fg-1: var(--vscode-editor-foreground);
+	--void-fg-2: var(--vscode-input-foreground);
+	--void-fg-3: var(--vscode-input-placeholderForeground);
+	/* --void-fg-4: var(--vscode-tab-inactiveForeground); */
+	--void-fg-4: var(--vscode-list-deemphasizedForeground);
+
+	--void-warning: var(--vscode-charts-yellow);
+
+	--void-border-1: var(--vscode-commandCenter-activeBorder);
+	--void-border-2: var(--vscode-commandCenter-border);
+	--void-border-3: var(--vscode-commandCenter-inactiveBorder);
+	--void-border-4: var(--vscode-editorGroup-border);
+
+	--void-ring-color: #007FD4;
+	--void-link-color: #007FD4;
+}
+
+.select-child-restyle select {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-right: 24px;
+}
+
+.void-force-child-placeholder-void-fg-1 ::placeholder {
+	color: var(--void-fg-3);
+}
+
+* {
+	outline: none !important;
+}
+
+.inherit-bg-all-restyle > * {
+	background-color: inherit !important;
+}
+
+.bg-editor-style-override {
+	--vscode-sideBar-background: var(--vscode-editor-background);
+}
+
+/* Zap API specific styles */
+.zap-method-badge {
+	font-size: 0.75rem;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.zap-method-get {
+	background-color: #059669;
+	color: white;
+}
+
+.zap-method-post {
+	background-color: #2563eb;
+	color: white;
+}
+
+.zap-method-put {
+	background-color: #d97706;
+	color: white;
+}
+
+.zap-method-delete {
+	background-color: #dc2626;
+	color: white;
+}
+
+.zap-method-patch {
+	background-color: #7c3aed;
+	color: white;
+}
+
+.zap-tree-item {
+	display: flex;
+	align-items: center;
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.zap-tree-item:hover {
+	background-color: var(--vscode-list-hoverBackground);
+}
+
+.zap-tree-item.active {
+	background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+.zap-editor-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.75rem;
+	border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+.zap-input {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	background-color: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+	border: 1px solid var(--vscode-input-border);
+	border-radius: 0.25rem;
+}
+
+.zap-input:focus {
+	outline: 1px solid var(--vscode-focusBorder);
+}
+
+.zap-button {
+	padding: 0.25rem 0.75rem;
+	font-size: 0.875rem;
+	background-color: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border-radius: 0.25rem;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.zap-button:hover {
+	background-color: var(--vscode-button-hoverBackground);
+}
+
+.zap-button:focus {
+	outline: 1px solid var(--vscode-focusBorder);
+}
+
+.zap-button-secondary {
+	padding: 0.25rem 0.75rem;
+	font-size: 0.875rem;
+	background-color: var(--vscode-button-secondaryBackground);
+	color: var(--vscode-button-secondaryForeground);
+	border-radius: 0.25rem;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.zap-button-secondary:hover {
+	background-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+.zap-button-secondary:focus {
+	outline: 1px solid var(--vscode-focusBorder);
+}
