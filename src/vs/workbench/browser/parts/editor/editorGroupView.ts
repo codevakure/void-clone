@@ -2113,12 +2113,20 @@ export class EditorGroupView extends Themable implements IEditorGroupView {
 		// Container - Apply border on all sides when present
 		this.element.style.backgroundColor = isEmpty ? (this.getColor(EDITOR_GROUP_EMPTY_BACKGROUND) || '') : '';
 
-		// Apply editor group border on all sides when present
-		// This ensures consistent visual separation after removing activity bar borders
-		const editorGroupBorderColor = this.getColor(EDITOR_GROUP_BORDER);
-		if (editorGroupBorderColor) {
-			this.element.style.border = `1px solid ${editorGroupBorderColor}`;
-			this.element.style.borderRadius = '6px';
+		// Apply editor group border only when explicitly defined in theme (no fallback)
+		// This ensures borderless panels when themes don't specify editorGroup.border
+		const theme = this.themeService.getColorTheme();
+		const hasBorderDefined = theme.defines(EDITOR_GROUP_BORDER);
+
+		if (hasBorderDefined) {
+			const editorGroupBorderColor = theme.getColor(EDITOR_GROUP_BORDER);
+			if (editorGroupBorderColor) {
+				this.element.style.border = `1px solid ${editorGroupBorderColor}`;
+				this.element.style.borderRadius = '6px';
+			} else {
+				this.element.style.border = '';
+				this.element.style.borderRadius = '';
+			}
 		} else {
 			this.element.style.border = '';
 			this.element.style.borderRadius = '';

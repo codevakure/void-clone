@@ -1,0 +1,7 @@
+**/*.ts
+**/*.js
+**/.gitignore
+**/tsconfig.json
+**/vsc-extension-quickstart.md
+**/tslint.json
+**/.vscode/**
