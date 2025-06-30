@@ -29,19 +29,19 @@
 
 .monaco-workbench .part > .title,
 .monaco-workbench .part > .header-or-footer {
-	height: 35px;
+	height: 32px; /* Reduced by 10% from 35px */
 	display: flex;
 	box-sizing: border-box;
 	overflow: hidden;
 }
 
 .monaco-workbench .part > .title {
-	padding-left: 8px;
-	padding-right: 8px;
+	padding-left: 8.8px;
+	padding-right: 8.8px;
 }
 
 .monaco-workbench .part > .title > .title-label {
-	line-height: 35px;
+	line-height: 32px; /* Reduced by 10% from 35px */
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -68,7 +68,7 @@
 }
 
 .monaco-workbench .part > .title > .title-actions {
-	height: 35px;
+	height: 32px; /* Reduced by 10% from 35px */
 	flex: 1;
 	padding-left: 5px;
 }
@@ -93,6 +93,6 @@
 .monaco-workbench .part.editor > .content .editor-group-container > .monaco-progress-container {
 	position: absolute;
 	left: 0;
-	top: 33px; /* at the bottom of the 35px height title container */
+	top: 30px; /* Adjusted for 32px height title container (32-2=30) */
 	z-index: 5; /* on top of things */
 }

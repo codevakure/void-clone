@@ -208,7 +208,7 @@ const separatorIcon = registerIcon('breadcrumb-separator', Codicon.chevronRight,
 
 export class BreadcrumbsControl {
 
-	static readonly HEIGHT = 22;
+	static readonly HEIGHT = 20; // Reduced by 10% from 22px
 
 	private static readonly SCROLLBAR_SIZES = {
 		default: 3,

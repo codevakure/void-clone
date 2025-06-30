@@ -318,3 +318,49 @@ body {
 	outline: 1px dashed var(--vscode-toolbar-hoverOutline);
 	outline-offset: -1px;
 }
+
+/* Enhanced Panel Spacing (Consistent margins for main workbench panels) */
+
+.monaco-workbench .part.titlebar {
+	border: none !important; /* Remove title bar border */
+}
+
+.monaco-workbench .part.activitybar {
+	border: none !important; /* Remove activity bar border */
+}
+
+.monaco-workbench .part.sidebar {
+	margin-right: 3px; /* Add right margin */
+	border: none !important; /* Remove sidebar border */
+	border-radius: 8px; /* Add border radius to sidebar */
+	overflow: hidden; /* Ensure content respects border radius */
+}
+
+.monaco-workbench .part.editor {
+	margin-left: 3px; /* Reduced from 6px to 3px */
+	margin-right: 3px; /* Reduced from 6px to 3px */
+	border: none !important; /* Remove editor group border */
+	border-radius: 8px; /* Add border radius to editor group */
+	overflow: hidden; /* Ensure content respects border radius */
+}
+
+.monaco-workbench .part.auxiliarybar {
+	margin-left: 3px; /* Add left margin */
+	margin-right: 6px; /* Keep right margin */
+	border: none !important; /* Remove auxiliary bar border */
+	border-radius: 8px; /* Add border radius to void chat */
+	overflow: hidden; /* Ensure content respects border radius */
+}
+
+.monaco-workbench .part.panel {
+	margin-left: 3px; /* Add left margin */
+	margin-right: 3px; /* Add right margin */
+	border: none !important; /* Remove panel border */
+	border-radius: 8px; /* Add border radius to match other panels */
+	overflow: hidden; /* Ensure content respects border radius */
+}
+
+/* Remove additional borders from internal elements */
+.monaco-workbench .part.editor > .content .editor-group-container > .title.title-border-bottom::after {
+	display: none !important; /* Remove editor title bottom border */
+}

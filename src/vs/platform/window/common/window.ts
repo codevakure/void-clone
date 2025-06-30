@@ -246,7 +246,7 @@ export function getWindowControlsStyle(configurationService: IConfigurationServi
 	return WindowControlsStyle.NATIVE; // default to native on all OS
 }
 
-export const DEFAULT_CUSTOM_TITLEBAR_HEIGHT = 35; // includes space for command center
+export const DEFAULT_CUSTOM_TITLEBAR_HEIGHT = 44; // includes space for command center (increased from 35 to 44)
 
 export function useWindowControlsOverlay(configurationService: IConfigurationService): boolean {
 	if (isWeb) {

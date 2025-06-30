@@ -100,8 +100,8 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 	protected readonly treeItemsTransfer = LocalSelectionTransfer.getInstance<DraggedTreeItemsIdentifier>();
 
 	private static readonly EDITOR_TAB_HEIGHT = {
-		normal: 35 as const,
-		compact: 22 as const
+		normal: 32 as const, // Reduced by 10% from 35px
+		compact: 20 as const // Reduced by 10% from 22px
 	};
 
 	protected editorActionsToolbarContainer: HTMLElement | undefined;

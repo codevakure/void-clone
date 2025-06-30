@@ -4,8 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 
 .monaco-workbench .part.activitybar {
-	width: 48px;
+	width: 44px; /* Reduced from 48px to 44px */
 	height: 100%;
+	background-color: transparent !important; /* Make activity bar transparent */
 }
 
 .monaco-workbench .activitybar.bordered::before {
@@ -15,7 +16,7 @@
 	box-sizing: border-box;
 	height: 100%;
 	width: 0px;
-	border-color: inherit;
+	border: none !important; /* Remove all borders */
 }
 
 .monaco-workbench .activitybar.left.bordered::before {

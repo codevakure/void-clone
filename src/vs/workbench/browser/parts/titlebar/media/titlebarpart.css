@@ -7,6 +7,7 @@
 .monaco-workbench .part.titlebar {
 	display: flex;
 	flex-direction: row;
+	background-color: transparent !important; /* Make title bar transparent */
 }
 
 .monaco-workbench.mac .part.titlebar {
@@ -282,43 +283,51 @@
 	-webkit-app-region: no-drag;
 	width: 0px;
 	height: 100%;
+	background-color: transparent !important; /* Make window controls background transparent */
 }
 
 .monaco-workbench.fullscreen .part.titlebar .window-controls-container {
 	display: none;
-	background-color: transparent;
+	background-color: transparent !important;
 }
 
 /* Window Controls Container Web: Apply WCO environment variables (https://developer.mozilla.org/en-US/docs/Web/CSS/env#titlebar-area-x) */
 .monaco-workbench.web .part.titlebar .titlebar-right .window-controls-container {
 	width: calc(100vw - env(titlebar-area-width, 100vw) - env(titlebar-area-x, 0px));
 	height: env(titlebar-area-height, 35px);
+	background-color: transparent !important; /* Make window controls background transparent */
 }
 
 .monaco-workbench.web .part.titlebar .titlebar-left .window-controls-container {
 	width: env(titlebar-area-x, 0px);
 	height: env(titlebar-area-height, 35px);
+	background-color: transparent !important; /* Make window controls background transparent */
 }
 
 .monaco-workbench.web.mac .part.titlebar .titlebar-left .window-controls-container {
 	order: 0;
+	background-color: transparent !important; /* Make window controls background transparent */
 }
 
 .monaco-workbench.web.mac .part.titlebar .titlebar-right .window-controls-container {
 	order: 1;
+	background-color: transparent !important; /* Make window controls background transparent */
 }
 
 /* Window Controls Container Desktop: apply zoom friendly size */
 .monaco-workbench:not(.web):not(.mac) .part.titlebar .window-controls-container {
 	width: calc(138px / var(--zoom-factor, 1));
+	background-color: transparent !important; /* Make window controls background transparent */
 }
 
 .monaco-workbench:not(.web):not(.mac) .part.titlebar .titlebar-container.counter-zoom .window-controls-container {
 	width: 138px;
+	background-color: transparent !important; /* Make window controls background transparent */
 }
 
 .monaco-workbench.linux:not(.web) .part.titlebar .window-controls-container.wco-enabled {
 	width: calc(100vw - env(titlebar-area-width, 100vw) - env(titlebar-area-x, 0px));
+	background-color: transparent !important; /* Make window controls background transparent */
 }
 
 .monaco-workbench:not(.web):not(.mac) .part.titlebar .titlebar-container:not(.counter-zoom) .window-controls-container * {
@@ -338,10 +347,12 @@
 	width: 46px;
 	font-size: 16px;
 	color: var(--vscode-titleBar-activeForeground);
+	background-color: transparent !important; /* Make window control buttons transparent */
 }
 
 .monaco-workbench .part.titlebar.inactive .window-controls-container > .window-icon {
 	color: var(--vscode-titleBar-inactiveForeground);
+	background-color: transparent !important; /* Make window control buttons transparent */
 }
 
 .monaco-workbench .part.titlebar .window-controls-container > .window-icon::before {
@@ -350,15 +361,15 @@
 }
 
 .monaco-workbench .part.titlebar .window-controls-container > .window-icon:hover {
-	background-color: rgba(255, 255, 255, 0.1);
+	background-color: rgba(255, 255, 255, 0.1) !important; /* Keep subtle hover effect */
 }
 
 .monaco-workbench .part.titlebar.light .window-controls-container > .window-icon:hover {
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.1) !important; /* Keep subtle hover effect for light theme */
 }
 
 .monaco-workbench .part.titlebar .window-controls-container > .window-icon.window-close:hover {
-	background-color: rgba(232, 17, 35, 0.9);
+	background-color: rgba(232, 17, 35, 0.9) !important; /* Keep close button red hover */
 }
 
 .monaco-workbench .part.titlebar .window-controls-container .window-icon.window-close:hover {

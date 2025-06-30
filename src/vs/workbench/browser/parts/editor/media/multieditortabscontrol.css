@@ -41,9 +41,23 @@
 
 /* Tabs and Actions Container */
 
+/* Modern icube-style tabs container */
 .monaco-workbench .part.editor > .content .editor-group-container > .title > .tabs-and-actions-container {
 	display: flex;
 	position: relative; /* position tabs border bottom or editor actions (when tabs wrap) relative to this container */
+	background-color: transparent !important; /* Make tabs container background transparent */
+	height: calc(var(--editor-group-tab-height, 28px) + 4px);
+	margin-left: 1px;
+}
+
+/* Title element with transparent background */
+.monaco-workbench .part.editor > .content .editor-group-container > .title.tabs {
+	background-color: transparent !important;
+	border-bottom: 1px solid transparent;
+	border-bottom-color: var(--vscode-tab-border);
+	padding: 7px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title > .tabs-and-actions-container.empty {
@@ -51,24 +65,26 @@
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title > .tabs-and-actions-container.tabs-border-bottom::after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	z-index: 9;
-	pointer-events: none;
-	background-color: var(--tabs-border-bottom-color);
-	width: 100%;
-	height: 1px;
+	display: none; /* Remove the bottom border line for modern look */
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title > .tabs-and-actions-container > .monaco-scrollable-element {
 	flex: 1;
+	padding: 2px; /* Add padding for better spacing */
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title > .tabs-and-actions-container > .monaco-scrollable-element .scrollbar {
 	z-index: 11;
 	cursor: default;
+}
+
+/* Remove borders from tabs-border-bottom container */
+.monaco-workbench .part.editor > .content .editor-group-container > .title > .tabs-and-actions-container.tabs-border-bottom,
+.monaco-workbench .part.editor > .content .editor-group-container > .title > .tabs-and-actions-container.tabs-border-bottom::before,
+.monaco-workbench .part.editor > .content .editor-group-container > .title > .tabs-and-actions-container.tabs-border-bottom::after {
+	border: none !important;
+	border-bottom: none !important;
+	box-shadow: none !important;
 }
 
 /* Tabs Container */
@@ -105,20 +121,40 @@
 	box-sizing: border-box;
 	padding-left: 10px;
 	outline-offset: -2px;
+	border-radius: 8px; /* Apply rounded corners to all tabs */
+	font-weight: 600; /* Set font weight for better readability */
+	border: none !important; /* Remove all borders */
+	box-shadow: none !important; /* Remove all shadows */
+	/* Removed transitions to prevent movement effects */
 }
 
-/* Tab Background Color in/active group/tab */
+/* Tab Background Color - base styling transparent for pill design */
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab {
-	background-color: var(--vscode-tab-unfocusedInactiveBackground);
+	background-color: transparent;
 }
 .monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab {
-	background-color: var(--vscode-tab-inactiveBackground);
+	background-color: transparent;
 }
+/* Modern pill-style active tabs with greyish background */
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active {
-	background-color: var(--vscode-tab-unfocusedActiveBackground);
+	background-color: rgba(128, 128, 128, 0.15) !important; /* Greyish background for light/dark themes */
+	margin: 2px;
 }
 .monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab.active {
-	background-color: var(--vscode-tab-activeBackground);
+	background-color: rgba(128, 128, 128, 0.2) !important; /* Slightly stronger for active group */
+	margin: 2px;
+}
+
+/* Hover effects for inactive tabs - no movement or transitions */
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab:not(.active):hover {
+	background-color: rgba(128, 128, 128, 0.08) !important; /* Subtle greyish hover */
+	/* No margin change to prevent movement */
+}
+
+/* Enhanced hover for active tabs - no movement or transitions */
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active:hover {
+	background-color: rgba(128, 128, 128, 0.25) !important; /* Stronger greyish on hover */
+	/* No margin change to prevent movement */
 }
 
 /* Tab Foreground Color in/active group/tab */
@@ -136,8 +172,9 @@
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab.selected:not(.active) {
-	background-color: var(--vscode-tab-selectedBackground);
+	background-color: rgba(128, 128, 128, 0.1) !important; /* Greyish background for selected tabs */
 	color: var(--vscode-tab-selectedForeground);
+	/* No margin to prevent movement */
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab:not(.active) {
@@ -229,7 +266,7 @@
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container.disable-sticky-tabs > .tab.sizing-shrink.sticky-compact,
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container.disable-sticky-tabs > .tab.sizing-fixed.sticky-compact,
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container.disable-sticky-tabs > .tab.sizing-fit.sticky-shrink,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container.disable-sticky-tabs > .tab.sizing-shrink.sticky-shrink,
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container.disable-sticky-tabs > .tab.sizing-shrink.sticky-shrink,
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container.disable-sticky-tabs > .tab.sizing-fixed.sticky-shrink {
 
 	/**
@@ -267,45 +304,52 @@
 	padding-right: 10px;
 }
 
-/* Tab border top/bottom */
-
+/* Completely hide all tab border containers for modern pill style */
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab > .tab-border-top-container,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab > .tab-border-bottom-container {
-	display: none; /* hidden by default until a color is provided (see below) */
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab > .tab-border-bottom-container,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.tab-border-top > .tab-border-top-container,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.tab-border-bottom > .tab-border-bottom-container,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active.tab-border-top > .tab-border-top-container,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active.tab-border-bottom > .tab-border-bottom-container,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.selected.tab-border-top > .tab-border-top-container,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.selected.tab-border-bottom > .tab-border-bottom-container {
+	display: none !important; /* Always hidden for modern pill style */
+	visibility: hidden !important; /* Extra assurance */
+	opacity: 0 !important; /* Complete hiding */
 }
 
+/* Disable all tab border rules completely for modern design */
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active.tab-border-top > .tab-border-top-container,
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.selected.tab-border-top > .tab-border-top-container,
 .monaco-workbench .part.editor > .content .editor-group-container > .title:not(.two-tab-bars) .tabs-container > .tab.active.tab-border-bottom > .tab-border-bottom-container,
-.monaco-workbench .part.editor > .content .editor-group-container > .title.two-tab-bars .tabs-and-actions-container:not(:first-child)  .tabs-container > .tab.active.tab-border-bottom > .tab-border-bottom-container,
+.monaco-workbench .part.editor > .content .editor-group_container > .title.two-tab-bars > .tabs-and-actions-container:not(:first-child)  .tabs-container > .tab.active.tab-border-bottom > .tab-border-bottom-container,
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.dirty-border-top > .tab-border-top-container {
-	display: block;
-	position: absolute;
-	left: 0;
-	pointer-events: none;
-	width: 100%;
+	display: none !important; /* Override display for modern pill style */
+	visibility: hidden !important;
+	opacity: 0 !important;
+	border: none !important;
+	background-color: transparent !important;
+	height: 0 !important;
 }
 
+/* All border container rules completely disabled for modern pill style */
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active.tab-border-top:not(:focus) > .tab-border-top-container,
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.selected.tab-border-top:not(:focus) > .tab-border-top-container {
-	z-index: 6;
-	top: 0;
-	height: 1px;
-	background-color: var(--tab-border-top-color);
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active.tab-border-bottom > .tab-border-bottom-container {
-	z-index: 10;
-	bottom: 0;
-	height: 1px;
-	background-color: var(--tab-border-bottom-color);
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.dirty-border-top:not(:focus) > .tab-border-top-container {
-	z-index: 6;
-	top: 0;
-	height: 2px;
-	background-color: var(--tab-dirty-border-top-color);
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
 }
 
 /* Tab Label */
@@ -341,7 +385,7 @@
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container >  .tab.sizing-shrink > .tab-label.tab-label-has-badge::after,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container >  .tab.sizing-fixed > .tab-label.tab-label-has-badge::after {
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container >  .tab.sizing-fixed > .tab-label.tab-label-has-badge::after {
 	margin-right: 5px; /* with tab sizing shrink/fixed and badges, we want a right-margin because the close button is hidden. Use margin instead of padding to support animating the badge (https://github.com/microsoft/vscode/issues/242661) */
 }
 
@@ -349,7 +393,7 @@
 	padding-right: 5px; /* ensure that the gradient does not show when tab actions show https://github.com/microsoft/vscode/issues/189625*/
 }
 
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.sticky-compact:not(.has-icon) .monaco-icon-label {
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.sticky-compact:not(.has-icon) .monaco-icon-label {
 	text-align: center; /* ensure that sticky-compact tabs without icon have label centered */
 }
 
@@ -423,12 +467,12 @@
 	display: none; /* hide the tab actions when we are configured to hide it (unless dirty, but always when sticky-compact) */
 }
 
-.monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab.active > .tab-actions .action-label,		/* always show tab actions for active tab */
-.monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab > .tab-actions .action-label:focus,		/* always show tab actions on focus */
-.monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab:hover > .tab-actions .action-label,		/* always show tab actions on hover */
-.monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab.active:hover > .tab-actions .action-label,	/* always show tab actions on hover */
-.monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab.sticky:not(.pinned-action-off) > .tab-actions .action-label,		/* always show tab actions for sticky tabs */
-.monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab.dirty > .tab-actions .action-label {		/* always show tab actions for dirty tabs */
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.active > .tab-actions .action-label,		/* always show tab actions for active tab */
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab > .tab-actions .action-label:focus,		/* always show tab actions on focus */
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab:hover > .tab-actions .action-label,		/* always show tab actions on hover */
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.active:hover > .tab-actions .action-label,	/* always show tab actions on hover */
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.sticky:not(.pinned-action-off) > .tab-actions .action-label,		/* always show tab actions for sticky tabs */
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.dirty > .tab-actions .action-label {		/* always show tab actions for dirty tabs */
 	opacity: 1;
 }
 
@@ -444,25 +488,25 @@
 	height: 16px;
 }
 
-.monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab.sticky.dirty > .tab-actions .action-label:not(:hover)::before,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.sticky.dirty > .tab-actions .action-label:not(:hover)::before {
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.sticky.dirty > .tab-actions .action-label:not(:hover)::before,
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.sticky.dirty > .tab-actions .action-label:not(:hover)::before {
 	/* use `pinned-dirty` icon unicode for sticky-dirty indication */
 	content: var(--vscode-icon-pinned-dirty-content);
 	font-family: var(--vscode-icon-pinned-dirty-font-family);
 }
 
-.monaco-workbench .part.editor > .content .editor-group-container.active > .title .tabs-container > .tab.dirty > .tab-actions .action-label:not(:hover)::before,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.dirty > .tab-actions .action-label:not(:hover)::before {
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.dirty > .tab-actions .action-label:not(:hover)::before,
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.dirty > .tab-actions .action-label:not(:hover)::before {
 	/* use `circle-filled` icon unicode for dirty indication */
 	content: var(--vscode-icon-circle-filled-content);
 	font-family: var(--vscode-icon-circle-filled-font-family);
 }
 
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active > .tab-actions .action-label,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active:hover > .tab-actions .action-label,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.dirty > .tab-actions .action-label,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.sticky:not(.pinned-action-off) > .tab-actions .action-label,
-.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab:hover > .tab-actions .action-label {
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.active:hover > .tab-actions .action-label,
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.dirty > .tab-actions .action-label,
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab.sticky:not(.pinned-action-off) > .tab-actions .action-label,
+.monaco-workbench .part.editor > .content .editor-group_container > .title .tabs-container > .tab:hover > .tab-actions .action-label {
 	opacity: 0.5; /* show tab actions dimmed for inactive group */
 }
 
@@ -557,4 +601,29 @@
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab:last-child.drop-target-left::after,
 .monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab:first-child.drop-target-right::before {
 	width: 2px;
+}
+
+/* Breadcrumbs positioning based on tab height */
+.monaco-workbench .part.editor > .content .editor-group-container > .title.tabs > .breadcrumbs-below-tabs .breadcrumbs-control {
+	margin-top: calc(var(--editor-group-tab-height, 28px) - 21px);
+	cursor: default;
+	flex: 1 100%;
+	height: 22px;
+}
+
+
+/* Focus styling for editor tabs */
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab:focus {
+	outline: 1px solid var(--vscode-focusBorder, rgba(0, 122, 204, 0.4));
+	outline-offset: -1px;
+}
+
+/* Global override to remove any remaining borders or shadows from tabs */
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab *,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab::before,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab::after {
+	border: none !important;
+	box-shadow: none !important;
+	outline: none !important;
 }
