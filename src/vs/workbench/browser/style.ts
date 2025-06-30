@@ -15,7 +15,8 @@ import { mainWindow } from '../../base/browser/window.js';
 registerThemingParticipant((theme, collector) => {
 
 	// Background (helps for subpixel-antialiasing on Windows)
-	const workbenchBackground = WORKBENCH_BACKGROUND(theme);
+	// Use titlebar background for seamless panel appearance
+	const workbenchBackground = theme.getColor(TITLE_BAR_ACTIVE_BACKGROUND) || WORKBENCH_BACKGROUND(theme);
 	collector.addRule(`.monaco-workbench { background-color: ${workbenchBackground}; }`);
 
 	// Selection (do NOT remove - https://github.com/microsoft/vscode/issues/169662)

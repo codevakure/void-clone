@@ -13,8 +13,8 @@ import { IInstantiationService, ServicesAccessor } from '../../../../platform/in
 import { DisposableStore, MutableDisposable } from '../../../../base/common/lifecycle.js';
 import { ToggleSidebarPositionAction, ToggleSidebarVisibilityAction } from '../../actions/layoutActions.js';
 import { IThemeService, IColorTheme, registerThemingParticipant } from '../../../../platform/theme/common/themeService.js';
-import { ACTIVITY_BAR_BACKGROUND, ACTIVITY_BAR_BORDER, ACTIVITY_BAR_FOREGROUND, ACTIVITY_BAR_ACTIVE_BORDER, ACTIVITY_BAR_BADGE_BACKGROUND, ACTIVITY_BAR_BADGE_FOREGROUND, ACTIVITY_BAR_INACTIVE_FOREGROUND, ACTIVITY_BAR_ACTIVE_BACKGROUND, ACTIVITY_BAR_DRAG_AND_DROP_BORDER, ACTIVITY_BAR_ACTIVE_FOCUS_BORDER } from '../../../common/theme.js';
-import { activeContrastBorder, contrastBorder, focusBorder } from '../../../../platform/theme/common/colorRegistry.js';
+import { ACTIVITY_BAR_FOREGROUND, ACTIVITY_BAR_ACTIVE_BORDER, ACTIVITY_BAR_BADGE_BACKGROUND, ACTIVITY_BAR_BADGE_FOREGROUND, ACTIVITY_BAR_INACTIVE_FOREGROUND, ACTIVITY_BAR_ACTIVE_BACKGROUND, ACTIVITY_BAR_DRAG_AND_DROP_BORDER, ACTIVITY_BAR_ACTIVE_FOCUS_BORDER, TITLE_BAR_ACTIVE_BACKGROUND, TITLE_BAR_INACTIVE_BACKGROUND, TITLE_BAR_ACTIVE_FOREGROUND, TITLE_BAR_INACTIVE_FOREGROUND, WORKBENCH_BACKGROUND } from '../../../common/theme.js';
+import { activeContrastBorder, focusBorder } from '../../../../platform/theme/common/colorRegistry.js';
 import { addDisposableListener, append, EventType, isAncestor, $, clearNode } from '../../../../base/browser/dom.js';
 import { assertIsDefined } from '../../../../base/common/types.js';
 import { CustomMenubarControl } from '../titlebar/menubarControl.js';
@@ -33,6 +33,7 @@ import { Action2, IMenuService, MenuId, MenuRegistry, registerAction2 } from '..
 import { ContextKeyExpr, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { Categories } from '../../../../platform/action/common/actionCommonCategories.js';
 import { getContextMenuActions } from '../../../../platform/actions/browser/menuEntryActionViewItem.js';
+import { IHostService } from '../../../services/host/browser/host.js';
 import { IViewDescriptorService, ViewContainerLocation, ViewContainerLocationToString } from '../../../common/views.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
@@ -58,6 +59,7 @@ export class ActivitybarPart extends Part {
 
 	private readonly compositeBar = this._register(new MutableDisposable<PaneCompositeBar>());
 	private content: HTMLElement | undefined;
+	private isInactive: boolean = false;
 
 	constructor(
 		private readonly paneCompositePart: IPaneCompositePart,
@@ -65,8 +67,11 @@ export class ActivitybarPart extends Part {
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IThemeService themeService: IThemeService,
 		@IStorageService storageService: IStorageService,
+		@IHostService private readonly hostService: IHostService,
 	) {
 		super(Parts.ACTIVITYBAR_PART, { hasTitle: false }, themeService, storageService, layoutService);
+
+		this.registerListeners();
 	}
 
 	private createCompositeBar(): PaneCompositeBar {
@@ -125,17 +130,24 @@ export class ActivitybarPart extends Part {
 	focus(): void {
 		this.compositeBar.value?.focus();
 	}
-
 	override updateStyles(): void {
 		super.updateStyles();
 
 		const container = assertIsDefined(this.getContainer());
-		const background = this.getColor(ACTIVITY_BAR_BACKGROUND) || '';
+
+		// Use the same background logic as titlebar for seamless appearance
+		const background = this.getColor(this.isInactive ? TITLE_BAR_INACTIVE_BACKGROUND : TITLE_BAR_ACTIVE_BACKGROUND, (color, theme) => {
+			// LCD Rendering Support: the activity bar part is defining its own GPU layer.
+			// To benefit from LCD font rendering, we must ensure that we always set an
+			// opaque background color. As such, we compute an opaque color given we know
+			// the background color is the workbench background.
+			return color.isOpaque() ? color : color.makeOpaque(WORKBENCH_BACKGROUND(theme));
+		}) || '';
 		container.style.backgroundColor = background;
 
-		const borderColor = this.getColor(ACTIVITY_BAR_BORDER) || this.getColor(contrastBorder) || '';
-		container.classList.toggle('bordered', !!borderColor);
-		container.style.borderColor = borderColor ? borderColor : '';
+		// Use the same foreground logic as titlebar for consistency
+		const foreground = this.getColor(this.isInactive ? TITLE_BAR_INACTIVE_FOREGROUND : TITLE_BAR_ACTIVE_FOREGROUND);
+		container.style.color = foreground || '';
 	}
 
 	show(focus?: boolean): void {
@@ -188,6 +200,21 @@ export class ActivitybarPart extends Part {
 			type: Parts.ACTIVITYBAR_PART
 		};
 	}
+
+	private registerListeners(): void {
+		this._register(this.hostService.onDidChangeFocus(focused => focused ? this.onFocus() : this.onBlur()));
+	}
+
+	private onBlur(): void {
+		this.isInactive = true;
+		this.updateStyles();
+	}
+
+	private onFocus(): void {
+		this.isInactive = false;
+		this.updateStyles();
+	}
+
 }
 
 export class ActivityBarCompositeBar extends PaneCompositeBar {

@@ -17,7 +17,7 @@ import { IContextKeyService } from '../../../../platform/contextkey/common/conte
 import { ProgressBar } from '../../../../base/browser/ui/progressbar/progressbar.js';
 import { IThemeService, Themable } from '../../../../platform/theme/common/themeService.js';
 import { editorBackground, contrastBorder } from '../../../../platform/theme/common/colorRegistry.js';
-import { EDITOR_GROUP_HEADER_TABS_BACKGROUND, EDITOR_GROUP_HEADER_NO_TABS_BACKGROUND, EDITOR_GROUP_EMPTY_BACKGROUND, EDITOR_GROUP_HEADER_BORDER } from '../../../common/theme.js';
+import { EDITOR_GROUP_HEADER_TABS_BACKGROUND, EDITOR_GROUP_HEADER_NO_TABS_BACKGROUND, EDITOR_GROUP_EMPTY_BACKGROUND, EDITOR_GROUP_HEADER_BORDER, EDITOR_GROUP_BORDER } from '../../../common/theme.js';
 import { ICloseEditorsFilter, GroupsOrder, ICloseEditorOptions, ICloseAllEditorsOptions, IEditorReplacement, IActiveEditorActions } from '../../../services/editor/common/editorGroupsService.js';
 import { EditorPanes } from './editorPanes.js';
 import { IEditorProgressService } from '../../../../platform/progress/common/progress.js';
@@ -2110,15 +2110,22 @@ export class EditorGroupView extends Themable implements IEditorGroupView {
 	override updateStyles(): void {
 		const isEmpty = this.isEmpty;
 
-		// Container
-		if (isEmpty) {
-			this.element.style.backgroundColor = this.getColor(EDITOR_GROUP_EMPTY_BACKGROUND) || '';
+		// Container - Apply border on all sides when present
+		this.element.style.backgroundColor = isEmpty ? (this.getColor(EDITOR_GROUP_EMPTY_BACKGROUND) || '') : '';
+
+		// Apply editor group border on all sides when present
+		// This ensures consistent visual separation after removing activity bar borders
+		const editorGroupBorderColor = this.getColor(EDITOR_GROUP_BORDER);
+		if (editorGroupBorderColor) {
+			this.element.style.border = `1px solid ${editorGroupBorderColor}`;
+			this.element.style.borderRadius = '6px';
 		} else {
-			this.element.style.backgroundColor = '';
+			this.element.style.border = '';
+			this.element.style.borderRadius = '';
 		}
 
 		// Title control
-		const borderColor = this.getColor(EDITOR_GROUP_HEADER_BORDER) || this.getColor(contrastBorder);
+		const borderColor = this.getColor(EDITOR_GROUP_HEADER_BORDER);
 		if (!isEmpty && borderColor) {
 			this.titleContainer.classList.add('title-border-bottom');
 			this.titleContainer.style.setProperty('--title-border-bottom-color', borderColor);

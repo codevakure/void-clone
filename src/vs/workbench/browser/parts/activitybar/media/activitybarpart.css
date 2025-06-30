@@ -8,6 +8,7 @@
 	height: 100%;
 }
 
+/* Borders removed for seamless appearance with titlebar
 .monaco-workbench .activitybar.bordered::before {
 	content: '';
 	float: left;
@@ -29,6 +30,7 @@
 	border-left-style: solid;
 	border-left-width: 1px;
 }
+*/
 
 .monaco-workbench .activitybar > .content {
 	height: 100%;

@@ -8,41 +8,7 @@
 	visibility: hidden !important;
 }
 
-.monaco-workbench .part.panel.bottom .composite.title {
-	border-top-width: 1px;
-	border-top-style: solid;
-}
-
-.monaco-workbench.nomaineditorarea .part.panel.bottom .composite.title {
-	border-top-width: 0; /* no border when main editor area is hiden */
-}
-
-.monaco-workbench .part.panel.top {
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-}
-
-.monaco-workbench.nomaineditorarea .part.panel.top {
-	border-bottom-width: 0; /* no border when main editor area is hiden */
-}
-
-.monaco-workbench .part.panel.right {
-	border-left-width: 1px;
-	border-left-style: solid;
-}
-
-.monaco-workbench.nomaineditorarea .part.panel.right {
-	border-left-width: 0; /* no border when main editor area is hiden */
-}
-
-.monaco-workbench .part.panel.left {
-	border-right-width: 1px;
-	border-right-style: solid;
-}
-
-.monaco-workbench.nomaineditorarea .part.panel.left {
-	border-right-width: 0; /* no border when main editor area is hiden */
-}
+/* Removed directional border CSS - borders now handled via TypeScript */
 
 .monaco-workbench .part.panel > .content .monaco-editor,
 .monaco-workbench .part.panel > .content .monaco-editor .margin,

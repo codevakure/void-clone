@@ -318,3 +318,197 @@ body {
 	outline: 1px dashed var(--vscode-toolbar-hoverOutline);
 	outline-offset: -1px;
 }
+
+/* VOID Workbench Layout System - Custom Classes for Panel Management */
+
+/* Main workbench container with proper spacing */
+.monaco-workbench {
+	font-size: 13px;
+	line-height: 1.4em;
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+	color: var(--vscode-foreground);
+	box-sizing: border-box;
+}
+
+/* Panel wrapper class for consistent gaps */
+.void-panel-wrapper {
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+}
+
+/* Main content panels with gaps and borders */
+.void-content-panel {
+	margin: 0 !important;
+	box-sizing: border-box !important;
+	border-radius: 6px !important;
+	overflow: hidden !important;
+	position: relative !important;
+}
+
+/* Sidebar and auxiliary bar - full margins */
+.monaco-workbench .part.sidebar,
+.monaco-workbench .part.auxiliarybar {
+	margin: 0 0 0 0 !important;
+	box-sizing: border-box;
+	border-radius: 6px;
+	overflow: hidden;
+	height: calc(100% - 6px);
+	width: calc(100% - 6px);
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+/* Editor and base panel - reduced horizontal margins */
+.monaco-workbench .part.editor,
+.monaco-workbench .part.panel.basepanel {
+	margin: 0 0 0 0 !important;
+	box-sizing: border-box;
+	border-radius: 6px;
+	overflow: hidden;
+	height: calc(100% - 6px);
+	width: calc(100% - 8px);
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+/* Fixed parts - no margins, no border radius */
+.monaco-workbench .part.titlebar,
+.monaco-workbench .part.activitybar,
+.monaco-workbench .part.statusbar {
+	margin: 0 !important;
+	padding: 0 !important;
+	border-radius: 0 !important;
+}
+
+/* Content containers - ensure they fit within parent panels */
+.void-content-container {
+	border-radius: 6px !important;
+	height: 100% !important;
+	width: 100% !important;
+	box-sizing: border-box !important;
+	overflow: hidden !important;
+	position: relative !important;
+}
+
+/* Apply content container class */
+.monaco-workbench .part.sidebar > .content,
+.monaco-workbench .part.editor > .content,
+.monaco-workbench .part.auxiliarybar > .content,
+.monaco-workbench .part.panel.basepanel > .content {
+	border-radius: 6px !important;
+	height: 100% !important;
+	width: 100% !important;
+	box-sizing: border-box !important;
+	overflow: hidden !important;
+}
+
+/* Nested containers - ensure proper fitting */
+.monaco-workbench .part.editor > .content .editor-group-container,
+.monaco-workbench .part.sidebar .content > *,
+.monaco-workbench .part.auxiliarybar .content > *,
+.monaco-workbench .part.panel.basepanel .content > * {
+	border-radius: inherit;
+	height: 99.2%;
+	width: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+/* Split views - maintain dimensions */
+.monaco-workbench .part.sidebar .monaco-split-view2,
+.monaco-workbench .part.auxiliarybar .monaco-split-view2,
+.monaco-workbench .part.editor .monaco-split-view2,
+.monaco-workbench .part.panel.basepanel .monaco-split-view2 {
+	height: 100% !important;
+	width: 100% !important;
+}
+
+/* Custom Sash (Panel Resize Handle) Styling */
+
+/* Override default sash size to be thinner and more elegant */
+.monaco-workbench {
+	--vscode-sash-size: 2px !important;
+	--vscode-sash-hover-size: 6px !important;
+}
+
+/* Vertical sash (between sidebar, editor, auxiliarybar, etc.) */
+.monaco-workbench .monaco-sash.vertical {
+	width: var(--vscode-sash-size) !important;
+	background: transparent !important;
+}
+
+/* Horizontal sash (between editor and panel) */
+.monaco-workbench .monaco-sash.horizontal {
+	height: var(--vscode-sash-size) !important;
+	background: transparent !important;
+}
+
+/* Sash hover/active state - make it thicker when interacting */
+.monaco-workbench .monaco-sash.vertical:before {
+	width: var(--vscode-sash-hover-size) !important;
+	left: calc(50% - (var(--vscode-sash-hover-size) / 2)) !important;
+	transition: none !important;
+}
+
+.monaco-workbench .monaco-sash.horizontal:before {
+	height: var(--vscode-sash-hover-size) !important;
+	top: calc(50% - (var(--vscode-sash-hover-size) / 2)) !important;
+	transition: none !important;
+}
+
+/* Only show sash line on hover/active if theme variable is set */
+.monaco-workbench .monaco-sash.hover:before,
+.monaco-workbench .monaco-sash.active:before {
+	background: var(--vscode-sash-hoverBorder) !important;
+}
+
+/* Sash positioning to account for panel gaps */
+.monaco-workbench .monaco-split-view2 > .sash-container > .monaco-sash.vertical {
+	/* Center the sash in the gap between panels */
+	transform: translateX(-50%);
+}
+
+.monaco-workbench .monaco-split-view2 > .sash-container > .monaco-sash.horizontal {
+	/* Center the sash in the gap between panels */
+	transform: translateY(-50%);
+}
+
+/* Enhanced Tab Design - Pill Style */
+
+/* Editor Group Tabs - Pill Design */
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab {
+	background-color: transparent !important;
+	border: none !important;
+	border-radius: 0 !important;
+	margin: 1px 2px !important;
+	padding: 0 8px !important;
+	transition: none !important;
+	display: flex !important;
+	align-items: center !important;
+	min-height: var(--editor-group-tab-height) !important;
+	box-sizing: border-box !important;
+}
+
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab:hover {
+	background-color: transparent !important;
+}
+
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active {
+	background-color: color-mix(in srgb, var(--vscode-tab-activeForeground) 15%, transparent) !important;
+	border-radius: 6px !important;
+	font-weight: 600 !important;
+}
+
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active .tab-label,
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active .monaco-icon-label {
+	font-weight: 600 !important;
+}
+
+/* Ensure tab containers maintain proper sizing */
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container {
+	min-height: var(--editor-group-tab-height) !important;
+	padding: 2px 0 !important;
+}

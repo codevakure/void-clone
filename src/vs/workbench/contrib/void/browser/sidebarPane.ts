@@ -42,8 +42,11 @@ import { toDisposable } from '../../../../base/common/lifecycle.js';
 import { Action2, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { ServicesAccessor } from '../../../../editor/browser/editorExtensions.js';
 import { IViewsService } from '../../../services/views/common/viewsService.js';
-import { IWorkbenchContribution, registerWorkbenchContribution2, WorkbenchPhase } from '../../../common/contributions.js';
-import { ICommandService } from '../../../../platform/commands/common/commands.js';
+
+// Commented out imports - used by the removed SidebarStartContribution
+// These were used for auto-opening the void chat sidebar on startup
+// import { ICommandService } from '../../../../platform/commands/common/commands.js';
+// import { IWorkbenchContribution, registerWorkbenchContribution2, WorkbenchPhase } from '../../../common/contributions.js';
 
 // compare against search.contribution.ts and debug.contribution.ts, scm.contribution.ts (source control)
 
@@ -163,12 +166,23 @@ registerAction2(class extends Action2 {
 	}
 });
 
-export class SidebarStartContribution implements IWorkbenchContribution {
-	static readonly ID = 'workbench.contrib.startupVoidSidebar';
-	constructor(
-		@ICommandService private readonly commandService: ICommandService,
-	) {
-		this.commandService.executeCommand(VOID_OPEN_SIDEBAR_ACTION_ID)
-	}
-}
-registerWorkbenchContribution2(SidebarStartContribution.ID, SidebarStartContribution, WorkbenchPhase.AfterRestored);
+// Removed SidebarStartContribution to prevent auto-opening void chat sidebar on startup
+// This ensures the auxiliary bar remains closed by default as intended
+//
+// DEVELOPER NOTE: The original implementation automatically opened the void chat sidebar
+// during the WorkbenchPhase.AfterRestored phase, which caused the auxiliary bar to appear
+// even when users wanted it to remain closed. By commenting this out, we respect the
+// default auxiliary bar hidden state (AUXILIARYBAR_HIDDEN: true) set in layout.ts.
+//
+// If you want to re-enable auto-opening behavior, uncomment the code below:
+//
+// export class SidebarStartContribution implements IWorkbenchContribution {
+// 	static readonly ID = 'workbench.contrib.startupVoidSidebar';
+// 	constructor(
+// 		@ICommandService private readonly commandService: ICommandService,
+// 	) {
+// 		// Auto-execute command to open void sidebar on startup
+// 		this.commandService.executeCommand(VOID_OPEN_SIDEBAR_ACTION_ID)
+// 	}
+// }
+// registerWorkbenchContribution2(SidebarStartContribution.ID, SidebarStartContribution, WorkbenchPhase.AfterRestored);

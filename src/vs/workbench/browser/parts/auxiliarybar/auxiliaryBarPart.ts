@@ -161,19 +161,12 @@ export class AuxiliaryBarPart extends AbstractPaneCompositePart {
 
 		const container = assertIsDefined(this.getContainer());
 		container.style.backgroundColor = this.getColor(SIDE_BAR_BACKGROUND) || '';
-		const borderColor = this.getColor(SIDE_BAR_BORDER) || this.getColor(contrastBorder);
-		const isPositionLeft = this.layoutService.getSideBarPosition() === Position.RIGHT;
-
 		container.style.color = this.getColor(SIDE_BAR_FOREGROUND) || '';
 
-		container.style.borderLeftColor = borderColor ?? '';
-		container.style.borderRightColor = borderColor ?? '';
-
-		container.style.borderLeftStyle = borderColor && !isPositionLeft ? 'solid' : 'none';
-		container.style.borderRightStyle = borderColor && isPositionLeft ? 'solid' : 'none';
-
-		container.style.borderLeftWidth = borderColor && !isPositionLeft ? '1px' : '0px';
-		container.style.borderRightWidth = borderColor && isPositionLeft ? '1px' : '0px';
+		// Apply border on all sides when border color is present
+		// This ensures consistent visual separation after removing activity bar borders
+		const borderColor = this.getColor(SIDE_BAR_BORDER) || this.getColor(contrastBorder);
+		container.style.border = borderColor ? `1px solid ${borderColor}` : '';
 	}
 
 	protected getCompositeBarOptions(): IPaneCompositeBarOptions {

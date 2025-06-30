@@ -140,14 +140,19 @@ export class SidebarPart extends AbstractPaneCompositePart {
 		container.style.backgroundColor = this.getColor(SIDE_BAR_BACKGROUND) || '';
 		container.style.color = this.getColor(SIDE_BAR_FOREGROUND) || '';
 
+		// Apply borders to provide visual separation after removing activity bar borders
+		// Now includes outer edges since activity bar no longer provides visual boundaries
 		const borderColor = this.getColor(SIDE_BAR_BORDER) || this.getColor(contrastBorder);
-		const isPositionLeft = this.layoutService.getSideBarPosition() === SideBarPosition.LEFT;
-		container.style.borderRightWidth = borderColor && isPositionLeft ? '1px' : '';
-		container.style.borderRightStyle = borderColor && isPositionLeft ? 'solid' : '';
-		container.style.borderRightColor = isPositionLeft ? borderColor || '' : '';
-		container.style.borderLeftWidth = borderColor && !isPositionLeft ? '1px' : '';
-		container.style.borderLeftStyle = borderColor && !isPositionLeft ? 'solid' : '';
-		container.style.borderLeftColor = !isPositionLeft ? borderColor || '' : '';
+
+		if (borderColor) {
+			// Apply borders on all sides:
+			// - Top/Bottom: Visual separation from other workbench parts
+			// - Left/Right: Both outer edge (window boundary) and inner edge (editor separator)
+			container.style.border = `1px solid ${borderColor}`;
+		} else {
+			container.style.border = '';
+		}
+
 		container.style.outlineColor = this.getColor(SIDE_BAR_DRAG_AND_DROP_BACKGROUND) ?? '';
 	}
 
