@@ -18,6 +18,10 @@
 
 .monaco-workbench .part.sidebar > .title {
 	background-color: var(--vscode-sideBarTitle-background);
+	height: 32px; /* Consistent with panel title height */
+	max-height: 32px;
+	min-height: 32px;
+	flex-shrink: 0; /* Prevent title from shrinking */
 }
 
 .monaco-workbench .part.sidebar > .title > .title-label h2 {
@@ -105,4 +109,18 @@
 
 .monaco-workbench .sidebar.pane-composite-part > .title.has-composite-bar > .title-actions .monaco-action-bar .action-item {
 	max-width: 150px;
+}
+
+/* Layout optimization for consistent viewport handling */
+.monaco-workbench .part.sidebar {
+	max-height: 100vh; /* Never exceed viewport height */
+	box-sizing: border-box; /* Include padding and borders in height calculations */
+}
+
+/* Sidebar content area optimization for consistent layout */
+.monaco-workbench .part.sidebar > .content {
+	height: calc(100% - 32px); /* Account for 32px title height */
+	max-height: calc(100vh - 64px); /* Leave room for title bar and margins */
+	overflow: auto; /* Allow scrolling within sidebar content if needed */
+	flex: 1; /* Take remaining space */
 }

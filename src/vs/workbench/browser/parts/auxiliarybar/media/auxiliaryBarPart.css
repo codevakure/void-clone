@@ -24,6 +24,10 @@
 
 .monaco-workbench .part.auxiliarybar > .title {
 	background-color: var(--vscode-sideBarTitle-background);
+	height: 32px; /* Consistent with panel and sidebar title height */
+	max-height: 32px;
+	min-height: 32px;
+	flex-shrink: 0; /* Prevent title from shrinking */
 }
 
 .monaco-workbench .part.auxiliarybar > .title > .title-label {
@@ -85,6 +89,20 @@
 .monaco-workbench .part.auxiliarybar > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:not(.checked):hover .action-label,
 .monaco-workbench .part.auxiliarybar > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:not(.checked):hover .action-label {
 	outline: var(--vscode-contrastActiveBorder, unset) dashed 1px !important;
+}
+
+/* Layout optimization for consistent viewport handling */
+.monaco-workbench .part.auxiliarybar {
+	max-height: 100vh; /* Never exceed viewport height */
+	box-sizing: border-box; /* Include padding and borders in height calculations */
+}
+
+/* Auxiliary bar content area optimization for consistent layout */
+.monaco-workbench .part.auxiliarybar > .content {
+	height: calc(100% - 32px); /* Account for 32px title height */
+	max-height: calc(100vh - 64px); /* Leave room for title bar and margins */
+	overflow: auto; /* Allow scrolling within auxiliary bar content if needed */
+	flex: 1; /* Take remaining space */
 }
 
 .monaco-workbench .auxiliarybar.part.pane-composite-part > .composite.title > .title-actions {

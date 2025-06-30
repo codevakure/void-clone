@@ -15,7 +15,7 @@
 .monaco-workbench.mac:lang(ja) { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic Pro", sans-serif; }
 .monaco-workbench.mac:lang(ko) { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Nanum Gothic", "AppleGothic", sans-serif; }
 
-.monaco-workbench.windows { font-family: "Segoe WPC", "Segoe UI", sans-serif; }
+.monaco-workbench.windows { font-family: "SF Pro Text", "Segoe WPC", "Segoe UI", sans-serif; }
 .monaco-workbench.windows:lang(zh-Hans) { font-family: "Segoe WPC", "Segoe UI", "Microsoft YaHei", sans-serif; }
 .monaco-workbench.windows:lang(zh-Hant) { font-family: "Segoe WPC", "Segoe UI", "Microsoft Jhenghei", sans-serif; }
 .monaco-workbench.windows:lang(ja) { font-family: "Segoe WPC", "Segoe UI", "Yu Gothic UI", "Meiryo UI", sans-serif; }
@@ -358,6 +358,23 @@ body {
 	border: none !important; /* Remove panel border */
 	border-radius: 8px; /* Add border radius to match other panels */
 	overflow: hidden; /* Ensure content respects border radius */
+}
+
+/* Add specific spacing for panel positions */
+.monaco-workbench .part.panel.bottom {
+	margin-top: 3px; /* Add top margin when panel is at bottom */
+}
+
+.monaco-workbench .part.panel.top {
+	margin-bottom: 3px; /* Add bottom margin when panel is at top */
+}
+
+.monaco-workbench .part.panel.left {
+	margin-right: 6px; /* Add extra right margin when panel is at left */
+}
+
+.monaco-workbench .part.panel.right {
+	margin-left: 6px; /* Add extra left margin when panel is at right */
 }
 
 /* Remove additional borders from internal elements */

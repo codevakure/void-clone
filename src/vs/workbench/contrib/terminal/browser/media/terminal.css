@@ -45,7 +45,13 @@
 }
 
 .monaco-workbench .pane-body.integrated-terminal .terminal-tabs-entry.is-active::before {
-	background-color: var(--vscode-terminal-tab-activeBorder);
+	display: block;
+	position: absolute;
+	content: "";
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 1px;
 }
 /* Override monaco's styles for terminal editors */
 .monaco-workbench .terminal-editor .xterm textarea:focus {
@@ -522,3 +528,5 @@
 .monaco-workbench .xterm.terminal.hide {
 	visibility: hidden;
 }
+
+/* ...existing code... */

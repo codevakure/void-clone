@@ -1,20 +1,29 @@
 /*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+ *  Copyright (c) Microsoft Corpora/* Hover effect for inactive panel tabs */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:not(.checked):hover {
+	background-color: rgba(128, 128, 128, 0.06) !important; /* Subtle greyish hover for compact design */
+}
 
+/* Enhanced hover for active panel tabs */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked:hover {
+	background-color: rgba(128, 128, 128, 0.22) !important; /* Slightly stronger greyish on hover */
+}
 .monaco-workbench.nopanel .part.panel {
 	display: none !important;
 	visibility: hidden !important;
 }
 
 .monaco-workbench .part.panel.bottom .composite.title {
-	border-top-width: 1px;
-	border-top-style: solid;
+	align-items: center;
+	height: 32px; /* Reduced from 44px to fit better in layout */
+	padding-right: 12px;
 }
 
 .monaco-workbench.nomaineditorarea .part.panel.bottom .composite.title {
-	border-top-width: 0; /* no border when main editor area is hiden */
+	align-items: center;
+	height: 32px; /* Reduced from 44px to fit better in layout */
+	padding-right: 12px;
+	border-top-width: 0; /* no border when main editor area is hidden */
 }
 
 .monaco-workbench .part.panel.top {
@@ -97,4 +106,185 @@
 .monaco-workbench .part.basepanel.top .global-actions .codicon-panel-restore::before {
 	display: inline-block;
 	transform: rotate(180deg);
+}
+
+/* Modern pill-style panel tabs (Terminal, Problems, etc.) - compact and modern */
+
+/* Remove borders and add modern tab styling for panel tab action items */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.compact {
+	border: none !important;
+	box-shadow: none !important;
+	border-radius: 6px;
+	font-weight: 500;
+	font-size: 12px;
+	background-color: transparent;
+	height: 20px; /* Reduced height for more compact design */
+	min-height: 20px;
+	max-height: 20px;
+	padding: 4px 8px; /* Compact padding */
+	margin: 2px;
+	display: flex;
+	align-items: center;
+	text-transform: none; /* Ensure title case, not uppercase */
+	/* Remove any transitions to prevent movement */
+}
+
+/* Modern active panel tab background - greyish, not theme color */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.compact.checked {
+	background-color: rgba(128, 128, 128, 0.18) !important; /* Slightly lighter for compact design */
+	/* Height and width adapt naturally - no forced sizing */
+}
+
+/* Hover effect for inactive panel tabs */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:not(.checked):hover,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.compact:not(.checked):hover {
+	background-color: rgba(128, 128, 128, 0.06) !important; /* Subtle greyish hover for compact design */
+}
+
+/* Enhanced hover for active panel tabs */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked:hover,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.compact.checked:hover {
+	background-color: rgba(128, 128, 128, 0.22) !important; /* Slightly stronger greyish on hover */
+}
+
+/* Remove the old border indicator for active panel tabs */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked:not(:focus) .active-item-indicator:before,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked.clicked:focus .active-item-indicator:before {
+	display: none !important; /* Remove border indicator */
+	visibility: hidden !important;
+	opacity: 0 !important;
+}
+
+/* Hide the active-item-indicator completely for modern pill style */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item .active-item-indicator {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+}
+
+/* Action label styling for compact design */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item .action-label,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.compact .action-label {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 12px; /* Reduced line height for 20px container */
+	text-transform: none; /* Ensure title case, not uppercase */
+	padding: 0;
+	margin: 0;
+}
+
+/* Global override to remove any remaining borders or shadows from panel tabs */
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item *,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item::before,
+.monaco-workbench .part.panel > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item::after {
+	border: none !important;
+	box-shadow: none !important;
+	outline: none !important;
+}
+
+/* Also apply compact styling to other composite parts (sidebar, auxiliary bar) for consistency */
+.monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item,
+.monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item {
+	border: none !important;
+	box-shadow: none !important;
+	border-radius: 6px;
+	font-weight: 500;
+	font-size: 12px;
+	background-color: transparent;
+	height: 20px; /* Reduced to match panel tabs */
+	min-height: 20px;
+	max-height: 20px;
+	padding: 4px 8px;
+	margin: 2px;
+	display: flex;
+	align-items: center;
+	text-transform: none;
+}
+
+.monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked,
+.monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked {
+	background-color: rgba(128, 128, 128, 0.18) !important;
+}
+
+.monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:not(.checked):hover,
+.monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:not(.checked):hover {
+	background-color: rgba(128, 128, 128, 0.06) !important;
+}
+
+.monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked:hover,
+.monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked:hover {
+	background-color: rgba(128, 128, 128, 0.22) !important;
+}
+
+/* Hide active item indicators for all composite parts */
+.monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item .active-item-indicator,
+.monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item .active-item-indicator {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+}
+
+/* Layout optimization for better panel fitting */
+
+/* Ensure panel title containers are compact */
+.monaco-workbench .part.panel > .title,
+.monaco-workbench .part.panel > .title > .composite-bar-container {
+	height: 32px; /* Match title height */
+	min-height: 32px;
+	max-height: 32px;
+}
+
+/* Optimize panel content area to use available space efficiently */
+.monaco-workbench .part.panel > .content {
+	height: calc(100% - 32px); /* Subtract title height */
+}
+
+/* Ensure sidebar title areas are also compact */
+.monaco-workbench .part.sidebar > .title,
+.monaco-workbench .part.auxiliarybar > .title {
+	height: 32px;
+	min-height: 32px;
+	max-height: 32px;
+}
+
+/* Ensure all panels work within viewport constraints */
+.monaco-workbench .part.panel,
+.monaco-workbench .part.sidebar,
+.monaco-workbench .part.auxiliarybar,
+.monaco-workbench .part.editor {
+	max-height: 100vh; /* Never exceed viewport height */
+	overflow: hidden; /* Prevent content overflow affecting layout */
+	box-sizing: border-box; /* Include padding and borders in height calculations */
+}
+
+/* Panel content area optimization */
+.monaco-workbench .part.panel > .content {
+	height: calc(100% - 32px); /* Account for 32px title height */
+	max-height: calc(100vh - 64px); /* Leave room for title bar and other UI elements */
+	overflow: auto; /* Allow scrolling within panel content if needed */
+}
+
+/* Sidebar content area optimization */
+.monaco-workbench .part.sidebar > .content,
+.monaco-workbench .part.auxiliarybar > .content {
+	height: calc(100% - 32px); /* Account for 32px title height */
+	max-height: calc(100vh - 64px); /* Leave room for title bar and other UI elements */
+	overflow: auto; /* Allow scrolling within sidebar content if needed */
+}
+
+/* Editor group content optimization */
+.monaco-workbench .part.editor > .content {
+	height: 100%; /* Editor takes full available height */
+	max-height: 100vh; /* Never exceed viewport */
+	overflow: hidden; /* Editor handles its own scrolling */
+}
+
+/* Terminal specific optimizations */
+.monaco-workbench .part.panel .pane-body.integrated-terminal {
+	height: calc(100% - 32px); /* Account for reduced title height */
+	max-height: calc(100vh - 96px); /* Extra room for panel title and margins */
+	overflow: hidden; /* Terminal handles its own scrolling */
 }
