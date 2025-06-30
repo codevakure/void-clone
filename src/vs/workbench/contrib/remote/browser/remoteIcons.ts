@@ -13,7 +13,7 @@ export const documentationIcon = registerIcon('remote-explorer-documentation', C
 export const feedbackIcon = registerIcon('remote-explorer-feedback', Codicon.twitter, nls.localize('feedbackIcon', 'Feedback icon in the remote explorer view.'));
 export const reviewIssuesIcon = registerIcon('remote-explorer-review-issues', Codicon.issues, nls.localize('reviewIssuesIcon', 'Review issue icon in the remote explorer view.'));
 export const reportIssuesIcon = registerIcon('remote-explorer-report-issues', Codicon.comment, nls.localize('reportIssuesIcon', 'Report issue icon in the remote explorer view.'));
-export const remoteExplorerViewIcon = registerIcon('remote-explorer-view-icon', Codicon.remoteExplorer, nls.localize('remoteExplorerViewIcon', 'View icon of the remote explorer view.'));
+export const remoteExplorerViewIcon = registerIcon('remote-explorer-view-icon', Codicon.cloud, nls.localize('remoteExplorerViewIcon', 'View icon of the remote explorer view.'));
 
 export const portsViewIcon = registerIcon('ports-view-icon', Codicon.plug, nls.localize('portsViewIcon', 'View icon of the remote ports view.'));
 export const portIcon = registerIcon('ports-view-icon', Codicon.plug, nls.localize('portIcon', 'Icon representing a remote port.'));
