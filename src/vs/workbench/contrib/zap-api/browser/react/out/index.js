@@ -1346,7 +1346,7 @@ var require_react_dom_development = __commonJS({
       }
       __name(resolveDispatcher, "resolveDispatcher");
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React3 = require_react(), Internals = {
+      var React4 = require_react(), Internals = {
         d: {
           f: noop,
           r: /* @__PURE__ */ __name(function() {
@@ -1364,7 +1364,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -3013,7 +3013,7 @@ var require_react_dom_client_development = __commonJS({
       }
       __name(setDefaultValue, "setDefaultValue");
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React3.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React4.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -17160,14 +17160,14 @@ var require_react_dom_client_development = __commonJS({
       }
       __name(warnIfReactDOMContainerInDEV, "warnIfReactDOMContainerInDEV");
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React3 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React4 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
       Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
       Symbol.for("react.legacy_hidden");
       Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
       Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -19881,7 +19881,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React3.version;
+        var isomorphicReactPackageVersion = React4.version;
         if ("19.1.0" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.1.0\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -20247,20 +20247,20 @@ var require_react_jsx_runtime_development = __commonJS({
         "object" === typeof node && null !== node && node.$$typeof === REACT_ELEMENT_TYPE && node._store && (node._store.validated = 1);
       }
       __name(validateChildKeys, "validateChildKeys");
-      var React3 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler");
+      var React4 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler");
       Symbol.for("react.provider");
-      var REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React3 = {
+      React4 = {
         "react-stack-bottom-frame": /* @__PURE__ */ __name(function(callStackForError) {
           return callStackForError();
         }, "react-stack-bottom-frame")
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React3["react-stack-bottom-frame"].bind(
-        React3,
+      var unknownOwnerDebugStack = React4["react-stack-bottom-frame"].bind(
+        React4,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -20444,334 +20444,245 @@ var ZapReactProvider = /* @__PURE__ */ __name(({ children }) => {
     state,
     actions
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZapApiReactContext.Provider, { value: contextValue, children });
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZapApiReactContext.Provider, { value: contextValue, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "void-void-scope", children }) });
 }, "ZapReactProvider");
-var useZapApi = /* @__PURE__ */ __name(() => {
-  const context = (0, import_react.useContext)(ZapApiReactContext);
-  if (!context) {
-    throw new Error("useZapApi must be used within a ZapReactProvider");
-  }
-  return context;
-}, "useZapApi");
 
-// src2/zap-api-tsx/views/ZapApiCollectionTree.tsx
+// src2/zap-api-tsx/views/CollectionView.tsx
+var React2 = __toESM(require_react(), 1);
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
-var ZapApiCollectionTree = /* @__PURE__ */ __name(() => {
-  const { state, actions } = useZapApi();
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-h-full void-p-2", children: state.collections.map(
-    (collection) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-mb-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
-        "div",
+var CollectionView = /* @__PURE__ */ __name(({
+  collections = [],
+  onOpenRequest
+}) => {
+  const [expandedCollections, setExpandedCollections] = React2.useState(/* @__PURE__ */ new Set());
+  const toggleCollection = /* @__PURE__ */ __name((collectionId) => {
+    setExpandedCollections((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(collectionId)) {
+        newSet.delete(collectionId);
+      } else {
+        newSet.add(collectionId);
+      }
+      return newSet;
+    });
+  }, "toggleCollection");
+  const handleOpenRequest = /* @__PURE__ */ __name((request, collectionId) => {
+    if (onOpenRequest) {
+      onOpenRequest(request, collectionId);
+    }
+    const event = new CustomEvent("zap-api:open-request-editor", {
+      detail: { request, collectionId }
+    });
+    window.dispatchEvent(event);
+  }, "handleOpenRequest");
+  const mockCollections2 = collections.length > 0 ? collections : [
+    {
+      id: "sample-collection",
+      name: "Sample Collection",
+      description: "Sample API collection for testing",
+      requests: [
         {
-          className: `void-flex void-items-center void-p-2 void-rounded void-cursor-pointer hover:void-bg-[var(--vscode-list-hoverBackground)] ${state.activeCollection?.id === collection.id ? "void-bg-[var(--vscode-list-activeSelectionBackground)]" : ""}`,
-          onClick: () => actions.setActiveCollection(collection),
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-mr-2", children: "\u{1F4C1}" }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm void-text-[var(--vscode-sideBar-foreground)]", children: collection.name })
-          ]
+          id: "get-users",
+          name: "Get Users",
+          method: "GET",
+          url: "https://jsonplaceholder.typicode.com/users",
+          headers: { "Accept": "application/json" },
+          body: { type: "text", content: "" }
+        },
+        {
+          id: "create-user",
+          name: "Create User",
+          method: "POST",
+          url: "https://jsonplaceholder.typicode.com/users",
+          headers: { "Content-Type": "application/json" },
+          body: {
+            type: "json",
+            content: JSON.stringify({
+              name: "John Doe",
+              email: "john@example.com"
+            }, null, 2)
+          }
         }
-      ),
-      state.activeCollection?.id === collection.id && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-ml-4 void-mt-1", children: [
-        collection.folders.map(
-          (folder) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-mb-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-flex void-items-center void-p-1 void-text-[var(--vscode-sideBar-foreground)]", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-mr-2", children: "\u{1F4C2}" }),
-              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm", children: folder.name })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-ml-4", children: folder.requests.map(
-              (request) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
-                "div",
-                {
-                  className: "void-flex void-items-center void-p-2 void-rounded void-cursor-pointer hover:void-bg-[var(--vscode-list-hoverBackground)]",
-                  onClick: () => actions.openRequestAsEditor(request, collection.id),
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-mr-2 void-text-xs void-px-1 void-rounded void-text-white ${request.method === "GET" ? "void-bg-green-600" : request.method === "POST" ? "void-bg-blue-600" : request.method === "PUT" ? "void-bg-yellow-600" : request.method === "DELETE" ? "void-bg-red-600" : "void-bg-gray-600"}`, children: request.method }),
-                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm void-text-[var(--vscode-sideBar-foreground)]", children: request.name })
-                  ]
-                },
-                request.id
-              )
-            ) })
-          ] }, folder.id)
+      ],
+      folders: [],
+      environments: []
+    }
+  ];
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-h-full void-void-flex void-void-flex-col void-void-bg-[var(--vscode-sideBar-background)] void-void-text-[var(--vscode-sideBar-foreground)]", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-p-4 void-void-border-b void-void-border-[var(--vscode-sideBar-border)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h2", { className: "void-void-text-lg void-void-font-semibold void-void-mb-2", children: "Collections" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-flex void-void-space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { className: "void-void-px-3 void-void-py-1 void-void-text-xs void-void-bg-[var(--vscode-button-background)] void-void-text-[var(--vscode-button-foreground)] void-void-rounded hover:void-void-bg-[var(--vscode-button-hoverBackground)]", children: "+ New" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { className: "void-void-px-3 void-void-py-1 void-void-text-xs void-void-bg-[var(--vscode-button-secondaryBackground)] void-void-text-[var(--vscode-button-secondaryForeground)] void-void-rounded hover:void-void-bg-[var(--vscode-button-secondaryHoverBackground)]", children: "Import" })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-void-flex-1 void-void-overflow-y-auto", children: mockCollections2.map(
+      (collection) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-border-b void-void-border-[var(--vscode-sideBar-border)]", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+          "div",
+          {
+            className: "void-void-flex void-void-items-center void-void-p-3 void-void-cursor-pointer hover:void-void-bg-[var(--vscode-list-hoverBackground)]",
+            onClick: () => toggleCollection(collection.id),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-mr-2 void-void-text-xs", children: expandedCollections.has(collection.id) ? "\u25BC" : "\u25B6" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-font-medium", children: collection.name }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-ml-auto void-void-text-xs void-void-text-[var(--vscode-descriptionForeground)]", children: collection.requests.length })
+            ]
+          }
         ),
-        collection.requests.map(
+        expandedCollections.has(collection.id) && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-void-ml-4", children: collection.requests.map(
           (request) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
             "div",
             {
-              className: "void-flex void-items-center void-p-2 void-rounded void-cursor-pointer hover:void-bg-[var(--vscode-list-hoverBackground)]",
-              onClick: () => actions.openRequestAsEditor(request, collection.id),
+              className: "void-void-flex void-void-items-center void-void-p-2 void-void-pl-6 void-void-cursor-pointer hover:void-void-bg-[var(--vscode-list-hoverBackground)] void-void-border-l-2 void-void-border-transparent hover:void-void-border-[var(--vscode-focusBorder)]",
+              onClick: () => handleOpenRequest(request, collection.id),
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-mr-2 void-text-xs void-px-1 void-rounded void-text-white ${request.method === "GET" ? "void-bg-green-600" : request.method === "POST" ? "void-bg-blue-600" : request.method === "PUT" ? "void-bg-yellow-600" : request.method === "DELETE" ? "void-bg-red-600" : "void-bg-gray-600"}`, children: request.method }),
-                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm void-text-[var(--vscode-sideBar-foreground)]", children: request.name })
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-void-px-2 void-void-py-0.5 void-void-text-xs void-void-rounded void-void-text-white void-void-font-medium void-void-mr-3 ${request.method === "GET" ? "void-void-bg-green-600" : request.method === "POST" ? "void-void-bg-blue-600" : request.method === "PUT" ? "void-void-bg-yellow-600" : request.method === "DELETE" ? "void-void-bg-red-600" : "void-void-bg-gray-600"}`, children: request.method }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-text-sm", children: request.name })
               ]
             },
             request.id
           )
-        )
-      ] })
-    ] }, collection.id)
-  ) });
-}, "ZapApiCollectionTree");
-
-// src2/zap-api-tsx/ZapApiMainApp.tsx
-var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
-var ZapApiMainApp = /* @__PURE__ */ __name(() => {
-  const { state, actions } = useZapApi();
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-h-full void-flex void-flex-col void-bg-[var(--vscode-sideBar-background)] void-text-[var(--vscode-sideBar-foreground)]", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-p-4 void-border-b void-border-[var(--vscode-sideBar-border)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "void-text-lg void-font-semibold void-text-[var(--vscode-sideBarTitle-foreground)]", children: "API Collections" }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-        "button",
-        {
-          className: "void-mt-2 void-px-3 void-py-1 void-text-sm void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)]",
-          onClick: () => {
-            console.log("Create new collection");
-          },
-          children: "+ New Collection"
-        }
-      )
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-flex-1 void-overflow-auto", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ZapApiCollectionTree, {}) }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-p-3 void-border-t void-border-[var(--vscode-sideBar-border)] void-text-xs void-text-[var(--vscode-descriptionForeground)]", children: "\u26A1 Click on requests to open them as editors" })
+        ) })
+      ] }, collection.id)
+    ) }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-void-p-3 void-void-border-t void-void-border-[var(--vscode-sideBar-border)] void-void-text-xs void-void-text-[var(--vscode-descriptionForeground)]", children: "\u26A1 Click on requests to open them as editors" })
   ] });
-}, "ZapApiMainApp");
+}, "CollectionView");
 
-// src2/zap-api-tsx/views/ZapApiRequestEditor.tsx
-var React2 = __toESM(require_react(), 1);
-var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
-var ZapApiRequestEditor = /* @__PURE__ */ __name(({
-  request: propsRequest,
-  collectionId: propsCollectionId,
+// src2/zap-api-tsx/views/RequestResponseEditor.tsx
+var React3 = __toESM(require_react(), 1);
+var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+var RequestResponseEditor = /* @__PURE__ */ __name(({
+  request,
+  collectionId,
   mode = "full"
 }) => {
-  const { state, actions } = useZapApi();
-  const activeRequest = propsRequest || state.activeRequest;
-  const collectionId = propsCollectionId || state.activeCollection?.id;
-  const activeView = state.viewState.activeView;
-  const [response, setResponse] = React2.useState(null);
-  const [isLoading, setIsLoading] = React2.useState(false);
-  const sendRequest = /* @__PURE__ */ __name(async () => {
-    if (!activeRequest) return;
+  const [response, setResponse] = React3.useState(null);
+  const [isLoading, setIsLoading] = React3.useState(false);
+  const handleSendRequest = /* @__PURE__ */ __name(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      const mockResponse = {
-        status: 200,
-        statusText: "OK",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: "Request completed successfully",
-          timestamp: (/* @__PURE__ */ new Date()).toISOString(),
-          method: activeRequest.method,
-          url: activeRequest.url
-        }, null, 2),
-        responseTime: Math.floor(Math.random() * 500) + 100,
-        size: Math.floor(Math.random() * 1e3) + 500
-      };
-      setResponse(mockResponse);
-      if (actions.sendRequest) {
-        actions.sendRequest(activeRequest);
-      }
+      setTimeout(() => {
+        setResponse({
+          status: 200,
+          statusText: "OK",
+          headers: { "content-type": "application/json" },
+          body: '{"message": "Hello World"}',
+          responseTime: 150,
+          size: 28
+        });
+        setIsLoading(false);
+      }, 1e3);
     } catch (error) {
-      setResponse({
-        status: 500,
-        statusText: "Error",
-        body: JSON.stringify({ error: "Request failed" }, null, 2)
-      });
-    } finally {
       setIsLoading(false);
+      console.error("Request failed:", error);
     }
-  }, "sendRequest");
-  const generateZapContent = /* @__PURE__ */ __name(() => {
-    if (!activeRequest) return "";
-    const headers = activeRequest.headers || {};
-    const headersSection = Object.keys(headers).length > 0 ? Object.entries(headers).map(([key, value]) => `${key}: ${value}`).join("\n") : "";
-    return `meta {
-  name: ${activeRequest.name}
-  type: http
-  seq: 1
-}
-
-${activeRequest.method.toLowerCase()} {
-  url: ${activeRequest.url || "https://api.example.com/endpoint"}
-  body: ${activeRequest.body ? "json" : "none"}
-  auth: none
-}
-
-${headersSection ? `headers {
-${headersSection}
-}
-` : ""}${activeRequest.body ? `body:json {
-${typeof activeRequest.body === "string" ? activeRequest.body : activeRequest.body.content || "{}"}
-}
-` : ""}
-
-tests {
-  test("should return 200", function() {
-    expect(res.getStatus()).to.equal(200);
-  });
-}`;
-  }, "generateZapContent");
-  if (!activeRequest) {
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-h-full void-flex void-items-center void-justify-center void-bg-[var(--vscode-editor-background)] void-text-[var(--vscode-editor-foreground)]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-text-center void-text-[var(--vscode-descriptionForeground)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-mb-2 void-text-4xl", children: "\u26A1" }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-text-lg void-mb-2", children: "No Request Selected" }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-text-sm", children: "Select a request from the collection tree to get started" })
-    ] }) });
-  }
-  if (activeView === "zap-editor") {
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-h-full void-flex void-flex-col void-bg-[var(--vscode-editor-background)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-justify-between void-p-4 void-border-b void-border-[var(--vscode-panel-border)]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-text-2xl", children: "\u26A1" }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("h1", { className: "void-text-lg void-font-semibold void-text-[var(--vscode-editor-foreground)]", children: [
-              activeRequest.name,
-              ".zap"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "void-text-sm void-text-[var(--vscode-descriptionForeground)]", children: "Zap format file content" })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-          "button",
-          {
-            className: "void-px-4 void-py-2 void-text-sm void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)]",
-            onClick: () => actions.toggleCenterView(),
-            children: "\u{1F504} Back to Request/Response"
-          }
-        )
+  }, "handleSendRequest");
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-h-full void-void-bg-[var(--vscode-editor-background)] void-void-text-[var(--vscode-editor-foreground)] void-void-flex void-void-flex-col", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-justify-between void-void-p-3 void-void-border-b void-void-border-[var(--vscode-panel-border)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: `void-void-px-2 void-void-py-1 void-void-text-xs void-void-rounded void-void-text-white void-void-font-medium ${request.method === "GET" ? "void-void-bg-green-600" : request.method === "POST" ? "void-void-bg-blue-600" : request.method === "PUT" ? "void-void-bg-yellow-600" : request.method === "DELETE" ? "void-void-bg-red-600" : "void-void-bg-gray-600"}`, children: request.method }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-sm void-void-font-medium", children: request.name })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-flex-1 void-p-4", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("pre", { className: "void-h-full void-bg-[var(--vscode-textCodeBlock-background)] void-text-[var(--vscode-editor-foreground)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-4 void-text-sm void-font-mono void-overflow-auto void-whitespace-pre-wrap", children: generateZapContent() }) })
-    ] });
-  }
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-h-full void-flex void-flex-col void-bg-[var(--vscode-editor-background)]", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-justify-between void-p-4 void-border-b void-border-[var(--vscode-panel-border)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: `void-px-3 void-py-1 void-text-sm void-rounded void-text-white void-font-medium ${activeRequest.method === "GET" ? "void-bg-green-600" : activeRequest.method === "POST" ? "void-bg-blue-600" : activeRequest.method === "PUT" ? "void-bg-yellow-600" : activeRequest.method === "DELETE" ? "void-bg-red-600" : "void-bg-gray-600"}`, children: activeRequest.method }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h1", { className: "void-text-lg void-font-semibold void-text-[var(--vscode-editor-foreground)]", children: activeRequest.name }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "void-text-sm void-text-[var(--vscode-descriptionForeground)]", children: activeRequest.url })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-          "button",
-          {
-            className: "void-px-3 void-py-2 void-text-sm void-bg-[var(--vscode-button-secondaryBackground)] void-text-[var(--vscode-button-secondaryForeground)] void-rounded hover:void-bg-[var(--vscode-button-secondaryHoverBackground)] void-border void-border-[var(--vscode-button-border)]",
-            onClick: () => actions.toggleCenterView(),
-            children: "\u26A1 View ZAP"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-          "button",
-          {
-            className: "void-px-6 void-py-2 void-text-sm void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)] disabled:void-opacity-50",
-            onClick: sendRequest,
-            disabled: isLoading,
-            children: isLoading ? "\u23F3 Sending..." : "\u26A1 Send Request"
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-2 void-p-4 void-border-b void-border-[var(--vscode-panel-border)] void-bg-[var(--vscode-editor-background)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-        "select",
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-flex void-void-items-center void-void-space-x-2", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        "button",
         {
-          className: "void-px-3 void-py-2 void-text-sm void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded",
-          value: activeRequest.method,
-          disabled: true,
-          children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("option", { children: activeRequest.method })
+          className: "void-void-px-4 void-void-py-1 void-void-text-sm void-void-bg-[var(--vscode-button-background)] void-void-text-[var(--vscode-button-foreground)] void-void-rounded hover:void-void-bg-[var(--vscode-button-hoverBackground)] disabled:void-void-opacity-50",
+          onClick: handleSendRequest,
+          disabled: isLoading,
+          children: isLoading ? "Sending..." : "Send"
         }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-        "input",
-        {
-          className: "void-flex-1 void-px-3 void-py-2 void-text-sm void-bg-[var(--vscode-input-background)] void-text-[var(--vscode-input-foreground)] void-border void-border-[var(--vscode-input-border)] void-rounded",
-          value: activeRequest.url || "",
-          readOnly: true,
-          placeholder: "Request URL"
-        }
-      )
+      ) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex-1 void-flex", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-w-1/2 void-flex void-flex-col void-border-r void-border-[var(--vscode-panel-border)]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-p-3 void-border-b void-border-[var(--vscode-panel-border)] void-bg-[var(--vscode-tab-activeBackground)]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h3", { className: "void-font-medium void-text-[var(--vscode-tab-activeForeground)]", children: "Request" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex-1 void-p-4 void-overflow-y-auto", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-mb-6", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium void-text-[var(--vscode-editor-foreground)]", children: "Headers" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3", children: activeRequest.headers && Object.keys(activeRequest.headers).length > 0 ? Object.entries(activeRequest.headers).map(
-              ([key, value], index) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-mb-2 last:void-mb-0", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-w-1/3 void-text-sm void-text-[var(--vscode-input-foreground)] void-pr-2 void-font-medium", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex-1 void-void-flex", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-w-1/2 void-void-border-r void-void-border-[var(--vscode-panel-border)] void-void-flex void-void-flex-col", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-p-2 void-void-border-b void-void-border-[var(--vscode-panel-border)] void-void-bg-[var(--vscode-tab-activeBackground)]", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-sm void-void-font-semibold", children: "Request" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex-1 void-void-p-3 void-void-overflow-y-auto void-void-space-y-4", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "URL" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-bg-[var(--vscode-input-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3 void-void-text-sm void-void-font-mono", children: request.url || "No URL specified" })
+          ] }),
+          request.headers && Object.keys(request.headers).length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "Headers" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-bg-[var(--vscode-input-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: Object.entries(request.headers).map(
+              ([key, value]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-justify-between void-void-py-1 void-void-text-sm", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-void-font-medium", children: [
                   key,
                   ":"
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-flex-1 void-text-sm void-text-[var(--vscode-input-foreground)]", children: String(value) })
-              ] }, index)
-            ) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-text-sm void-text-[var(--vscode-descriptionForeground)]", children: "No headers" }) })
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-[var(--vscode-descriptionForeground)]", children: value })
+              ] }, key)
+            ) })
           ] }),
-          activeRequest.body && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium void-text-[var(--vscode-editor-foreground)]", children: "Body" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("pre", { className: "void-bg-[var(--vscode-textCodeBlock-background)] void-text-[var(--vscode-editor-foreground)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3 void-text-sm void-font-mono void-overflow-x-auto void-whitespace-pre-wrap", children: typeof activeRequest.body === "string" ? activeRequest.body : activeRequest.body.content || "{}" })
-          ] })
+          request.body && request.body.content && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "Body" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { className: "void-void-text-sm void-void-whitespace-pre-wrap void-void-font-mono void-void-bg-[var(--vscode-textCodeBlock-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: request.body.content })
+          ] }),
+          (!request.body || !request.body.content) && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-text-[var(--vscode-descriptionForeground)] void-void-text-sm void-void-p-3 void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded", children: "No request body" })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-w-1/2 void-flex void-flex-col", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-p-3 void-border-b void-border-[var(--vscode-panel-border)] void-bg-[var(--vscode-tab-activeBackground)] void-flex void-items-center void-justify-between", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h3", { className: "void-font-medium void-text-[var(--vscode-tab-activeForeground)]", children: "Response" }),
-          response && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-2 void-text-xs", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: `void-px-2 void-py-1 void-rounded void-text-white void-font-medium ${response.status >= 200 && response.status < 300 ? "void-bg-green-600" : response.status >= 400 ? "void-bg-red-600" : "void-bg-yellow-600"}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-w-1/2 void-void-flex void-void-flex-col", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-p-2 void-void-border-b void-void-border-[var(--vscode-panel-border)] void-void-bg-[var(--vscode-tab-activeBackground)] void-void-flex void-void-items-center void-void-justify-between", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-sm void-void-font-semibold", children: "Response" }),
+          response && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-space-x-2 void-void-text-xs", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: `void-void-px-2 void-void-py-1 void-void-rounded ${response.status >= 200 && response.status < 300 ? "void-void-bg-green-600 void-void-text-white" : response.status >= 400 ? "void-void-bg-red-600 void-void-text-white" : "void-void-bg-yellow-600 void-void-text-white"}`, children: [
               response.status,
               " ",
               response.statusText
             ] }),
-            response.responseTime && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-text-[var(--vscode-descriptionForeground)]", children: [
+            response.responseTime && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-void-text-[var(--vscode-descriptionForeground)]", children: [
               response.responseTime,
               "ms"
             ] }),
-            response.size && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-text-[var(--vscode-descriptionForeground)]", children: [
+            response.size && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-void-text-[var(--vscode-descriptionForeground)]", children: [
               response.size,
               "B"
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-flex-1 void-p-4 void-overflow-y-auto", children: response ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
-          response.headers && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-mb-6", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium void-text-[var(--vscode-editor-foreground)]", children: "Headers" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3", children: Object.entries(response.headers).map(
-              ([key, value], index) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-mb-2 last:void-mb-0", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-w-1/3 void-text-sm void-text-[var(--vscode-input-foreground)] void-pr-2 void-font-medium", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-flex-1 void-void-p-3", children: response ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-space-y-4", children: [
+          response.headers && Object.keys(response.headers).length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "Response Headers" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-bg-[var(--vscode-input-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: Object.entries(response.headers).map(
+              ([key, value]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-justify-between void-void-py-1 void-void-text-sm", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-void-font-medium", children: [
                   key,
                   ":"
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-flex-1 void-text-sm void-text-[var(--vscode-input-foreground)]", children: String(value) })
-              ] }, index)
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-[var(--vscode-descriptionForeground)]", children: value })
+              ] }, key)
             ) })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium void-text-[var(--vscode-editor-foreground)]", children: "Body" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("pre", { className: "void-bg-[var(--vscode-textCodeBlock-background)] void-text-[var(--vscode-editor-foreground)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3 void-text-sm void-font-mono void-overflow-x-auto void-whitespace-pre-wrap", children: response.body || "No response body" })
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "Response Body" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { className: "void-void-text-sm void-void-whitespace-pre-wrap void-void-font-mono void-void-bg-[var(--vscode-textCodeBlock-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: response.body || "No response body" })
           ] })
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-flex void-items-center void-justify-center void-h-full", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-text-center void-text-[var(--vscode-descriptionForeground)]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-text-4xl void-mb-4", children: "\u26A1" }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "void-text-lg void-mb-2", children: "Ready to Send" }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "void-text-sm", children: 'Click the "Send Request" button to execute the request' })
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-flex void-void-items-center void-void-justify-center void-void-h-32", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-text-center void-void-text-[var(--vscode-descriptionForeground)]", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-text-4xl void-void-mb-2", children: "\u26A1" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: 'Click "Send" to execute the request' })
         ] }) }) })
       ] })
     ] })
   ] });
-}, "ZapApiRequestEditor");
+}, "RequestResponseEditor");
 
 // src2/zap-api-tsx/index.tsx
-var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+var rootMap = /* @__PURE__ */ new WeakMap();
 var mountZapApi = /* @__PURE__ */ __name((rootElement) => {
   if (typeof document === "undefined") {
     console.error("zap-api index.tsx error: document was undefined");
     return;
   }
-  const root = (0, import_client.createRoot)(rootElement);
+  let root = rootMap.get(rootElement);
+  if (!root) {
+    root = (0, import_client.createRoot)(rootElement);
+    rootMap.set(rootElement, root);
+  }
   const rerender = /* @__PURE__ */ __name((props) => {
     root.render(
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ZapReactProvider, { ...props, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ZapApiMainApp, {}) })
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ZapReactProvider, { ...props, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(CollectionView, {}) })
     );
   }, "rerender");
   const dispose = /* @__PURE__ */ __name(() => {
@@ -20788,11 +20699,15 @@ var mountZapApiEditor = /* @__PURE__ */ __name((rootElement, options) => {
     console.error("zap-api index.tsx error: document was undefined");
     return;
   }
-  const root = (0, import_client.createRoot)(rootElement);
+  let root = rootMap.get(rootElement);
+  if (!root) {
+    root = (0, import_client.createRoot)(rootElement);
+    rootMap.set(rootElement, root);
+  }
   const rerender = /* @__PURE__ */ __name(() => {
     root.render(
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ZapReactProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
-        ZapApiRequestEditor,
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ZapReactProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        RequestResponseEditor,
         {
           request: options.request,
           collectionId: options.collectionId,

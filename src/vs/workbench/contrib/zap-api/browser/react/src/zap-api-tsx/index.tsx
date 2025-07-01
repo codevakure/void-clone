@@ -6,8 +6,8 @@
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import { ZapReactProvider } from './providers/ZapReactProvider.js';
-import { ZapApiMainApp } from './ZapApiMainApp.js';
-import { ZapApiRequestEditor } from './views/ZapApiRequestEditor.js';
+import { CollectionView } from './views/CollectionView.js';
+import { RequestResponseEditor } from './views/RequestResponseEditor.js';
 import { ZapRequest } from '../../../../common/zapApiTypes.js';
 
 // Store roots to avoid recreating them
@@ -31,7 +31,7 @@ export const mountZapApi = (rootElement: HTMLElement) => {
 	const rerender = (props?: any) => {
 		root.render(
 			<ZapReactProvider {...props}>
-				<ZapApiMainApp />
+				<CollectionView />
 			</ZapReactProvider>
 		);
 	};
@@ -66,7 +66,7 @@ export const mountZapApiEditor = (rootElement: HTMLElement, options: { request: 
 	const rerender = () => {
 		root.render(
 			<ZapReactProvider>
-				<ZapApiRequestEditor
+				<RequestResponseEditor
 					request={options.request}
 					collectionId={options.collectionId}
 					mode="full"

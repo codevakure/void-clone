@@ -164,3 +164,24 @@
 .zap-button-secondary:focus {
 	outline: 1px solid var(--vscode-focusBorder);
 }
+
+/* TEST STYLES - To determine correct CSS naming convention */
+.test-button-with-scope {
+	background-color: lime !important;
+	color: black !important;
+	padding: 12px 20px !important;
+	border: none !important;
+	border-radius: 4px !important;
+	font-weight: bold !important;
+	cursor: pointer !important;
+}
+
+.test-button-without-scope {
+	background-color: magenta !important;
+	color: white !important;
+	padding: 12px 20px !important;
+	border: none !important;
+	border-radius: 4px !important;
+	font-weight: bold !important;
+	cursor: pointer !important;
+}

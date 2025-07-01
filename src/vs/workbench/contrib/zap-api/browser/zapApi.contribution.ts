@@ -11,10 +11,7 @@ import { SyncDescriptor } from '../../../../platform/instantiation/common/descri
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import * as nls from '../../../../nls.js';
 import { Codicon } from '../../../../base/common/codicons.js';
-import { ZapApiPane } from './zapApiPane.js';
 import { ViewPaneContainer } from '../../../browser/parts/views/viewPaneContainer.js';
-import { ZapApiEditor } from './zapApiEditor.js';
-import { ZapApiEditorInput } from './zapApiEditorInput.js';
 import { ZapFileEditor } from './zapFileEditor.js';
 import { ZapFileEditorInput } from './zapFileEditorInput.js';
 import { EditorPaneDescriptor, IEditorPaneRegistry } from '../../../browser/editor.js';
@@ -45,7 +42,7 @@ const VIEW_CONTAINER = Registry.as<IViewContainersRegistry>(ViewContainerExtensi
 Registry.as<IViewsRegistry>(ViewContainerExtensions.ViewsRegistry).registerViews([{
 	id: VIEW_ID,
 	name: nls.localize2('zapApi.view.title', 'Collections'),
-	ctorDescriptor: new SyncDescriptor(ZapApiPane),
+	ctorDescriptor: new SyncDescriptor(ViewPaneContainer),
 	canToggleVisibility: false,
 	canMoveView: true,
 	containerIcon: Codicon.globe,
@@ -53,16 +50,6 @@ Registry.as<IViewsRegistry>(ViewContainerExtensions.ViewsRegistry).registerViews
 }], VIEW_CONTAINER);
 
 // Register editor panes for Zap API
-Registry.as<IEditorPaneRegistry>(EditorExtensions.EditorPane).registerEditorPane(
-	EditorPaneDescriptor.create(
-		ZapApiEditor,
-		ZapApiEditor.ID,
-		nls.localize('zapApiEditor', 'Zap API Editor')
-	),
-	[new SyncDescriptor(ZapApiEditorInput)]
-);
-
-// Register custom editor pane for .zap files
 Registry.as<IEditorPaneRegistry>(EditorExtensions.EditorPane).registerEditorPane(
 	EditorPaneDescriptor.create(
 		ZapFileEditor,
@@ -107,7 +94,6 @@ MenuRegistry.appendMenuItem(MenuId.EditorTitle, {
 		icon: Codicon.splitHorizontal
 	},
 	when: ContextKeyExpr.or(
-		ContextKeyExpr.equals('activeEditor', ZapApiEditor.ID),
 		ContextKeyExpr.equals('activeEditor', ZapFileEditor.ID),
 		ContextKeyExpr.equals('resourceExtname', '.zap')
 	),

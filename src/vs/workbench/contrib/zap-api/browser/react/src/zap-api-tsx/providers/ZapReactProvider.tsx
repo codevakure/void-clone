@@ -182,7 +182,9 @@ export const ZapReactProvider: React.FC<ZapReactProviderProps> = ({ children }) 
 
 	return (
 		<ZapApiReactContext.Provider value={contextValue}>
-			{children}
+			<div className="void-scope">
+				{children}
+			</div>
 		</ZapApiReactContext.Provider>
 	);
 };
