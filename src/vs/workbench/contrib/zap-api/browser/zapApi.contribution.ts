@@ -84,7 +84,7 @@ MenuRegistry.appendMenuItem(MenuId.EditorTitle, {
 	},
 	when: ContextKeyExpr.or(
 		ContextKeyExpr.equals('activeEditor', ZapApiEditor.ID),
-		ContextKeyExpr.equals('resourceExtname', '.bru')
+		ContextKeyExpr.equals('resourceExtname', '.zap')
 	),
 	group: 'navigation',
 	order: 1

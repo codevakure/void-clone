@@ -16,7 +16,7 @@ import { ServiceCollection } from '../../../../platform/instantiation/common/ser
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { ProgressBar } from '../../../../base/browser/ui/progressbar/progressbar.js';
 import { IThemeService, Themable } from '../../../../platform/theme/common/themeService.js';
-import { editorBackground, contrastBorder } from '../../../../platform/theme/common/colorRegistry.js';
+import { editorBackground } from '../../../../platform/theme/common/colorRegistry.js';
 import { EDITOR_GROUP_HEADER_TABS_BACKGROUND, EDITOR_GROUP_HEADER_NO_TABS_BACKGROUND, EDITOR_GROUP_EMPTY_BACKGROUND, EDITOR_GROUP_HEADER_BORDER, EDITOR_GROUP_BORDER } from '../../../common/theme.js';
 import { ICloseEditorsFilter, GroupsOrder, ICloseEditorOptions, ICloseAllEditorsOptions, IEditorReplacement, IActiveEditorActions } from '../../../services/editor/common/editorGroupsService.js';
 import { EditorPanes } from './editorPanes.js';

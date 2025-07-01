@@ -23,7 +23,7 @@ export const ZAP_API_COMMANDS = {
 	// View Management
 	TOGGLE_VIEW: 'zapApi.toggleView',
 	SHOW_REQUEST_RESPONSE: 'zapApi.showRequestResponse',
-	SHOW_BRU_EDITOR: 'zapApi.showBruEditor',
+	SHOW_ZAP_EDITOR: 'zapApi.showZapEditor',
 
 	// Environment
 	CREATE_ENVIRONMENT: 'zapApi.createEnvironment',
@@ -37,7 +37,7 @@ export const ZAP_API_COMMANDS = {
 
 // File Extensions
 export const ZAP_FILE_EXTENSIONS = {
-	BRU: '.bru',
+	ZAP: '.zap',
 	JSON: '.json'
 } as const;
 
@@ -47,5 +47,5 @@ export const HTTP_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'O
 // View Types
 export const VIEW_TYPES = {
 	REQUEST_RESPONSE: 'request-response',
-	BRU_EDITOR: 'bru-editor'
+	ZAP_EDITOR: 'zap-editor'
 } as const;
