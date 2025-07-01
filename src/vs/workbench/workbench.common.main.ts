@@ -14,7 +14,6 @@ import './browser/workbench.contribution.js';
 
 //#region --- Void
 import './contrib/void/browser/void.contribution.js'; // Void added this
-import './contrib/zap-api/browser/zapApi.contribution.js'; // Zap API Testing
 //#endregion
 
 //#region --- workbench actions
