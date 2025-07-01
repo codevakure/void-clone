@@ -20308,10 +20308,10 @@ var require_jsx_runtime = __commonJS({
   }
 });
 
-// src2/zap-api-tsx/index.tsx
+// src/zap-api-tsx/index.tsx
 var import_client = __toESM(require_client(), 1);
 
-// src2/zap-api-tsx/providers/ZapReactProvider.tsx
+// src/zap-api-tsx/providers/ZapReactProvider.tsx
 var React = __toESM(require_react(), 1);
 var import_react = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -20444,10 +20444,10 @@ var ZapReactProvider = /* @__PURE__ */ __name(({ children }) => {
     state,
     actions
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZapApiReactContext.Provider, { value: contextValue, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "void-void-scope", children }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZapApiReactContext.Provider, { value: contextValue, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "void-scope", children }) });
 }, "ZapReactProvider");
 
-// src2/zap-api-tsx/views/CollectionView.tsx
+// src/zap-api-tsx/views/CollectionView.tsx
 var React2 = __toESM(require_react(), 1);
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 var CollectionView = /* @__PURE__ */ __name(({
@@ -20508,49 +20508,45 @@ var CollectionView = /* @__PURE__ */ __name(({
       environments: []
     }
   ];
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-h-full void-void-flex void-void-flex-col void-void-bg-[var(--vscode-sideBar-background)] void-void-text-[var(--vscode-sideBar-foreground)]", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-p-4 void-void-border-b void-void-border-[var(--vscode-sideBar-border)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h2", { className: "void-void-text-lg void-void-font-semibold void-void-mb-2", children: "Collections" }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-flex void-void-space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { className: "void-void-px-3 void-void-py-1 void-void-text-xs void-void-bg-[var(--vscode-button-background)] void-void-text-[var(--vscode-button-foreground)] void-void-rounded hover:void-void-bg-[var(--vscode-button-hoverBackground)]", children: "+ New" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { className: "void-void-px-3 void-void-py-1 void-void-text-xs void-void-bg-[var(--vscode-button-secondaryBackground)] void-void-text-[var(--vscode-button-secondaryForeground)] void-void-rounded hover:void-void-bg-[var(--vscode-button-secondaryHoverBackground)]", children: "Import" })
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-h-full void-flex void-flex-col void-bg-[var(--vscode-sideBar-background)] void-text-[var(--vscode-sideBar-foreground)]", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-p-4 void-border-b void-border-[var(--vscode-sideBar-border)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h2", { className: "void-text-lg void-font-semibold void-mb-2", children: "Collections" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-flex void-space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { className: "void-px-3 void-py-1 void-text-xs void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)]", children: "+ New" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { className: "void-px-3 void-py-1 void-text-xs void-bg-[var(--vscode-button-secondaryBackground)] void-text-[var(--vscode-button-secondaryForeground)] void-rounded hover:void-bg-[var(--vscode-button-secondaryHoverBackground)]", children: "Import" })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-void-flex-1 void-void-overflow-y-auto", children: mockCollections2.map(
-      (collection) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-border-b void-void-border-[var(--vscode-sideBar-border)]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
-          "div",
-          {
-            className: "void-void-flex void-void-items-center void-void-p-3 void-void-cursor-pointer hover:void-void-bg-[var(--vscode-list-hoverBackground)]",
-            onClick: () => toggleCollection(collection.id),
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-mr-2 void-void-text-xs", children: expandedCollections.has(collection.id) ? "\u25BC" : "\u25B6" }),
-              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-font-medium", children: collection.name }),
-              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-ml-auto void-void-text-xs void-void-text-[var(--vscode-descriptionForeground)]", children: collection.requests.length })
-            ]
-          }
-        ),
-        expandedCollections.has(collection.id) && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-void-ml-4", children: collection.requests.map(
-          (request) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
-            "div",
-            {
-              className: "void-void-flex void-void-items-center void-void-p-2 void-void-pl-6 void-void-cursor-pointer hover:void-void-bg-[var(--vscode-list-hoverBackground)] void-void-border-l-2 void-void-border-transparent hover:void-void-border-[var(--vscode-focusBorder)]",
-              onClick: () => handleOpenRequest(request, collection.id),
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-void-px-2 void-void-py-0.5 void-void-text-xs void-void-rounded void-void-text-white void-void-font-medium void-void-mr-3 ${request.method === "GET" ? "void-void-bg-green-600" : request.method === "POST" ? "void-void-bg-blue-600" : request.method === "PUT" ? "void-void-bg-yellow-600" : request.method === "DELETE" ? "void-void-bg-red-600" : "void-void-bg-gray-600"}`, children: request.method }),
-                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-text-sm", children: request.name })
-              ]
-            },
-            request.id
-          )
-        ) })
-      ] }, collection.id)
-    ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-void-p-3 void-void-border-t void-void-border-[var(--vscode-sideBar-border)] void-void-text-xs void-void-text-[var(--vscode-descriptionForeground)]", children: "\u26A1 Click on requests to open them as editors" })
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-flex-1 void-overflow-y-auto", children: mockCollections2.map((collection) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-border-b void-border-[var(--vscode-sideBar-border)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+        "div",
+        {
+          className: "void-flex void-items-center void-p-3 void-cursor-pointer hover:void-bg-[var(--vscode-list-hoverBackground)]",
+          onClick: () => toggleCollection(collection.id),
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-mr-2 void-text-xs", children: expandedCollections.has(collection.id) ? "\u25BC" : "\u25B6" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-font-medium", children: collection.name }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-ml-auto void-text-xs void-text-[var(--vscode-descriptionForeground)]", children: collection.requests.length })
+          ]
+        }
+      ),
+      expandedCollections.has(collection.id) && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-ml-4", children: collection.requests.map((request) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+        "div",
+        {
+          className: "void-flex void-items-center void-p-2 void-pl-6 void-cursor-pointer hover:void-bg-[var(--vscode-list-hoverBackground)] void-border-l-2 void-border-transparent hover:void-border-[var(--vscode-focusBorder)]",
+          onClick: () => handleOpenRequest(request, collection.id),
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-px-2 void-py-0.5 void-text-xs void-rounded void-text-white void-font-medium void-mr-3 ${request.method === "GET" ? "void-bg-green-600" : request.method === "POST" ? "void-bg-blue-600" : request.method === "PUT" ? "void-bg-yellow-600" : request.method === "DELETE" ? "void-bg-red-600" : "void-bg-gray-600"}`, children: request.method }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm", children: request.name })
+          ]
+        },
+        request.id
+      )) })
+    ] }, collection.id)) }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-p-3 void-border-t void-border-[var(--vscode-sideBar-border)] void-text-xs void-text-[var(--vscode-descriptionForeground)]", children: "\u26A1 Click on requests to open them as editors" })
   ] });
 }, "CollectionView");
 
-// src2/zap-api-tsx/views/RequestResponseEditor.tsx
+// src/zap-api-tsx/views/RequestResponseEditor.tsx
 var React3 = __toESM(require_react(), 1);
 var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var RequestResponseEditor = /* @__PURE__ */ __name(({
@@ -20579,87 +20575,83 @@ var RequestResponseEditor = /* @__PURE__ */ __name(({
       console.error("Request failed:", error);
     }
   }, "handleSendRequest");
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-h-full void-void-bg-[var(--vscode-editor-background)] void-void-text-[var(--vscode-editor-foreground)] void-void-flex void-void-flex-col", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-justify-between void-void-p-3 void-void-border-b void-void-border-[var(--vscode-panel-border)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: `void-void-px-2 void-void-py-1 void-void-text-xs void-void-rounded void-void-text-white void-void-font-medium ${request.method === "GET" ? "void-void-bg-green-600" : request.method === "POST" ? "void-void-bg-blue-600" : request.method === "PUT" ? "void-void-bg-yellow-600" : request.method === "DELETE" ? "void-void-bg-red-600" : "void-void-bg-gray-600"}`, children: request.method }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-sm void-void-font-medium", children: request.name })
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-h-full void-bg-[var(--vscode-editor-background)] void-text-[var(--vscode-editor-foreground)] void-flex void-flex-col", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-flex void-items-center void-justify-between void-p-3 void-border-b void-border-[var(--vscode-panel-border)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-flex void-items-center void-space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: `void-px-2 void-py-1 void-text-xs void-rounded void-text-white void-font-medium ${request.method === "GET" ? "void-bg-green-600" : request.method === "POST" ? "void-bg-blue-600" : request.method === "PUT" ? "void-bg-yellow-600" : request.method === "DELETE" ? "void-bg-red-600" : "void-bg-gray-600"}`, children: request.method }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-text-sm void-font-medium", children: request.name })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-flex void-void-items-center void-void-space-x-2", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-flex void-items-center void-space-x-2", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
         "button",
         {
-          className: "void-void-px-4 void-void-py-1 void-void-text-sm void-void-bg-[var(--vscode-button-background)] void-void-text-[var(--vscode-button-foreground)] void-void-rounded hover:void-void-bg-[var(--vscode-button-hoverBackground)] disabled:void-void-opacity-50",
+          className: "void-px-4 void-py-1 void-text-sm void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)] disabled:void-opacity-50",
           onClick: handleSendRequest,
           disabled: isLoading,
           children: isLoading ? "Sending..." : "Send"
         }
       ) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex-1 void-void-flex", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-w-1/2 void-void-border-r void-void-border-[var(--vscode-panel-border)] void-void-flex void-void-flex-col", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-p-2 void-void-border-b void-void-border-[var(--vscode-panel-border)] void-void-bg-[var(--vscode-tab-activeBackground)]", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-sm void-void-font-semibold", children: "Request" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex-1 void-void-p-3 void-void-overflow-y-auto void-void-space-y-4", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-flex-1 void-flex", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-w-1/2 void-border-r void-border-[var(--vscode-panel-border)] void-flex void-flex-col", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-p-2 void-border-b void-border-[var(--vscode-panel-border)] void-bg-[var(--vscode-tab-activeBackground)]", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-text-sm void-font-semibold", children: "Request" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-flex-1 void-p-3 void-overflow-y-auto void-space-y-4", children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "URL" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-bg-[var(--vscode-input-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3 void-void-text-sm void-void-font-mono", children: request.url || "No URL specified" })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium", children: "URL" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3 void-text-sm void-font-mono", children: request.url || "No URL specified" })
           ] }),
           request.headers && Object.keys(request.headers).length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "Headers" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-bg-[var(--vscode-input-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: Object.entries(request.headers).map(
-              ([key, value]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-justify-between void-void-py-1 void-void-text-sm", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-void-font-medium", children: [
-                  key,
-                  ":"
-                ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-[var(--vscode-descriptionForeground)]", children: value })
-              ] }, key)
-            ) })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium", children: "Headers" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3", children: Object.entries(request.headers).map(([key, value]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-flex void-justify-between void-py-1 void-text-sm", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-font-medium", children: [
+                key,
+                ":"
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-text-[var(--vscode-descriptionForeground)]", children: value })
+            ] }, key)) })
           ] }),
           request.body && request.body.content && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "Body" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { className: "void-void-text-sm void-void-whitespace-pre-wrap void-void-font-mono void-void-bg-[var(--vscode-textCodeBlock-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: request.body.content })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium", children: "Body" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { className: "void-text-sm void-whitespace-pre-wrap void-font-mono void-bg-[var(--vscode-textCodeBlock-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3", children: request.body.content })
           ] }),
-          (!request.body || !request.body.content) && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-text-[var(--vscode-descriptionForeground)] void-void-text-sm void-void-p-3 void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded", children: "No request body" })
+          (!request.body || !request.body.content) && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-text-[var(--vscode-descriptionForeground)] void-text-sm void-p-3 void-border void-border-[var(--vscode-input-border)] void-rounded", children: "No request body" })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-w-1/2 void-void-flex void-void-flex-col", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-p-2 void-void-border-b void-void-border-[var(--vscode-panel-border)] void-void-bg-[var(--vscode-tab-activeBackground)] void-void-flex void-void-items-center void-void-justify-between", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-sm void-void-font-semibold", children: "Response" }),
-          response && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-space-x-2 void-void-text-xs", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: `void-void-px-2 void-void-py-1 void-void-rounded ${response.status >= 200 && response.status < 300 ? "void-void-bg-green-600 void-void-text-white" : response.status >= 400 ? "void-void-bg-red-600 void-void-text-white" : "void-void-bg-yellow-600 void-void-text-white"}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-w-1/2 void-flex void-flex-col", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-p-2 void-border-b void-border-[var(--vscode-panel-border)] void-bg-[var(--vscode-tab-activeBackground)] void-flex void-items-center void-justify-between", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-text-sm void-font-semibold", children: "Response" }),
+          response && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-flex void-items-center void-space-x-2 void-text-xs", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: `void-px-2 void-py-1 void-rounded ${response.status >= 200 && response.status < 300 ? "void-bg-green-600 void-text-white" : response.status >= 400 ? "void-bg-red-600 void-text-white" : "void-bg-yellow-600 void-text-white"}`, children: [
               response.status,
               " ",
               response.statusText
             ] }),
-            response.responseTime && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-void-text-[var(--vscode-descriptionForeground)]", children: [
+            response.responseTime && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-text-[var(--vscode-descriptionForeground)]", children: [
               response.responseTime,
               "ms"
             ] }),
-            response.size && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-void-text-[var(--vscode-descriptionForeground)]", children: [
+            response.size && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-text-[var(--vscode-descriptionForeground)]", children: [
               response.size,
               "B"
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-flex-1 void-void-p-3", children: response ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-space-y-4", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-flex-1 void-p-3", children: response ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-space-y-4", children: [
           response.headers && Object.keys(response.headers).length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "Response Headers" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-bg-[var(--vscode-input-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: Object.entries(response.headers).map(
-              ([key, value]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-flex void-void-justify-between void-void-py-1 void-void-text-sm", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-void-font-medium", children: [
-                  key,
-                  ":"
-                ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-void-text-[var(--vscode-descriptionForeground)]", children: value })
-              ] }, key)
-            ) })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium", children: "Response Headers" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3", children: Object.entries(response.headers).map(([key, value]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-flex void-justify-between void-py-1 void-text-sm", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "void-font-medium", children: [
+                key,
+                ":"
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "void-text-[var(--vscode-descriptionForeground)]", children: value })
+            ] }, key)) })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium", children: "Response Body" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { className: "void-void-text-sm void-void-whitespace-pre-wrap void-void-font-mono void-void-bg-[var(--vscode-textCodeBlock-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: response.body || "No response body" })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium", children: "Response Body" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { className: "void-text-sm void-whitespace-pre-wrap void-font-mono void-bg-[var(--vscode-textCodeBlock-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3", children: response.body || "No response body" })
           ] })
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-flex void-void-items-center void-void-justify-center void-void-h-32", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-text-center void-void-text-[var(--vscode-descriptionForeground)]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-text-4xl void-void-mb-2", children: "\u26A1" }),
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-flex void-items-center void-justify-center void-h-32", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-text-center void-text-[var(--vscode-descriptionForeground)]", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-text-4xl void-mb-2", children: "\u26A1" }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: 'Click "Send" to execute the request' })
         ] }) }) })
       ] })
@@ -20667,7 +20659,7 @@ var RequestResponseEditor = /* @__PURE__ */ __name(({
   ] });
 }, "RequestResponseEditor");
 
-// src2/zap-api-tsx/index.tsx
+// src/zap-api-tsx/index.tsx
 var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
 var rootMap = /* @__PURE__ */ new WeakMap();
 var mountZapApi = /* @__PURE__ */ __name((rootElement) => {
