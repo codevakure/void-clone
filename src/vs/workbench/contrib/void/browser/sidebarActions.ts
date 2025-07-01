@@ -233,7 +233,7 @@ registerAction2(class extends Action2 {
 			voidChatControls.showChatHistory();
 		} else {
 			// Fallback: If React component isn't ready, log a warning
-			console.warn('Void chat controls not available yet. Make sure the chat component is mounted.');
+			console.warn('ZapBot controls not available yet. Make sure the chat component is mounted.');
 		}
 	}
 })

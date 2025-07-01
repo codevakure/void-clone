@@ -157,13 +157,12 @@
 	border: 1px solid var(--vscode-commandCenter-border);
 	overflow: hidden;
 	margin: 0 6px;
-	border-top-left-radius: 6px;
-	border-bottom-left-radius: 6px;
-	border-top-right-radius: 6px;
-	border-bottom-right-radius: 6px;
-	height: 22px;
-	width: 38vw;
-	max-width: 600px;
+	border-radius: 8px;
+	height: 26px;
+	width: 280px;
+	max-width: 320px;
+	min-width: 200px;
+	transition: all 0.15s ease;
 }
 
 .monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .window-title > .command-center .action-item.command-center-center .action-item.command-center-quick-pick {
@@ -172,12 +171,16 @@
 	overflow: hidden;
 	margin: auto;
 	max-width: 600px;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	min-height: 26px;
 }
 
 .monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .window-title > .command-center .action-item.command-center-center .action-item.command-center-quick-pick .search-icon {
-	font-size: 14px;
-	opacity: .8;
-	margin: auto 3px;
+	font-size: 13px;
+	opacity: .7;
+	margin: auto 6px auto 8px;
 	color: var(--vscode-commandCenter-foreground);
 }
 
@@ -188,6 +191,9 @@
 .monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .window-title > .command-center .action-item.command-center-center .action-item.command-center-quick-pick .search-label {
 	overflow: hidden;
 	text-overflow: ellipsis;
+	font-size: 12px;
+	font-weight: 500;
+	margin-right: 8px;
 }
 
 .monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .window-title > .command-center .action-item.command-center-center.multiple {
@@ -212,6 +218,8 @@
 	color: var(--vscode-commandCenter-activeForeground);
 	background-color: var(--vscode-commandCenter-activeBackground);
 	border-color: var(--vscode-commandCenter-activeBorder);
+	transform: translateY(-0.5px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Menubar */
@@ -533,4 +541,154 @@
 	padding: 0 2px;
 	border-radius: 16px;
 	text-align: center;
+}
+
+/* Navigation Actions in Layout Control Menu (right side of title bar) */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.codicon-arrow-left,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.codicon-arrow-right,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Go Back"],
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Go Forward"] {
+	margin-right: 4px;
+	order: -1; /* Place navigation actions before layout actions */
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.codicon-arrow-left .action-label,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.codicon-arrow-right .action-label,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Go Back"] .action-label,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Go Forward"] .action-label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 4px;
+	transition: background-color 0.15s ease;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.codicon-arrow-left .action-label:hover,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.codicon-arrow-right .action-label:hover,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Go Back"] .action-label:hover,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Go Forward"] .action-label:hover {
+	background-color: var(--vscode-toolbar-hoverBackground);
+}
+
+/* Add margin to the first navigation action */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.codicon-arrow-left:first-child,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Go Back"]:first-child {
+	margin-left: 8px;
+}
+
+/* Add a subtle separator after navigation actions */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item.codicon-arrow-right::after,
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Go Forward"]::after {
+	content: '';
+	position: absolute;
+	right: -8px;
+	top: 6px;
+	height: 16px;
+	width: 1px;
+	background-color: var(--vscode-titleBar-border, var(--vscode-contrastBorder));
+	opacity: 0.3;
+}
+
+/* Modern Command Center Search Bar - additional improvements */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .window-title > .command-center .action-item.command-center-center.active {
+	background-color: var(--vscode-commandCenter-activeBackground);
+	border-color: var(--vscode-commandCenter-activeBorder);
+	box-shadow: 0 0 0 1px var(--vscode-focusBorder, var(--vscode-commandCenter-activeBorder));
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .window-title > .command-center .action-item.command-center-center .action-item.command-center-quick-pick {
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	min-height: 26px;
+}
+
+/* Ensure proper spacing in the center section */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center {
+	min-width: 200px;
+	flex-shrink: 0;
+}
+
+/* Responsive behavior for smaller screens */
+@media (max-width: 1200px) {
+	.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .window-title > .command-center .action-item.command-center-center {
+		width: 240px;
+		min-width: 180px;
+	}
+}
+
+@media (max-width: 900px) {
+	.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .window-title > .command-center .action-item.command-center-center {
+		width: 200px;
+		min-width: 160px;
+	}
+}
+
+/* Bot Auxiliary Bar Action in Layout Control Menu */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item .codicon.codicon-robot {
+	font-size: 16px;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Auxiliary"] .action-label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 4px;
+	transition: background-color 0.15s ease;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item[aria-label*="Auxiliary"] .action-label:hover {
+	background-color: var(--vscode-toolbar-hoverBackground);
+}
+
+/* Ensure proper spacing between all right-side actions */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item {
+	margin-right: 2px;
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item:last-child {
+	margin-right: 0;
+}
+
+/* Bot Auxiliary Bar PNG Icon */
+.monaco-workbench .part.titlebar .action-item .action-label.bot-auxiliary-icon {
+	background-image: url('../../../../../../../void_icons/bot.png') !important;
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
+	background-size: 16px 16px !important;
+	width: 28px !important;
+	height: 28px !important;
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	transition: background-color 0.15s ease;
+}
+
+.monaco-workbench .part.titlebar .action-item .action-label.bot-auxiliary-icon:hover {
+	background-color: var(--vscode-toolbar-hoverBackground) !important;
+}
+
+/* More specific override for right-side toolbar */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-right > .action-toolbar-container .monaco-action-bar .action-item .action-label.bot-auxiliary-icon {
+	background-image: url('../../../../../../../void_icons/bot.png') !important;
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
+	background-size: 16px 16px !important;
+	width: 28px !important;
+	height: 28px !important;
+}
+
+/* Even more specific for center toolbar if it appears there */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-center > .center-action-toolbar-container .monaco-action-bar .action-item .action-label.bot-auxiliary-icon {
+	background-image: url('../../../../../../../void_icons/bot.png') !important;
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
+	background-size: 16px 16px !important;
+	width: 28px !important;
+	height: 28px !important;
 }

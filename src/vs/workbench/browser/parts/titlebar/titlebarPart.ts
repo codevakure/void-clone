@@ -55,12 +55,6 @@ import { IHoverDelegate } from '../../../../base/browser/ui/hover/hoverDelegate.
 import { CommandsRegistry } from '../../../../platform/commands/common/commands.js';
 import { safeIntl } from '../../../../base/common/date.js';
 import { TitleBarVisibleContext } from '../../../common/contextkeys.js';
-import { Codicon } from '../../../../base/common/codicons.js';
-import { registerIcon } from '../../../../platform/theme/common/iconRegistry.js';
-import { ThemeIcon } from '../../../../base/common/themables.js';
-
-// Bot icon for center auxiliary bar action
-const auxiliaryBarBotIcon = registerIcon('auxiliarybar-bot-icon', Codicon.robot, localize('toggleAuxiliaryBot', 'Bot icon for auxiliary bar toggle.'));
 
 export interface ITitleVariable {
 	readonly name: string;
@@ -659,12 +653,12 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 		// Create a bot version of the auxiliary bar action
 		const originalAction = this.getAuxiliaryBarAction();
 		if (originalAction) {
-			// Create a wrapper action with bot icon using the registered icon
+			// Create a wrapper action with PNG bot icon
 			return {
 				id: originalAction.id + '.bot',
 				label: originalAction.label,
 				tooltip: originalAction.tooltip,
-				class: ThemeIcon.asClassName(auxiliaryBarBotIcon),
+				class: 'bot-auxiliary-icon',
 				enabled: originalAction.enabled,
 				checked: originalAction.checked,
 				run: () => originalAction.run()
@@ -724,6 +718,12 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 					actions,
 					() => !this.editorActionsEnabled // Layout Actions in overflow menu when editor actions enabled in title bar
 				);
+
+				// Add bot auxiliary bar action to layout actions
+				const botAuxiliaryBarAction = this.getBotAuxiliaryBarAction();
+				if (botAuxiliaryBarAction) {
+					actions.primary.push(botAuxiliaryBarAction);
+				}
 			}
 
 			// --- Activity Actions (always at the end)
@@ -735,8 +735,8 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 				actions.primary.push(GLOBAL_ACTIVITY_TITLE_ACTION);
 			} this.actionToolBar.setActions(prepareActions(actions.primary), prepareActions(actions.secondary));
 
-			// Update center toolbar with auxiliary bar action
-			this.updateLeftActionToolBar();
+			// Clear center toolbar since bot action is now in layout actions
+			this.centerActionToolBar.setActions([], []);
 		};
 
 		// Create/Update the menus which should be in the title tool bar
@@ -768,7 +768,7 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 				this.layoutToolbarMenu = undefined;
 			}
 
-			// Update center toolbar when layout actions change
+			// Update toolbar actions when layout actions change
 			updateToolBarActions();
 		}
 

@@ -42,7 +42,7 @@ import { SwitchCompositeViewAction } from '../compositeBarActions.js';
 
 export class ActivitybarPart extends Part {
 
-	static readonly ACTION_HEIGHT = 48;
+	static readonly ACTION_HEIGHT = 44;
 
 	static readonly pinnedViewContainersKey = 'workbench.activity.pinnedViewlets2';
 	static readonly placeholderViewContainersKey = 'workbench.activity.placeholderViewlets';
@@ -50,8 +50,8 @@ export class ActivitybarPart extends Part {
 
 	//#region IView
 
-	readonly minimumWidth: number = 48;
-	readonly maximumWidth: number = 48;
+	readonly minimumWidth: number = 44;
+	readonly maximumWidth: number = 44;
 	readonly minimumHeight: number = 0;
 	readonly maximumHeight: number = Number.POSITIVE_INFINITY;
 
@@ -82,14 +82,14 @@ export class ActivitybarPart extends Part {
 			viewContainersWorkspaceStateKey: ActivitybarPart.viewContainersWorkspaceStateKey,
 			orientation: ActionsOrientation.VERTICAL,
 			icon: true,
-			iconSize: 24,
+			iconSize: 16,
 			activityHoverOptions: {
 				position: () => this.layoutService.getSideBarPosition() === Position.LEFT ? HoverPosition.RIGHT : HoverPosition.LEFT,
 			},
 			preventLoopNavigation: true,
 			recomputeSizes: false,
 			fillExtraContextMenuActions: (actions, e?: MouseEvent | GestureEvent) => { },
-			compositeSize: 52,
+			compositeSize: 44,
 			colors: (theme: IColorTheme) => ({
 				activeForegroundColor: theme.getColor(ACTIVITY_BAR_FOREGROUND),
 				inactiveForegroundColor: theme.getColor(ACTIVITY_BAR_INACTIVE_FOREGROUND),
@@ -578,7 +578,7 @@ registerThemingParticipant((theme, collector) => {
 	if (activityBarActiveBorderColor) {
 		collector.addRule(`
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .active-item-indicator:before {
-				border-left-color: ${activityBarActiveBorderColor};
+				background-color: ${activityBarActiveBorderColor};
 			}
 		`);
 	}
@@ -592,7 +592,7 @@ registerThemingParticipant((theme, collector) => {
 
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked:focus .active-item-indicator:before {
 				visibility: visible;
-				border-left-color: ${activityBarActiveFocusBorderColor};
+				background-color: ${activityBarActiveFocusBorderColor};
 			}
 		`);
 	}
@@ -600,9 +600,17 @@ registerThemingParticipant((theme, collector) => {
 	const activityBarActiveBackgroundColor = theme.getColor(ACTIVITY_BAR_ACTIVE_BACKGROUND);
 	if (activityBarActiveBackgroundColor) {
 		collector.addRule(`
-			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .active-item-indicator {
-				z-index: 0;
-				background-color: ${activityBarActiveBackgroundColor};
+			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .active-item-indicator:before {
+				background-color: ${activityBarActiveBackgroundColor} !important;
+			}
+		`);
+	} else {
+		// Fallback when no active background color is defined
+		const isDark = theme.type === 'dark' || theme.type === 'hcDark';
+		const fallbackColor = isDark ? 'rgba(255, 255, 255, 0.16)' : 'rgba(0, 0, 0, 0.12)';
+		collector.addRule(`
+			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .active-item-indicator:before {
+				background-color: ${fallbackColor} !important;
 			}
 		`);
 	}
@@ -612,7 +620,7 @@ registerThemingParticipant((theme, collector) => {
 	if (outline) {
 		collector.addRule(`
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item .action-label::before{
-				padding: 6px;
+				padding: 4px;
 			}
 
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.active .action-label::before,
@@ -620,14 +628,16 @@ registerThemingParticipant((theme, collector) => {
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .action-label::before,
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked:hover .action-label::before {
 				outline: 1px solid ${outline};
+				border-radius: 6px;
 			}
 
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item:hover .action-label::before {
 				outline: 1px dashed ${outline};
+				border-radius: 6px;
 			}
 
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item:focus .active-item-indicator:before {
-				border-left-color: ${outline};
+				border: 1px solid ${outline};
 			}
 		`);
 	}
@@ -638,7 +648,7 @@ registerThemingParticipant((theme, collector) => {
 		if (focusBorderColor) {
 			collector.addRule(`
 				.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item:focus .active-item-indicator::before {
-						border-left-color: ${focusBorderColor};
+						border: 1px solid ${focusBorderColor};
 					}
 				`);
 		}

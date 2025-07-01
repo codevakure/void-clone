@@ -3173,7 +3173,7 @@ export const SidebarChat = () => {
 				<div className='mb-6 text-void-fg-3'>
 					<VoidChatIcon />
 				</div>
-				<h2 className='text-lg font-medium text-void-fg-1 mb-2'>Welcome to Void Chat</h2>
+				<h2 className='text-lg font-medium text-void-fg-1 mb-2'>Welcome to ZapBot</h2>
 				<p className='text-sm text-void-fg-3 mb-8 max-w-sm'>
 					Start a conversation by typing a message below
 				</p>
