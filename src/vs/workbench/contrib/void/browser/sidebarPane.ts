@@ -44,7 +44,7 @@ import { ServicesAccessor } from '../../../../editor/browser/editorExtensions.js
 import { IViewsService } from '../../../services/views/common/viewsService.js';
 
 // Commented out imports - used by the removed SidebarStartContribution
-// These were used for auto-opening the void chat sidebar on startup
+// These were used for auto-opening the ZapBot sidebar on startup
 // import { ICommandService } from '../../../../platform/commands/common/commands.js';
 // import { IWorkbenchContribution, registerWorkbenchContribution2, WorkbenchPhase } from '../../../common/contributions.js';
 
@@ -101,7 +101,7 @@ class SidebarViewPane extends ViewPane {
 // ---------- Register viewpane inside the void container ----------
 
 // const voidThemeIcon = Codicon.symbolObject;
-// const voidViewIcon = registerIcon('void-view-icon', voidThemeIcon, localize('voidViewIcon', 'View icon of the Void chat view.'));
+// const voidViewIcon = registerIcon('void-view-icon', voidThemeIcon, localize('voidViewIcon', 'View icon of the ZapBot view.'));
 
 // called VIEWLET_ID in other places for some reason
 export const VOID_VIEW_CONTAINER_ID = 'workbench.view.void'
@@ -166,10 +166,10 @@ registerAction2(class extends Action2 {
 	}
 });
 
-// Removed SidebarStartContribution to prevent auto-opening void chat sidebar on startup
+// Removed SidebarStartContribution to prevent auto-opening ZapBot sidebar on startup
 // This ensures the auxiliary bar remains closed by default as intended
 //
-// DEVELOPER NOTE: The original implementation automatically opened the void chat sidebar
+// DEVELOPER NOTE: The original implementation automatically opened the ZapBot sidebar
 // during the WorkbenchPhase.AfterRestored phase, which caused the auxiliary bar to appear
 // even when users wanted it to remain closed. By commenting this out, we respect the
 // default auxiliary bar hidden state (AUXILIARYBAR_HIDDEN: true) set in layout.ts.
