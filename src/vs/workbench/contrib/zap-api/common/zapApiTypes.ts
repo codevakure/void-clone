@@ -62,7 +62,7 @@ export interface BruFile {
 export interface ZapApiViewState {
 	selectedCollection?: string;
 	selectedRequest?: string;
-	activeView: 'request-response' | 'bru-editor';
+	activeView: 'request-response' | 'zap-editor';
 	splitView: {
 		requestBodyVisible: boolean;
 		responseBodyVisible: boolean;

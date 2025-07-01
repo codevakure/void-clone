@@ -5,12 +5,12 @@
 
 import { ZapRequest } from './zapApiTypes.js';
 
-export class BruParser {
+export class ZapParser {
 
 	/**
-	 * Parse a .bru file content into a ZapRequest object
+	 * Parse a .zap file content into a ZapRequest object
 	 */
-	static parseBruFile(content: string): ZapRequest {
+	static parseZapFile(content: string): ZapRequest {
 		const lines = content.split('\n');
 		const request: Partial<ZapRequest> = {
 			id: this.generateId(),

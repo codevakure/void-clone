@@ -5,7 +5,7 @@
 
 import * as React from 'react';
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { ZapCollection, ZapRequest, ZapResponse, ZapEnvironment, ZapApiViewState } from '../../../../common/zapApiTypes.js';
+import { ZapCollection, ZapRequest, ZapResponse, ZapEnvironment, ZapApiViewState } from '../../../../../../zap-api/common/zapApiTypes.js';
 
 export interface ZapApiState {
 	collections: ZapCollection[];
@@ -106,6 +106,24 @@ export const ZapReactProvider: React.FC<ZapReactProviderProps> = ({ children }) 
 		responses: new Map()
 	});
 
+	// Listen for toggle events from VS Code commands
+	React.useEffect(() => {
+		const handleToggle = (event: CustomEvent) => {
+			setState(prev => ({
+				...prev,
+				viewState: {
+					...prev.viewState,
+					activeView: prev.viewState.activeView === 'request-response' ? 'zap-editor' : 'request-response'
+				}
+			}));
+		};
+
+		window.addEventListener('zap-api:toggle-view', handleToggle as EventListener);
+		return () => {
+			window.removeEventListener('zap-api:toggle-view', handleToggle as EventListener);
+		};
+	}, []);
+
 	const actions: ZapApiActions = {
 		setActiveCollection: (collection) => {
 			setState(prev => ({
@@ -151,7 +169,7 @@ export const ZapReactProvider: React.FC<ZapReactProviderProps> = ({ children }) 
 				...prev,
 				viewState: {
 					...prev.viewState,
-					activeView: prev.viewState.activeView === 'request-response' ? 'bru-editor' : 'request-response'
+					activeView: prev.viewState.activeView === 'request-response' ? 'zap-editor' : 'request-response'
 				}
 			}));
 		}

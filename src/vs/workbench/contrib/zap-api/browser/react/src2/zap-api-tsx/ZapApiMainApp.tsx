@@ -4,24 +4,27 @@
  *--------------------------------------------------------------------------------------------*/
 
 import React from 'react';
-import { useZapApi } from './ZapReactProvider.js';
-import { ZapApiCollectionTree } from './ZapApiCollectionTree.js';
-import { ZapApiRequestEditor } from './ZapApiRequestEditor.js';
+import { useZapApi } from './providers/ZapReactProvider.js';
+import { ZapApiCollectionTree } from './views/ZapApiCollectionTree.js';
 
+/**
+ * ZapApiMainApp - Side panel component that only shows the collection tree
+ * This is used in the VS Code side panel to browse collections and open requests
+ */
 export const ZapApiMainApp: React.FC = () => {
   const { state, actions } = useZapApi();
 
   return (
-    <div className="void-void-h-full void-void-flex void-void-flex-col void-void-bg-[var(--vscode-sideBar-background)] void-void-text-[var(--vscode-sideBar-foreground)]">
+    <div className="void-h-full void-flex void-flex-col void-bg-[var(--vscode-sideBar-background)] void-text-[var(--vscode-sideBar-foreground)]">
 			{/* Header */}
-			<div className="void-void-p-4 void-void-border-b void-void-border-[var(--vscode-sideBar-border)]">
-				<h2 className="void-void-text-lg void-void-font-semibold void-void-text-[var(--vscode-sideBarTitle-foreground)]">
-					Collections
+			<div className="void-p-4 void-border-b void-border-[var(--vscode-sideBar-border)]">
+				<h2 className="void-text-lg void-font-semibold void-text-[var(--vscode-sideBarTitle-foreground)]">
+					API Collections
 				</h2>
 				<button
-          className="void-void-mt-2 void-void-px-3 void-void-py-1 void-void-text-sm void-void-bg-[var(--vscode-button-background)] void-void-text-[var(--vscode-button-foreground)] void-void-rounded void-hover:void-void-bg-[var(--vscode-button-hoverBackground)]"
+          className="void-mt-2 void-px-3 void-py-1 void-text-sm void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)]"
           onClick={() => {
-            // Mock: Create new collection
+            // TODO: Implement create new collection
             console.log('Create new collection');
           }}>
           
@@ -30,12 +33,12 @@ export const ZapApiMainApp: React.FC = () => {
 			</div>
 
 			{/* Collections Tree */}
-			<div className="void-void-flex-1 void-void-overflow-auto">
+			<div className="void-flex-1 void-overflow-auto">
 				<ZapApiCollectionTree />
 			</div>
 
 			{/* Status/Info at bottom */}
-			<div className="void-void-p-3 void-void-border-t void-void-border-[var(--vscode-sideBar-border)] void-void-text-xs void-void-text-[var(--vscode-descriptionForeground)]">
+			<div className="void-p-3 void-border-t void-border-[var(--vscode-sideBar-border)] void-text-xs void-text-[var(--vscode-descriptionForeground)]">
 				⚡ Click on requests to open them as editors
 			</div>
 		</div>);

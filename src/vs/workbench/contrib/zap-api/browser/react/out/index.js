@@ -25,6 +25,286 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
+// ../../../../../../../node_modules/scheduler/cjs/scheduler.development.js
+var require_scheduler_development = __commonJS({
+  "../../../../../../../node_modules/scheduler/cjs/scheduler.development.js"(exports) {
+    "use strict";
+    (function() {
+      function performWorkUntilDeadline() {
+        needsPaint = false;
+        if (isMessageLoopRunning) {
+          var currentTime = exports.unstable_now();
+          startTime = currentTime;
+          var hasMoreWork = true;
+          try {
+            a: {
+              isHostCallbackScheduled = false;
+              isHostTimeoutScheduled && (isHostTimeoutScheduled = false, localClearTimeout(taskTimeoutID), taskTimeoutID = -1);
+              isPerformingWork = true;
+              var previousPriorityLevel = currentPriorityLevel;
+              try {
+                b: {
+                  advanceTimers(currentTime);
+                  for (currentTask = peek(taskQueue); null !== currentTask && !(currentTask.expirationTime > currentTime && shouldYieldToHost()); ) {
+                    var callback = currentTask.callback;
+                    if ("function" === typeof callback) {
+                      currentTask.callback = null;
+                      currentPriorityLevel = currentTask.priorityLevel;
+                      var continuationCallback = callback(
+                        currentTask.expirationTime <= currentTime
+                      );
+                      currentTime = exports.unstable_now();
+                      if ("function" === typeof continuationCallback) {
+                        currentTask.callback = continuationCallback;
+                        advanceTimers(currentTime);
+                        hasMoreWork = true;
+                        break b;
+                      }
+                      currentTask === peek(taskQueue) && pop(taskQueue);
+                      advanceTimers(currentTime);
+                    } else pop(taskQueue);
+                    currentTask = peek(taskQueue);
+                  }
+                  if (null !== currentTask) hasMoreWork = true;
+                  else {
+                    var firstTimer = peek(timerQueue);
+                    null !== firstTimer && requestHostTimeout(
+                      handleTimeout,
+                      firstTimer.startTime - currentTime
+                    );
+                    hasMoreWork = false;
+                  }
+                }
+                break a;
+              } finally {
+                currentTask = null, currentPriorityLevel = previousPriorityLevel, isPerformingWork = false;
+              }
+              hasMoreWork = void 0;
+            }
+          } finally {
+            hasMoreWork ? schedulePerformWorkUntilDeadline() : isMessageLoopRunning = false;
+          }
+        }
+      }
+      __name(performWorkUntilDeadline, "performWorkUntilDeadline");
+      function push(heap, node) {
+        var index = heap.length;
+        heap.push(node);
+        a: for (; 0 < index; ) {
+          var parentIndex = index - 1 >>> 1, parent = heap[parentIndex];
+          if (0 < compare(parent, node))
+            heap[parentIndex] = node, heap[index] = parent, index = parentIndex;
+          else break a;
+        }
+      }
+      __name(push, "push");
+      function peek(heap) {
+        return 0 === heap.length ? null : heap[0];
+      }
+      __name(peek, "peek");
+      function pop(heap) {
+        if (0 === heap.length) return null;
+        var first = heap[0], last = heap.pop();
+        if (last !== first) {
+          heap[0] = last;
+          a: for (var index = 0, length = heap.length, halfLength = length >>> 1; index < halfLength; ) {
+            var leftIndex = 2 * (index + 1) - 1, left = heap[leftIndex], rightIndex = leftIndex + 1, right = heap[rightIndex];
+            if (0 > compare(left, last))
+              rightIndex < length && 0 > compare(right, left) ? (heap[index] = right, heap[rightIndex] = last, index = rightIndex) : (heap[index] = left, heap[leftIndex] = last, index = leftIndex);
+            else if (rightIndex < length && 0 > compare(right, last))
+              heap[index] = right, heap[rightIndex] = last, index = rightIndex;
+            else break a;
+          }
+        }
+        return first;
+      }
+      __name(pop, "pop");
+      function compare(a, b) {
+        var diff = a.sortIndex - b.sortIndex;
+        return 0 !== diff ? diff : a.id - b.id;
+      }
+      __name(compare, "compare");
+      function advanceTimers(currentTime) {
+        for (var timer = peek(timerQueue); null !== timer; ) {
+          if (null === timer.callback) pop(timerQueue);
+          else if (timer.startTime <= currentTime)
+            pop(timerQueue), timer.sortIndex = timer.expirationTime, push(taskQueue, timer);
+          else break;
+          timer = peek(timerQueue);
+        }
+      }
+      __name(advanceTimers, "advanceTimers");
+      function handleTimeout(currentTime) {
+        isHostTimeoutScheduled = false;
+        advanceTimers(currentTime);
+        if (!isHostCallbackScheduled)
+          if (null !== peek(taskQueue))
+            isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline());
+          else {
+            var firstTimer = peek(timerQueue);
+            null !== firstTimer && requestHostTimeout(
+              handleTimeout,
+              firstTimer.startTime - currentTime
+            );
+          }
+      }
+      __name(handleTimeout, "handleTimeout");
+      function shouldYieldToHost() {
+        return needsPaint ? true : exports.unstable_now() - startTime < frameInterval ? false : true;
+      }
+      __name(shouldYieldToHost, "shouldYieldToHost");
+      function requestHostTimeout(callback, ms) {
+        taskTimeoutID = localSetTimeout(function() {
+          callback(exports.unstable_now());
+        }, ms);
+      }
+      __name(requestHostTimeout, "requestHostTimeout");
+      "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+      exports.unstable_now = void 0;
+      if ("object" === typeof performance && "function" === typeof performance.now) {
+        var localPerformance = performance;
+        exports.unstable_now = function() {
+          return localPerformance.now();
+        };
+      } else {
+        var localDate = Date, initialTime = localDate.now();
+        exports.unstable_now = function() {
+          return localDate.now() - initialTime;
+        };
+      }
+      var taskQueue = [], timerQueue = [], taskIdCounter = 1, currentTask = null, currentPriorityLevel = 3, isPerformingWork = false, isHostCallbackScheduled = false, isHostTimeoutScheduled = false, needsPaint = false, localSetTimeout = "function" === typeof setTimeout ? setTimeout : null, localClearTimeout = "function" === typeof clearTimeout ? clearTimeout : null, localSetImmediate = "undefined" !== typeof setImmediate ? setImmediate : null, isMessageLoopRunning = false, taskTimeoutID = -1, frameInterval = 5, startTime = -1;
+      if ("function" === typeof localSetImmediate)
+        var schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
+          localSetImmediate(performWorkUntilDeadline);
+        }, "schedulePerformWorkUntilDeadline");
+      else if ("undefined" !== typeof MessageChannel) {
+        var channel = new MessageChannel(), port = channel.port2;
+        channel.port1.onmessage = performWorkUntilDeadline;
+        schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
+          port.postMessage(null);
+        }, "schedulePerformWorkUntilDeadline");
+      } else
+        schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
+          localSetTimeout(performWorkUntilDeadline, 0);
+        }, "schedulePerformWorkUntilDeadline");
+      exports.unstable_IdlePriority = 5;
+      exports.unstable_ImmediatePriority = 1;
+      exports.unstable_LowPriority = 4;
+      exports.unstable_NormalPriority = 3;
+      exports.unstable_Profiling = null;
+      exports.unstable_UserBlockingPriority = 2;
+      exports.unstable_cancelCallback = function(task) {
+        task.callback = null;
+      };
+      exports.unstable_forceFrameRate = function(fps) {
+        0 > fps || 125 < fps ? console.error(
+          "forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported"
+        ) : frameInterval = 0 < fps ? Math.floor(1e3 / fps) : 5;
+      };
+      exports.unstable_getCurrentPriorityLevel = function() {
+        return currentPriorityLevel;
+      };
+      exports.unstable_next = function(eventHandler) {
+        switch (currentPriorityLevel) {
+          case 1:
+          case 2:
+          case 3:
+            var priorityLevel = 3;
+            break;
+          default:
+            priorityLevel = currentPriorityLevel;
+        }
+        var previousPriorityLevel = currentPriorityLevel;
+        currentPriorityLevel = priorityLevel;
+        try {
+          return eventHandler();
+        } finally {
+          currentPriorityLevel = previousPriorityLevel;
+        }
+      };
+      exports.unstable_requestPaint = function() {
+        needsPaint = true;
+      };
+      exports.unstable_runWithPriority = function(priorityLevel, eventHandler) {
+        switch (priorityLevel) {
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+          case 5:
+            break;
+          default:
+            priorityLevel = 3;
+        }
+        var previousPriorityLevel = currentPriorityLevel;
+        currentPriorityLevel = priorityLevel;
+        try {
+          return eventHandler();
+        } finally {
+          currentPriorityLevel = previousPriorityLevel;
+        }
+      };
+      exports.unstable_scheduleCallback = function(priorityLevel, callback, options) {
+        var currentTime = exports.unstable_now();
+        "object" === typeof options && null !== options ? (options = options.delay, options = "number" === typeof options && 0 < options ? currentTime + options : currentTime) : options = currentTime;
+        switch (priorityLevel) {
+          case 1:
+            var timeout = -1;
+            break;
+          case 2:
+            timeout = 250;
+            break;
+          case 5:
+            timeout = 1073741823;
+            break;
+          case 4:
+            timeout = 1e4;
+            break;
+          default:
+            timeout = 5e3;
+        }
+        timeout = options + timeout;
+        priorityLevel = {
+          id: taskIdCounter++,
+          callback,
+          priorityLevel,
+          startTime: options,
+          expirationTime: timeout,
+          sortIndex: -1
+        };
+        options > currentTime ? (priorityLevel.sortIndex = options, push(timerQueue, priorityLevel), null === peek(taskQueue) && priorityLevel === peek(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = true, requestHostTimeout(handleTimeout, options - currentTime))) : (priorityLevel.sortIndex = timeout, push(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline())));
+        return priorityLevel;
+      };
+      exports.unstable_shouldYield = shouldYieldToHost;
+      exports.unstable_wrapCallback = function(callback) {
+        var parentPriorityLevel = currentPriorityLevel;
+        return function() {
+          var previousPriorityLevel = currentPriorityLevel;
+          currentPriorityLevel = parentPriorityLevel;
+          try {
+            return callback.apply(this, arguments);
+          } finally {
+            currentPriorityLevel = previousPriorityLevel;
+          }
+        };
+      };
+      "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+    })();
+  }
+});
+
+// ../../../../../../../node_modules/scheduler/index.js
+var require_scheduler = __commonJS({
+  "../../../../../../../node_modules/scheduler/index.js"(exports, module) {
+    "use strict";
+    if (false) {
+      module.exports = null;
+    } else {
+      module.exports = require_scheduler_development();
+    }
+  }
+});
+
 // ../../../../../../../node_modules/react/cjs/react.development.js
 var require_react_development = __commonJS({
   "../../../../../../../node_modules/react/cjs/react.development.js"(exports, module) {
@@ -1006,286 +1286,6 @@ var require_react = __commonJS({
       module.exports = null;
     } else {
       module.exports = require_react_development();
-    }
-  }
-});
-
-// ../../../../../../../node_modules/scheduler/cjs/scheduler.development.js
-var require_scheduler_development = __commonJS({
-  "../../../../../../../node_modules/scheduler/cjs/scheduler.development.js"(exports) {
-    "use strict";
-    (function() {
-      function performWorkUntilDeadline() {
-        needsPaint = false;
-        if (isMessageLoopRunning) {
-          var currentTime = exports.unstable_now();
-          startTime = currentTime;
-          var hasMoreWork = true;
-          try {
-            a: {
-              isHostCallbackScheduled = false;
-              isHostTimeoutScheduled && (isHostTimeoutScheduled = false, localClearTimeout(taskTimeoutID), taskTimeoutID = -1);
-              isPerformingWork = true;
-              var previousPriorityLevel = currentPriorityLevel;
-              try {
-                b: {
-                  advanceTimers(currentTime);
-                  for (currentTask = peek(taskQueue); null !== currentTask && !(currentTask.expirationTime > currentTime && shouldYieldToHost()); ) {
-                    var callback = currentTask.callback;
-                    if ("function" === typeof callback) {
-                      currentTask.callback = null;
-                      currentPriorityLevel = currentTask.priorityLevel;
-                      var continuationCallback = callback(
-                        currentTask.expirationTime <= currentTime
-                      );
-                      currentTime = exports.unstable_now();
-                      if ("function" === typeof continuationCallback) {
-                        currentTask.callback = continuationCallback;
-                        advanceTimers(currentTime);
-                        hasMoreWork = true;
-                        break b;
-                      }
-                      currentTask === peek(taskQueue) && pop(taskQueue);
-                      advanceTimers(currentTime);
-                    } else pop(taskQueue);
-                    currentTask = peek(taskQueue);
-                  }
-                  if (null !== currentTask) hasMoreWork = true;
-                  else {
-                    var firstTimer = peek(timerQueue);
-                    null !== firstTimer && requestHostTimeout(
-                      handleTimeout,
-                      firstTimer.startTime - currentTime
-                    );
-                    hasMoreWork = false;
-                  }
-                }
-                break a;
-              } finally {
-                currentTask = null, currentPriorityLevel = previousPriorityLevel, isPerformingWork = false;
-              }
-              hasMoreWork = void 0;
-            }
-          } finally {
-            hasMoreWork ? schedulePerformWorkUntilDeadline() : isMessageLoopRunning = false;
-          }
-        }
-      }
-      __name(performWorkUntilDeadline, "performWorkUntilDeadline");
-      function push(heap, node) {
-        var index = heap.length;
-        heap.push(node);
-        a: for (; 0 < index; ) {
-          var parentIndex = index - 1 >>> 1, parent = heap[parentIndex];
-          if (0 < compare(parent, node))
-            heap[parentIndex] = node, heap[index] = parent, index = parentIndex;
-          else break a;
-        }
-      }
-      __name(push, "push");
-      function peek(heap) {
-        return 0 === heap.length ? null : heap[0];
-      }
-      __name(peek, "peek");
-      function pop(heap) {
-        if (0 === heap.length) return null;
-        var first = heap[0], last = heap.pop();
-        if (last !== first) {
-          heap[0] = last;
-          a: for (var index = 0, length = heap.length, halfLength = length >>> 1; index < halfLength; ) {
-            var leftIndex = 2 * (index + 1) - 1, left = heap[leftIndex], rightIndex = leftIndex + 1, right = heap[rightIndex];
-            if (0 > compare(left, last))
-              rightIndex < length && 0 > compare(right, left) ? (heap[index] = right, heap[rightIndex] = last, index = rightIndex) : (heap[index] = left, heap[leftIndex] = last, index = leftIndex);
-            else if (rightIndex < length && 0 > compare(right, last))
-              heap[index] = right, heap[rightIndex] = last, index = rightIndex;
-            else break a;
-          }
-        }
-        return first;
-      }
-      __name(pop, "pop");
-      function compare(a, b) {
-        var diff = a.sortIndex - b.sortIndex;
-        return 0 !== diff ? diff : a.id - b.id;
-      }
-      __name(compare, "compare");
-      function advanceTimers(currentTime) {
-        for (var timer = peek(timerQueue); null !== timer; ) {
-          if (null === timer.callback) pop(timerQueue);
-          else if (timer.startTime <= currentTime)
-            pop(timerQueue), timer.sortIndex = timer.expirationTime, push(taskQueue, timer);
-          else break;
-          timer = peek(timerQueue);
-        }
-      }
-      __name(advanceTimers, "advanceTimers");
-      function handleTimeout(currentTime) {
-        isHostTimeoutScheduled = false;
-        advanceTimers(currentTime);
-        if (!isHostCallbackScheduled)
-          if (null !== peek(taskQueue))
-            isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline());
-          else {
-            var firstTimer = peek(timerQueue);
-            null !== firstTimer && requestHostTimeout(
-              handleTimeout,
-              firstTimer.startTime - currentTime
-            );
-          }
-      }
-      __name(handleTimeout, "handleTimeout");
-      function shouldYieldToHost() {
-        return needsPaint ? true : exports.unstable_now() - startTime < frameInterval ? false : true;
-      }
-      __name(shouldYieldToHost, "shouldYieldToHost");
-      function requestHostTimeout(callback, ms) {
-        taskTimeoutID = localSetTimeout(function() {
-          callback(exports.unstable_now());
-        }, ms);
-      }
-      __name(requestHostTimeout, "requestHostTimeout");
-      "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      exports.unstable_now = void 0;
-      if ("object" === typeof performance && "function" === typeof performance.now) {
-        var localPerformance = performance;
-        exports.unstable_now = function() {
-          return localPerformance.now();
-        };
-      } else {
-        var localDate = Date, initialTime = localDate.now();
-        exports.unstable_now = function() {
-          return localDate.now() - initialTime;
-        };
-      }
-      var taskQueue = [], timerQueue = [], taskIdCounter = 1, currentTask = null, currentPriorityLevel = 3, isPerformingWork = false, isHostCallbackScheduled = false, isHostTimeoutScheduled = false, needsPaint = false, localSetTimeout = "function" === typeof setTimeout ? setTimeout : null, localClearTimeout = "function" === typeof clearTimeout ? clearTimeout : null, localSetImmediate = "undefined" !== typeof setImmediate ? setImmediate : null, isMessageLoopRunning = false, taskTimeoutID = -1, frameInterval = 5, startTime = -1;
-      if ("function" === typeof localSetImmediate)
-        var schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
-          localSetImmediate(performWorkUntilDeadline);
-        }, "schedulePerformWorkUntilDeadline");
-      else if ("undefined" !== typeof MessageChannel) {
-        var channel = new MessageChannel(), port = channel.port2;
-        channel.port1.onmessage = performWorkUntilDeadline;
-        schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
-          port.postMessage(null);
-        }, "schedulePerformWorkUntilDeadline");
-      } else
-        schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
-          localSetTimeout(performWorkUntilDeadline, 0);
-        }, "schedulePerformWorkUntilDeadline");
-      exports.unstable_IdlePriority = 5;
-      exports.unstable_ImmediatePriority = 1;
-      exports.unstable_LowPriority = 4;
-      exports.unstable_NormalPriority = 3;
-      exports.unstable_Profiling = null;
-      exports.unstable_UserBlockingPriority = 2;
-      exports.unstable_cancelCallback = function(task) {
-        task.callback = null;
-      };
-      exports.unstable_forceFrameRate = function(fps) {
-        0 > fps || 125 < fps ? console.error(
-          "forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported"
-        ) : frameInterval = 0 < fps ? Math.floor(1e3 / fps) : 5;
-      };
-      exports.unstable_getCurrentPriorityLevel = function() {
-        return currentPriorityLevel;
-      };
-      exports.unstable_next = function(eventHandler) {
-        switch (currentPriorityLevel) {
-          case 1:
-          case 2:
-          case 3:
-            var priorityLevel = 3;
-            break;
-          default:
-            priorityLevel = currentPriorityLevel;
-        }
-        var previousPriorityLevel = currentPriorityLevel;
-        currentPriorityLevel = priorityLevel;
-        try {
-          return eventHandler();
-        } finally {
-          currentPriorityLevel = previousPriorityLevel;
-        }
-      };
-      exports.unstable_requestPaint = function() {
-        needsPaint = true;
-      };
-      exports.unstable_runWithPriority = function(priorityLevel, eventHandler) {
-        switch (priorityLevel) {
-          case 1:
-          case 2:
-          case 3:
-          case 4:
-          case 5:
-            break;
-          default:
-            priorityLevel = 3;
-        }
-        var previousPriorityLevel = currentPriorityLevel;
-        currentPriorityLevel = priorityLevel;
-        try {
-          return eventHandler();
-        } finally {
-          currentPriorityLevel = previousPriorityLevel;
-        }
-      };
-      exports.unstable_scheduleCallback = function(priorityLevel, callback, options) {
-        var currentTime = exports.unstable_now();
-        "object" === typeof options && null !== options ? (options = options.delay, options = "number" === typeof options && 0 < options ? currentTime + options : currentTime) : options = currentTime;
-        switch (priorityLevel) {
-          case 1:
-            var timeout = -1;
-            break;
-          case 2:
-            timeout = 250;
-            break;
-          case 5:
-            timeout = 1073741823;
-            break;
-          case 4:
-            timeout = 1e4;
-            break;
-          default:
-            timeout = 5e3;
-        }
-        timeout = options + timeout;
-        priorityLevel = {
-          id: taskIdCounter++,
-          callback,
-          priorityLevel,
-          startTime: options,
-          expirationTime: timeout,
-          sortIndex: -1
-        };
-        options > currentTime ? (priorityLevel.sortIndex = options, push(timerQueue, priorityLevel), null === peek(taskQueue) && priorityLevel === peek(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = true, requestHostTimeout(handleTimeout, options - currentTime))) : (priorityLevel.sortIndex = timeout, push(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline())));
-        return priorityLevel;
-      };
-      exports.unstable_shouldYield = shouldYieldToHost;
-      exports.unstable_wrapCallback = function(callback) {
-        var parentPriorityLevel = currentPriorityLevel;
-        return function() {
-          var previousPriorityLevel = currentPriorityLevel;
-          currentPriorityLevel = parentPriorityLevel;
-          try {
-            return callback.apply(this, arguments);
-          } finally {
-            currentPriorityLevel = previousPriorityLevel;
-          }
-        };
-      };
-      "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
-    })();
-  }
-});
-
-// ../../../../../../../node_modules/scheduler/index.js
-var require_scheduler = __commonJS({
-  "../../../../../../../node_modules/scheduler/index.js"(exports, module) {
-    "use strict";
-    if (false) {
-      module.exports = null;
-    } else {
-      module.exports = require_scheduler_development();
     }
   }
 });
@@ -20309,10 +20309,10 @@ var require_jsx_runtime = __commonJS({
 });
 
 // src2/zap-api-tsx/index.tsx
-var import_react2 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
-// src2/zap-api-tsx/ZapReactProvider.tsx
+// src2/zap-api-tsx/providers/ZapReactProvider.tsx
+var React = __toESM(require_react(), 1);
 var import_react = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
 var ZapApiReactContext = (0, import_react.createContext)(null);
@@ -20383,6 +20383,21 @@ var ZapReactProvider = /* @__PURE__ */ __name(({ children }) => {
     },
     responses: /* @__PURE__ */ new Map()
   });
+  React.useEffect(() => {
+    const handleToggle = /* @__PURE__ */ __name((event) => {
+      setState((prev) => ({
+        ...prev,
+        viewState: {
+          ...prev.viewState,
+          activeView: prev.viewState.activeView === "request-response" ? "zap-editor" : "request-response"
+        }
+      }));
+    }, "handleToggle");
+    window.addEventListener("zap-api:toggle-view", handleToggle);
+    return () => {
+      window.removeEventListener("zap-api:toggle-view", handleToggle);
+    };
+  }, []);
   const actions = {
     setActiveCollection: /* @__PURE__ */ __name((collection) => {
       setState((prev) => ({
@@ -20420,7 +20435,7 @@ var ZapReactProvider = /* @__PURE__ */ __name(({ children }) => {
         ...prev,
         viewState: {
           ...prev.viewState,
-          activeView: prev.viewState.activeView === "request-response" ? "bru-editor" : "request-response"
+          activeView: prev.viewState.activeView === "request-response" ? "zap-editor" : "request-response"
         }
       }));
     }, "toggleCenterView")
@@ -20439,39 +20454,39 @@ var useZapApi = /* @__PURE__ */ __name(() => {
   return context;
 }, "useZapApi");
 
-// src2/zap-api-tsx/ZapApiCollectionTree.tsx
+// src2/zap-api-tsx/views/ZapApiCollectionTree.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 var ZapApiCollectionTree = /* @__PURE__ */ __name(() => {
   const { state, actions } = useZapApi();
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-void-h-full void-void-p-2", children: state.collections.map(
-    (collection) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-mb-2", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-h-full void-p-2", children: state.collections.map(
+    (collection) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-mb-2", children: [
       /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
         "div",
         {
-          className: `void-void-flex void-void-items-center void-void-p-2 void-void-rounded void-void-cursor-pointer void-hover:void-void-bg-[var(--vscode-list-hoverBackground)] ${state.activeCollection?.id === collection.id ? "void-void-bg-[var(--vscode-list-activeSelectionBackground)]" : ""}`,
+          className: `void-flex void-items-center void-p-2 void-rounded void-cursor-pointer hover:void-bg-[var(--vscode-list-hoverBackground)] ${state.activeCollection?.id === collection.id ? "void-bg-[var(--vscode-list-activeSelectionBackground)]" : ""}`,
           onClick: () => actions.setActiveCollection(collection),
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-mr-2", children: "\u{1F4C1}" }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-text-sm void-void-text-[var(--vscode-sideBar-foreground)]", children: collection.name })
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-mr-2", children: "\u{1F4C1}" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm void-text-[var(--vscode-sideBar-foreground)]", children: collection.name })
           ]
         }
       ),
-      state.activeCollection?.id === collection.id && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-ml-4 void-void-mt-1", children: [
+      state.activeCollection?.id === collection.id && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-ml-4 void-mt-1", children: [
         collection.folders.map(
-          (folder) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-mb-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-p-1 void-void-text-[var(--vscode-sideBar-foreground)]", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-mr-2", children: "\u{1F4C2}" }),
-              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-text-sm", children: folder.name })
+          (folder) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-mb-1", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "void-flex void-items-center void-p-1 void-text-[var(--vscode-sideBar-foreground)]", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-mr-2", children: "\u{1F4C2}" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm", children: folder.name })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-void-ml-4", children: folder.requests.map(
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "void-ml-4", children: folder.requests.map(
               (request) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
                 "div",
                 {
-                  className: "void-void-flex void-void-items-center void-void-p-2 void-void-rounded void-void-cursor-pointer void-hover:void-void-bg-[var(--vscode-list-hoverBackground)]",
+                  className: "void-flex void-items-center void-p-2 void-rounded void-cursor-pointer hover:void-bg-[var(--vscode-list-hoverBackground)]",
                   onClick: () => actions.openRequestAsEditor(request, collection.id),
                   children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-void-mr-2 void-void-text-xs void-void-px-1 void-void-rounded void-void-text-white ${request.method === "GET" ? "void-void-bg-green-600" : request.method === "POST" ? "void-void-bg-blue-600" : request.method === "PUT" ? "void-void-bg-yellow-600" : request.method === "DELETE" ? "void-void-bg-red-600" : "void-void-bg-gray-600"}`, children: request.method }),
-                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-text-sm void-void-text-[var(--vscode-sideBar-foreground)]", children: request.name })
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-mr-2 void-text-xs void-px-1 void-rounded void-text-white ${request.method === "GET" ? "void-bg-green-600" : request.method === "POST" ? "void-bg-blue-600" : request.method === "PUT" ? "void-bg-yellow-600" : request.method === "DELETE" ? "void-bg-red-600" : "void-bg-gray-600"}`, children: request.method }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm void-text-[var(--vscode-sideBar-foreground)]", children: request.name })
                   ]
                 },
                 request.id
@@ -20483,11 +20498,11 @@ var ZapApiCollectionTree = /* @__PURE__ */ __name(() => {
           (request) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
             "div",
             {
-              className: "void-void-flex void-void-items-center void-void-p-2 void-void-rounded void-void-cursor-pointer void-hover:void-void-bg-[var(--vscode-list-hoverBackground)]",
+              className: "void-flex void-items-center void-p-2 void-rounded void-cursor-pointer hover:void-bg-[var(--vscode-list-hoverBackground)]",
               onClick: () => actions.openRequestAsEditor(request, collection.id),
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-void-mr-2 void-void-text-xs void-void-px-1 void-void-rounded void-void-text-white ${request.method === "GET" ? "void-void-bg-green-600" : request.method === "POST" ? "void-void-bg-blue-600" : request.method === "PUT" ? "void-void-bg-yellow-600" : request.method === "DELETE" ? "void-void-bg-red-600" : "void-void-bg-gray-600"}`, children: request.method }),
-                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-void-text-sm void-void-text-[var(--vscode-sideBar-foreground)]", children: request.name })
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `void-mr-2 void-text-xs void-px-1 void-rounded void-text-white ${request.method === "GET" ? "void-bg-green-600" : request.method === "POST" ? "void-bg-blue-600" : request.method === "PUT" ? "void-bg-yellow-600" : request.method === "DELETE" ? "void-bg-red-600" : "void-bg-gray-600"}`, children: request.method }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "void-text-sm void-text-[var(--vscode-sideBar-foreground)]", children: request.name })
               ]
             },
             request.id
@@ -20502,13 +20517,13 @@ var ZapApiCollectionTree = /* @__PURE__ */ __name(() => {
 var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var ZapApiMainApp = /* @__PURE__ */ __name(() => {
   const { state, actions } = useZapApi();
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-h-full void-void-flex void-void-flex-col void-void-bg-[var(--vscode-sideBar-background)] void-void-text-[var(--vscode-sideBar-foreground)]", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-void-p-4 void-void-border-b void-void-border-[var(--vscode-sideBar-border)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "void-void-text-lg void-void-font-semibold void-void-text-[var(--vscode-sideBarTitle-foreground)]", children: "Collections" }),
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-h-full void-flex void-flex-col void-bg-[var(--vscode-sideBar-background)] void-text-[var(--vscode-sideBar-foreground)]", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "void-p-4 void-border-b void-border-[var(--vscode-sideBar-border)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "void-text-lg void-font-semibold void-text-[var(--vscode-sideBarTitle-foreground)]", children: "API Collections" }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
         "button",
         {
-          className: "void-void-mt-2 void-void-px-3 void-void-py-1 void-void-text-sm void-void-bg-[var(--vscode-button-background)] void-void-text-[var(--vscode-button-foreground)] void-void-rounded void-hover:void-void-bg-[var(--vscode-button-hoverBackground)]",
+          className: "void-mt-2 void-px-3 void-py-1 void-text-sm void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)]",
           onClick: () => {
             console.log("Create new collection");
           },
@@ -20516,75 +20531,78 @@ var ZapApiMainApp = /* @__PURE__ */ __name(() => {
         }
       )
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-flex-1 void-void-overflow-auto", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ZapApiCollectionTree, {}) }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-void-p-3 void-void-border-t void-void-border-[var(--vscode-sideBar-border)] void-void-text-xs void-void-text-[var(--vscode-descriptionForeground)]", children: "\u26A1 Click on requests to open them as editors" })
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-flex-1 void-overflow-auto", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ZapApiCollectionTree, {}) }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "void-p-3 void-border-t void-border-[var(--vscode-sideBar-border)] void-text-xs void-text-[var(--vscode-descriptionForeground)]", children: "\u26A1 Click on requests to open them as editors" })
   ] });
 }, "ZapApiMainApp");
 
-// src2/zap-api-tsx/ZapApiRequestEditorMain.tsx
-var React = __toESM(require_react(), 1);
+// src2/zap-api-tsx/views/ZapApiRequestEditor.tsx
+var React2 = __toESM(require_react(), 1);
 var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
-var ZapApiRequestEditorMain = /* @__PURE__ */ __name(({ request, collectionId }) => {
-  const [activeView, setActiveView] = React.useState("request-response");
-  const [response, setResponse] = React.useState(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  React.useEffect(() => {
-    const handleToggle = /* @__PURE__ */ __name((event) => {
-      setActiveView((prev) => prev === "request-response" ? "code" : "request-response");
-    }, "handleToggle");
-    window.addEventListener("zap-api:toggle-view", handleToggle);
-    return () => {
-      window.removeEventListener("zap-api:toggle-view", handleToggle);
-    };
-  }, []);
+var ZapApiRequestEditor = /* @__PURE__ */ __name(({
+  request: propsRequest,
+  collectionId: propsCollectionId,
+  mode = "full"
+}) => {
+  const { state, actions } = useZapApi();
+  const activeRequest = propsRequest || state.activeRequest;
+  const collectionId = propsCollectionId || state.activeCollection?.id;
+  const activeView = state.viewState.activeView;
+  const [response, setResponse] = React2.useState(null);
+  const [isLoading, setIsLoading] = React2.useState(false);
   const sendRequest = /* @__PURE__ */ __name(async () => {
+    if (!activeRequest) return;
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1e3));
-      setResponse({
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      const mockResponse = {
         status: 200,
         statusText: "OK",
-        headers: {
-          "Content-Type": "application/json",
-          "Content-Length": "156"
-        },
-        data: {
-          message: "Success",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: "Request completed successfully",
           timestamp: (/* @__PURE__ */ new Date()).toISOString(),
-          data: { id: 1, name: "Sample Response" }
-        }
-      });
+          method: activeRequest.method,
+          url: activeRequest.url
+        }, null, 2),
+        responseTime: Math.floor(Math.random() * 500) + 100,
+        size: Math.floor(Math.random() * 1e3) + 500
+      };
+      setResponse(mockResponse);
+      if (actions.sendRequest) {
+        actions.sendRequest(activeRequest);
+      }
     } catch (error) {
       setResponse({
         status: 500,
-        statusText: "Internal Server Error",
-        error: "Failed to send request"
+        statusText: "Error",
+        body: JSON.stringify({ error: "Request failed" }, null, 2)
       });
     } finally {
       setIsLoading(false);
     }
   }, "sendRequest");
-  const generateBruContent = /* @__PURE__ */ __name(() => {
-    const headers = request.headers || {};
+  const generateZapContent = /* @__PURE__ */ __name(() => {
+    if (!activeRequest) return "";
+    const headers = activeRequest.headers || {};
     const headersSection = Object.keys(headers).length > 0 ? Object.entries(headers).map(([key, value]) => `${key}: ${value}`).join("\n") : "";
     return `meta {
-  name: ${request.name}
+  name: ${activeRequest.name}
   type: http
   seq: 1
 }
 
-${request.method.toLowerCase()} {
-  url: ${request.url || "https://api.example.com/endpoint"}
-  body: ${request.body ? "json" : "none"}
+${activeRequest.method.toLowerCase()} {
+  url: ${activeRequest.url || "https://api.example.com/endpoint"}
+  body: ${activeRequest.body ? "json" : "none"}
   auth: none
 }
 
 ${headersSection ? `headers {
 ${headersSection}
 }
-` : ""}
-${request.body ? `body:json {
-${typeof request.body === "string" ? request.body : JSON.stringify(JSON.parse(request.body.content || "{}"), null, 2)}
+` : ""}${activeRequest.body ? `body:json {
+${typeof activeRequest.body === "string" ? activeRequest.body : activeRequest.body.content || "{}"}
 }
 ` : ""}
 
@@ -20593,116 +20611,155 @@ tests {
     expect(res.getStatus()).to.equal(200);
   });
 }`;
-  }, "generateBruContent");
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-h-full void-void-flex void-void-flex-col void-void-bg-[var(--vscode-editor-background)]", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-justify-between void-void-p-4 void-void-border-b void-void-border-[var(--vscode-panel-border)] void-void-bg-[var(--vscode-editor-background)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-space-x-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: `void-void-px-2 void-void-py-1 void-void-text-xs void-void-rounded void-void-text-white void-void-font-medium ${request.method === "GET" ? "void-void-bg-green-600" : request.method === "POST" ? "void-void-bg-blue-600" : request.method === "PUT" ? "void-void-bg-yellow-600" : request.method === "DELETE" ? "void-void-bg-red-600" : "void-void-bg-gray-600"}`, children: request.method }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h1", { className: "void-void-text-lg void-void-font-semibold void-void-text-[var(--vscode-editor-foreground)]", children: request.name })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-space-x-2", children: [
+  }, "generateZapContent");
+  if (!activeRequest) {
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-h-full void-flex void-items-center void-justify-center void-bg-[var(--vscode-editor-background)] void-text-[var(--vscode-editor-foreground)]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-text-center void-text-[var(--vscode-descriptionForeground)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-mb-2 void-text-4xl", children: "\u26A1" }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-text-lg void-mb-2", children: "No Request Selected" }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-text-sm", children: "Select a request from the collection tree to get started" })
+    ] }) });
+  }
+  if (activeView === "zap-editor") {
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-h-full void-flex void-flex-col void-bg-[var(--vscode-editor-background)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-justify-between void-p-4 void-border-b void-border-[var(--vscode-panel-border)]", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-3", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-text-2xl", children: "\u26A1" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("h1", { className: "void-text-lg void-font-semibold void-text-[var(--vscode-editor-foreground)]", children: [
+              activeRequest.name,
+              ".zap"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "void-text-sm void-text-[var(--vscode-descriptionForeground)]", children: "Zap format file content" })
+          ] })
+        ] }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
           "button",
           {
-            className: "void-void-px-3 void-void-py-1 void-void-text-sm void-void-bg-[var(--vscode-button-secondaryBackground)] void-void-text-[var(--vscode-button-secondaryForeground)] void-void-rounded void-hover:void-void-bg-[var(--vscode-button-secondaryHoverBackground)] void-void-border void-void-border-[var(--vscode-button-border)]",
-            onClick: () => setActiveView(activeView === "request-response" ? "code" : "request-response"),
-            children: activeView === "request-response" ? "Show BRU Code" : "Show Request/Response"
+            className: "void-px-4 void-py-2 void-text-sm void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)]",
+            onClick: () => actions.toggleCenterView(),
+            children: "\u{1F504} Back to Request/Response"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-flex-1 void-p-4", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("pre", { className: "void-h-full void-bg-[var(--vscode-textCodeBlock-background)] void-text-[var(--vscode-editor-foreground)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-4 void-text-sm void-font-mono void-overflow-auto void-whitespace-pre-wrap", children: generateZapContent() }) })
+    ] });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-h-full void-flex void-flex-col void-bg-[var(--vscode-editor-background)]", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-justify-between void-p-4 void-border-b void-border-[var(--vscode-panel-border)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-3", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: `void-px-3 void-py-1 void-text-sm void-rounded void-text-white void-font-medium ${activeRequest.method === "GET" ? "void-bg-green-600" : activeRequest.method === "POST" ? "void-bg-blue-600" : activeRequest.method === "PUT" ? "void-bg-yellow-600" : activeRequest.method === "DELETE" ? "void-bg-red-600" : "void-bg-gray-600"}`, children: activeRequest.method }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h1", { className: "void-text-lg void-font-semibold void-text-[var(--vscode-editor-foreground)]", children: activeRequest.name }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "void-text-sm void-text-[var(--vscode-descriptionForeground)]", children: activeRequest.url })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          "button",
+          {
+            className: "void-px-3 void-py-2 void-text-sm void-bg-[var(--vscode-button-secondaryBackground)] void-text-[var(--vscode-button-secondaryForeground)] void-rounded hover:void-bg-[var(--vscode-button-secondaryHoverBackground)] void-border void-border-[var(--vscode-button-border)]",
+            onClick: () => actions.toggleCenterView(),
+            children: "\u26A1 View ZAP"
           }
         ),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
           "button",
           {
-            className: "void-void-px-4 void-void-py-1 void-void-text-sm void-void-bg-[var(--vscode-button-background)] void-void-text-[var(--vscode-button-foreground)] void-void-rounded void-hover:void-void-bg-[var(--vscode-button-hoverBackground)] void-disabled:void-void-opacity-50",
+            className: "void-px-6 void-py-2 void-text-sm void-bg-[var(--vscode-button-background)] void-text-[var(--vscode-button-foreground)] void-rounded hover:void-bg-[var(--vscode-button-hoverBackground)] disabled:void-opacity-50",
             onClick: sendRequest,
             disabled: isLoading,
-            children: isLoading ? "Sending..." : "Send"
+            children: isLoading ? "\u23F3 Sending..." : "\u26A1 Send Request"
           }
         )
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-flex-1 void-void-overflow-hidden", children: activeView === "request-response" ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-h-full void-void-flex", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-w-1/2 void-void-flex void-void-flex-col void-void-border-r void-void-border-[var(--vscode-panel-border)]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-px-4 void-void-py-2 void-void-border-b void-void-border-[var(--vscode-panel-border)] void-void-bg-[var(--vscode-tab-activeBackground)]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h3", { className: "void-void-font-medium void-void-text-[var(--vscode-tab-activeForeground)]", children: "Request" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-flex-1 void-void-p-4 void-void-overflow-y-auto", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-mb-4", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium void-void-text-[var(--vscode-editor-foreground)]", children: "URL" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-              "input",
-              {
-                type: "text",
-                value: request.url || "",
-                readOnly: true,
-                className: "void-void-w-full void-void-px-3 void-void-py-2 void-void-bg-[var(--vscode-input-background)] void-void-text-[var(--vscode-input-foreground)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded"
-              }
-            )
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-mb-4", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium void-void-text-[var(--vscode-editor-foreground)]", children: "Headers" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-bg-[var(--vscode-input-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: request.headers && Object.keys(request.headers).length > 0 ? Object.entries(request.headers).map(
-              ([key, value], index) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-flex void-void-mb-2 last:void-void-mb-0", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-void-w-1/3 void-void-text-sm void-void-text-[var(--vscode-input-foreground)] void-void-pr-2", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-2 void-p-4 void-border-b void-border-[var(--vscode-panel-border)] void-bg-[var(--vscode-editor-background)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        "select",
+        {
+          className: "void-px-3 void-py-2 void-text-sm void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded",
+          value: activeRequest.method,
+          disabled: true,
+          children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("option", { children: activeRequest.method })
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        "input",
+        {
+          className: "void-flex-1 void-px-3 void-py-2 void-text-sm void-bg-[var(--vscode-input-background)] void-text-[var(--vscode-input-foreground)] void-border void-border-[var(--vscode-input-border)] void-rounded",
+          value: activeRequest.url || "",
+          readOnly: true,
+          placeholder: "Request URL"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex-1 void-flex", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-w-1/2 void-flex void-flex-col void-border-r void-border-[var(--vscode-panel-border)]", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-p-3 void-border-b void-border-[var(--vscode-panel-border)] void-bg-[var(--vscode-tab-activeBackground)]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h3", { className: "void-font-medium void-text-[var(--vscode-tab-activeForeground)]", children: "Request" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex-1 void-p-4 void-overflow-y-auto", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-mb-6", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium void-text-[var(--vscode-editor-foreground)]", children: "Headers" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3", children: activeRequest.headers && Object.keys(activeRequest.headers).length > 0 ? Object.entries(activeRequest.headers).map(
+              ([key, value], index) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-mb-2 last:void-mb-0", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-w-1/3 void-text-sm void-text-[var(--vscode-input-foreground)] void-pr-2 void-font-medium", children: [
                   key,
                   ":"
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-void-flex-1 void-void-text-sm void-void-text-[var(--vscode-input-foreground)]", children: String(value) })
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-flex-1 void-text-sm void-text-[var(--vscode-input-foreground)]", children: String(value) })
               ] }, index)
-            ) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-text-sm void-void-text-[var(--vscode-descriptionForeground)]", children: "No headers" }) })
+            ) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-text-sm void-text-[var(--vscode-descriptionForeground)]", children: "No headers" }) })
           ] }),
-          request.body && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-mb-4", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium void-void-text-[var(--vscode-editor-foreground)]", children: "Body" }),
-            "								",
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-              "textarea",
-              {
-                value: request.body ? typeof request.body === "string" ? request.body : request.body.content : "",
-                readOnly: true,
-                rows: 8,
-                className: "void-void-w-full void-void-px-3 void-void-py-2 void-void-bg-[var(--vscode-input-background)] void-void-text-[var(--vscode-input-foreground)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-font-mono void-void-text-sm"
-              }
-            )
+          activeRequest.body && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium void-text-[var(--vscode-editor-foreground)]", children: "Body" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("pre", { className: "void-bg-[var(--vscode-textCodeBlock-background)] void-text-[var(--vscode-editor-foreground)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3 void-text-sm void-font-mono void-overflow-x-auto void-whitespace-pre-wrap", children: typeof activeRequest.body === "string" ? activeRequest.body : activeRequest.body.content || "{}" })
           ] })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-w-1/2 void-void-flex void-void-flex-col", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-px-4 void-void-py-2 void-void-border-b void-void-border-[var(--vscode-panel-border)] void-void-bg-[var(--vscode-tab-activeBackground)]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h3", { className: "void-void-font-medium void-void-text-[var(--vscode-tab-activeForeground)]", children: "Response" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-flex-1 void-void-p-4 void-void-overflow-y-auto", children: response ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-mb-4", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-flex void-void-items-center void-void-space-x-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: `void-void-px-2 void-void-py-1 void-void-text-xs void-void-rounded void-void-text-white void-void-font-medium ${response.status >= 200 && response.status < 300 ? "void-void-bg-green-600" : response.status >= 400 ? "void-void-bg-red-600" : "void-void-bg-yellow-600"}`, children: response.status }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-void-text-sm void-void-text-[var(--vscode-editor-foreground)]", children: response.statusText })
-          ] }) }),
-          response.headers && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-mb-4", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium void-void-text-[var(--vscode-editor-foreground)]", children: "Headers" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-bg-[var(--vscode-input-background)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3", children: Object.entries(response.headers).map(
-              ([key, value], index) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-flex void-void-mb-2 last:void-void-mb-0", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-void-w-1/3 void-void-text-sm void-void-text-[var(--vscode-input-foreground)] void-void-pr-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-w-1/2 void-flex void-flex-col", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-p-3 void-border-b void-border-[var(--vscode-panel-border)] void-bg-[var(--vscode-tab-activeBackground)] void-flex void-items-center void-justify-between", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h3", { className: "void-font-medium void-text-[var(--vscode-tab-activeForeground)]", children: "Response" }),
+          response && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-items-center void-space-x-2 void-text-xs", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: `void-px-2 void-py-1 void-rounded void-text-white void-font-medium ${response.status >= 200 && response.status < 300 ? "void-bg-green-600" : response.status >= 400 ? "void-bg-red-600" : "void-bg-yellow-600"}`, children: [
+              response.status,
+              " ",
+              response.statusText
+            ] }),
+            response.responseTime && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-text-[var(--vscode-descriptionForeground)]", children: [
+              response.responseTime,
+              "ms"
+            ] }),
+            response.size && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-text-[var(--vscode-descriptionForeground)]", children: [
+              response.size,
+              "B"
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-flex-1 void-p-4 void-overflow-y-auto", children: response ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+          response.headers && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-mb-6", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium void-text-[var(--vscode-editor-foreground)]", children: "Headers" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-bg-[var(--vscode-input-background)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3", children: Object.entries(response.headers).map(
+              ([key, value], index) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-flex void-mb-2 last:void-mb-0", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "void-w-1/3 void-text-sm void-text-[var(--vscode-input-foreground)] void-pr-2 void-font-medium", children: [
                   key,
                   ":"
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-void-flex-1 void-void-text-sm void-void-text-[var(--vscode-input-foreground)]", children: String(value) })
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "void-flex-1 void-text-sm void-text-[var(--vscode-input-foreground)]", children: String(value) })
               ] }, index)
             ) })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-mb-4", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-void-block void-void-mb-2 void-void-text-sm void-void-font-medium void-void-text-[var(--vscode-editor-foreground)]", children: "Body" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("pre", { className: "void-void-bg-[var(--vscode-input-background)] void-void-text-[var(--vscode-input-foreground)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-3 void-void-text-sm void-void-overflow-x-auto void-void-whitespace-pre-wrap", children: response.data ? JSON.stringify(response.data, null, 2) : response.error || "No response body" })
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "void-block void-mb-2 void-text-sm void-font-medium void-text-[var(--vscode-editor-foreground)]", children: "Body" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("pre", { className: "void-bg-[var(--vscode-textCodeBlock-background)] void-text-[var(--vscode-editor-foreground)] void-border void-border-[var(--vscode-input-border)] void-rounded void-p-3 void-text-sm void-font-mono void-overflow-x-auto void-whitespace-pre-wrap", children: response.body || "No response body" })
           ] })
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-flex void-void-items-center void-void-justify-center void-void-h-32", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-text-center void-void-text-[var(--vscode-descriptionForeground)]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-text-4xl void-void-mb-2", children: "\u26A1" }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { children: 'Click "Send" to execute the request' })
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-flex void-items-center void-justify-center void-h-full", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-text-center void-text-[var(--vscode-descriptionForeground)]", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-text-4xl void-mb-4", children: "\u26A1" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "void-text-lg void-mb-2", children: "Ready to Send" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "void-text-sm", children: 'Click the "Send Request" button to execute the request' })
         ] }) }) })
       ] })
-    ] }) : (
-      /* BRU Code view */
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "void-void-h-full void-void-flex void-void-flex-col", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-px-4 void-void-py-2 void-void-border-b void-void-border-[var(--vscode-panel-border)] void-void-bg-[var(--vscode-tab-activeBackground)]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("h3", { className: "void-void-font-medium void-void-text-[var(--vscode-tab-activeForeground)]", children: [
-          request.name,
-          ".bru"
-        ] }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "void-void-flex-1 void-void-p-4", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("pre", { className: "void-void-h-full void-void-bg-[var(--vscode-editor-background)] void-void-text-[var(--vscode-editor-foreground)] void-void-border void-void-border-[var(--vscode-input-border)] void-void-rounded void-void-p-4 void-void-text-sm void-void-font-mono void-void-overflow-auto void-void-whitespace-pre-wrap", children: generateBruContent() }) })
-      ] })
-    ) })
+    ] })
   ] });
-}, "ZapApiRequestEditorMain");
+}, "ZapApiRequestEditor");
 
 // src2/zap-api-tsx/index.tsx
 var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
@@ -20734,11 +20791,12 @@ var mountZapApiEditor = /* @__PURE__ */ __name((rootElement, options) => {
   const root = (0, import_client.createRoot)(rootElement);
   const rerender = /* @__PURE__ */ __name(() => {
     root.render(
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_react2.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
-        ZapApiRequestEditorMain,
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ZapReactProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+        ZapApiRequestEditor,
         {
           request: options.request,
-          collectionId: options.collectionId
+          collectionId: options.collectionId,
+          mode: "full"
         }
       ) })
     );
@@ -20758,10 +20816,10 @@ export {
 };
 /*! Bundled license information:
 
-react/cjs/react.development.js:
+scheduler/cjs/scheduler.development.js:
   (**
    * @license React
-   * react.development.js
+   * scheduler.development.js
    *
    * Copyright (c) Meta Platforms, Inc. and affiliates.
    *
@@ -20769,10 +20827,10 @@ react/cjs/react.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 
-scheduler/cjs/scheduler.development.js:
+react/cjs/react.development.js:
   (**
    * @license React
-   * scheduler.development.js
+   * react.development.js
    *
    * Copyright (c) Meta Platforms, Inc. and affiliates.
    *

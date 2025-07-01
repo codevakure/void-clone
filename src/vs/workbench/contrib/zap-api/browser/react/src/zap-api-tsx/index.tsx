@@ -4,19 +4,29 @@
  *--------------------------------------------------------------------------------------------*/
 
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { ZapReactProvider } from './ZapReactProvider.js';
+import { createRoot, Root } from 'react-dom/client';
+import { ZapReactProvider } from './providers/ZapReactProvider.js';
 import { ZapApiMainApp } from './ZapApiMainApp.js';
-import { ZapApiRequestEditorMain } from './ZapApiRequestEditorMain.js';
+import { ZapApiRequestEditor } from './views/ZapApiRequestEditor.js';
 import { ZapRequest } from '../../../../common/zapApiTypes.js';
 
+// Store roots to avoid recreating them
+const rootMap = new WeakMap<HTMLElement, Root>();
+
+/**
+ * Mount the Zap API side panel (collection tree only)
+ */
 export const mountZapApi = (rootElement: HTMLElement) => {
 	if (typeof document === 'undefined') {
 		console.error('zap-api index.tsx error: document was undefined');
 		return;
 	}
 
-	const root = createRoot(rootElement);
+	let root = rootMap.get(rootElement);
+	if (!root) {
+		root = createRoot(rootElement);
+		rootMap.set(rootElement, root);
+	}
 
 	const rerender = (props?: any) => {
 		root.render(
@@ -38,23 +48,30 @@ export const mountZapApi = (rootElement: HTMLElement) => {
 	};
 };
 
-// Mount function for individual request editors
+/**
+ * Mount function for individual request editors in the main editor panel
+ */
 export const mountZapApiEditor = (rootElement: HTMLElement, options: { request: ZapRequest; collectionId: string }) => {
 	if (typeof document === 'undefined') {
 		console.error('zap-api index.tsx error: document was undefined');
 		return;
 	}
 
-	const root = createRoot(rootElement);
+	let root = rootMap.get(rootElement);
+	if (!root) {
+		root = createRoot(rootElement);
+		rootMap.set(rootElement, root);
+	}
 
 	const rerender = () => {
 		root.render(
-			<React.StrictMode>
-				<ZapApiRequestEditorMain
+			<ZapReactProvider>
+				<ZapApiRequestEditor
 					request={options.request}
 					collectionId={options.collectionId}
+					mode="full"
 				/>
-			</React.StrictMode>
+			</ZapReactProvider>
 		);
 	};
 
