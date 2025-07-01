@@ -380,6 +380,8 @@ function packageTask(platform, arch, sourceFolderName, destinationFolderName, op
 			all = es.merge(all, shortcut, policyDest);
 		}
 
+		//varun
+
 		let result = all
 			.pipe(util.skipDirectories())
 			.pipe(util.fixWin32DirectoryPermissions())
