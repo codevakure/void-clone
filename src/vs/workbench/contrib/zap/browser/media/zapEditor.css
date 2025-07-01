@@ -1,0 +1,39 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.zap-editor {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.zap-editor-source {
+	width: 100%;
+	height: 100%;
+}
+
+.zap-editor-preview {
+	width: 100%;
+	height: 100%;
+}
+
+.zap-preview-webview {
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+}
+
+/* Ensure webview takes full space */
+.zap-editor-preview .webview {
+	width: 100%;
+	height: 100%;
+}
+
+.zap-editor-preview iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+}

@@ -174,6 +174,9 @@ registerSingleton(IOpenerService, OpenerService, InstantiationType.Delayed);
 // Telemetry
 import './contrib/telemetry/browser/telemetry.contribution.js';
 
+// ZAP Files
+import './contrib/zap/browser/zap.contribution.js';
+
 // Preferences
 import './contrib/preferences/browser/preferences.contribution.js';
 import './contrib/preferences/browser/keybindingsEditorContribution.js';
