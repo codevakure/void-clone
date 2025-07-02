@@ -112,7 +112,7 @@ class VoidSettingsPane extends EditorPane {
 
 // register Settings pane
 Registry.as<IEditorPaneRegistry>(EditorExtensions.EditorPane).registerEditorPane(
-	EditorPaneDescriptor.create(VoidSettingsPane, VoidSettingsPane.ID, nls.localize('VoidSettingsPane', "Void\'s Settings Pane")),
+	EditorPaneDescriptor.create(VoidSettingsPane, VoidSettingsPane.ID, nls.localize('VoidSettingsPane', "ZapBot Settings Pane")),
 	[new SyncDescriptor(VoidSettingsInput)]
 );
 
@@ -202,7 +202,7 @@ MenuRegistry.appendMenuItem(MenuId.GlobalActivity, {
 	group: '0_command',
 	command: {
 		id: VOID_TOGGLE_SETTINGS_ACTION_ID,
-		title: nls.localize('voidSettingsActionGear', "Void\'s Settings")
+		title: nls.localize('voidSettingsActionGear', "ZapBot Settings")
 	},
 	order: 1
 });

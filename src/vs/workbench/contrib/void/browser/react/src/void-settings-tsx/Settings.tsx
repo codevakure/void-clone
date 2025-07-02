@@ -1161,7 +1161,7 @@ export const Settings = () => {
 
 					<div className='max-w-3xl'>
 
-						<h1 className='text-2xl w-full'>{`ZapBot Settingss`}</h1>
+						<h1 className='text-2xl w-full'>{`ZapBot Settings`}</h1>
 
 						<div className='w-full h-[1px] my-2' />
 
