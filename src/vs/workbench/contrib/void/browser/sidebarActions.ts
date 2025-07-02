@@ -244,7 +244,7 @@ registerAction2(class extends Action2 {
 	constructor() {
 		super({
 			id: 'void.settingsAction',
-			title: `Zap's Settings`,
+			title: `ZapBot's Settings`,
 			icon: { id: 'settings-gear' },
 			menu: [{ id: MenuId.ViewTitle, group: 'navigation', when: ContextKeyExpr.equals('view', VOID_VIEW_ID), }]
 		});
