@@ -17,19 +17,35 @@ export class ZapParser {
 	 * Parse a ZAP file content and extract the meta block
 	 */
 	public static parseZapFile(content: string): ZapMetaData {
+		console.log('ZapParser: Starting to parse content...');
+		console.log('ZapParser: Content length:', content.length);
+		console.log('ZapParser: First 300 chars:', content.substring(0, 300));
+
+		// Try to find the meta block using regex
 		const metaMatch = content.match(/meta\s*\{([^}]*)\}/s);
+		console.log('ZapParser: Meta match found:', !!metaMatch);
+
 		if (!metaMatch) {
+			console.log('ZapParser: No meta block found');
 			return {};
 		}
 
 		const metaContent = metaMatch[1];
+		console.log('ZapParser: Meta content:', metaContent);
+
 		const metaData: ZapMetaData = {};
 
 		// Parse key-value pairs
 		const lines = metaContent.split('\n');
-		for (const line of lines) {
+		console.log('ZapParser: Lines to parse:', lines);
+
+		for (let i = 0; i < lines.length; i++) {
+			const line = lines[i];
 			const trimmed = line.trim();
-			if (!trimmed || trimmed.startsWith('//')) {
+			console.log(`ZapParser: Processing line ${i}: "${trimmed}"`);
+
+			if (!trimmed || trimmed.startsWith('//') || trimmed.startsWith('#')) {
+				console.log(`ZapParser: Skipping line ${i} (empty or comment)`);
 				continue;
 			}
 
@@ -38,27 +54,36 @@ export class ZapParser {
 				const key = trimmed.substring(0, colonIndex).trim();
 				let value = trimmed.substring(colonIndex + 1).trim();
 
+				console.log(`ZapParser: Found key-value pair: "${key}" = "${value}"`);
+
 				// Remove trailing comma if present
 				if (value.endsWith(',')) {
-					value = value.slice(0, -1);
+					value = value.slice(0, -1).trim();
 				}
 
 				// Parse value based on type
 				if (value === 'true' || value === 'false') {
 					metaData[key] = value === 'true';
-				} else if (!isNaN(Number(value))) {
+				} else if (/^\d+$/.test(value)) {
+					metaData[key] = Number(value);
+				} else if (/^\d+\.\d+$/.test(value)) {
 					metaData[key] = Number(value);
 				} else {
-					// Remove quotes if present
+					// Handle quoted strings
 					if ((value.startsWith('"') && value.endsWith('"')) ||
 						(value.startsWith("'") && value.endsWith("'"))) {
 						value = value.slice(1, -1);
 					}
 					metaData[key] = value;
 				}
+
+				console.log(`ZapParser: Added to metadata: "${key}" = "${metaData[key]}"`);
+			} else {
+				console.log(`ZapParser: No colon found in line ${i}: "${trimmed}"`);
 			}
 		}
 
+		console.log('ZapParser: Final metadata:', metaData);
 		return metaData;
 	}
 }
