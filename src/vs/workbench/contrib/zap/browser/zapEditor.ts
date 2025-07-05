@@ -17,13 +17,13 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { ICodeEditor } from '../../../../editor/browser/editorBrowser.js';
 import { CodeEditorWidget } from '../../../../editor/browser/widget/codeEditor/codeEditorWidget.js';
 import { DisposableStore } from '../../../../base/common/lifecycle.js';
-import { Dimension, append, $, safeInnerHtml } from '../../../../base/browser/dom.js';
+import { Dimension, append, $ } from '../../../../base/browser/dom.js';
 import { IModelService } from '../../../../editor/common/services/model.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
-import { renderZapDocument, DEFAULT_ZAP_STYLES } from './zapDocumentRenderer.js';
 import { IEditorGroup } from '../../../services/editor/common/editorGroupsService.js';
 import { onUnexpectedError } from '../../../../base/common/errors.js';
 import { IContextKey, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
+import { ReactZapIntegration } from './reactZapIntegration.js';
 
 export class ZapEditor extends EditorPane {
 	static readonly ID = 'workbench.editor.zapEditor';
@@ -44,6 +44,8 @@ export class ZapEditor extends EditorPane {
 	private readonly modelDisposables = this._register(new DisposableStore());
 	private readonly inputDisposables = this._register(new DisposableStore());
 
+	private reactZapIntegration: ReactZapIntegration;
+
 	constructor(
 		group: IEditorGroup,
 		@ITelemetryService telemetryService: ITelemetryService,
@@ -59,6 +61,9 @@ export class ZapEditor extends EditorPane {
 		// Initialize context keys
 		this.viewModePreviewContextKey = this._contextKeyService.createKey('zapViewMode.preview', true);
 		this.viewModeSourceContextKey = this._contextKeyService.createKey('zapViewMode.source', false);
+
+		// Initialize React integration
+		this.reactZapIntegration = this._register(this.instantiationService.createInstance(ReactZapIntegration));
 	}
 
 	protected createEditor(parent: HTMLElement): void {
@@ -119,7 +124,8 @@ export class ZapEditor extends EditorPane {
 				return;
 			}
 			if (this.currentViewMode === 'preview') {
-				this.updatePreviewHTML(input).catch(onUnexpectedError);
+				// React component will handle its own updates
+				// No need to manually refresh preview
 			}
 		}));
 	}
@@ -248,6 +254,19 @@ export class ZapEditor extends EditorPane {
 			}
 		}
 	}
+	private async mountZapReactComponent(input: ZapEditorInput) {
+		try {
+			const content = await input.getContent();
+			await this.reactZapIntegration.renderZapInterface(this.previewContainer, content);
+		} catch (error) {
+			console.error('Error mounting zap React component:', error);
+		}
+	}
+
+	private cleanupZapReactComponent() {
+		this.reactZapIntegration.cleanup();
+	}
+
 	private async showPreview(input: ZapEditorInput): Promise<void> {
 		// If disposed, exit early
 		if (this.isDisposed()) {
@@ -259,96 +278,24 @@ export class ZapEditor extends EditorPane {
 		this.previewContainer.style.display = 'block';
 
 		try {
-			// Create preview element if needed
+			// Only mount the React component, do not create extra HTML
 			if (!this.previewContainer.dataset.previewInitialized && !this.isDisposed()) {
-				// Create a simpler HTML preview instead of using a webview
-				// since we're having issues with the webview implementation
-				const previewElement = document.createElement('div');
-				previewElement.className = 'zap-preview-container';
-				previewElement.style.overflow = 'auto';
-				previewElement.style.height = '100%';
-				previewElement.style.width = '100%';
-				previewElement.style.padding = '20px';
-
-				// Clear the preview container
 				while (this.previewContainer.firstChild) {
 					this.previewContainer.removeChild(this.previewContainer.firstChild);
 				}
-
-				// Append our preview element
-				this.previewContainer.appendChild(previewElement);
-
-				// Store a reference to it for updates
+				await this.mountZapReactComponent(input);
 				this.previewContainer.dataset.previewInitialized = 'true';
 			}
 
-			// Check if disposed after async work
-			if (!this.isDisposed()) {
-				// Update preview content
-				await this.updatePreviewHTML(input);
-
-				// Focus the preview container if visible
-				if (this.isVisible()) {
-					this.previewContainer.focus();
-				}
+			if (!this.isDisposed() && this.isVisible()) {
+				this.previewContainer.focus();
 			}
 		} catch (error) {
 			onUnexpectedError(error);
 		}
 	}
 
-	private async updatePreviewHTML(input: ZapEditorInput): Promise<void> {
-		// Check if disposed or preview not initialized
-		if (this.isDisposed() || !this.previewContainer || !this.previewContainer.dataset.previewInitialized) {
-			return;
-		}
 
-		// Find the preview element - exit early if not found
-		const previewElement = this.previewContainer.querySelector('.zap-preview-container') as HTMLElement;
-		if (!previewElement) {
-			return;
-		}
-
-		try {
-			// Get the content and file name
-			const content = await input.getContent();
-
-			// Check again if we're disposed after the async operation
-			if (this.isDisposed()) {
-				return;
-			}
-
-			const fileName = input.getName();
-
-			// Render the content
-			const renderedContent = content ? renderZapDocument(content) : '<div class="zap-empty">Empty ZAP file</div>';
-
-			// Create the HTML
-			const html = `
-				<style>
-					${DEFAULT_ZAP_STYLES}
-				</style>
-				<h1>ZAP File: ${fileName}</h1>
-				${renderedContent}
-			`;
-
-			// Update the preview content
-			safeInnerHtml(previewElement, html);
-		} catch (error) {
-			// Only attempt to show error if we're not disposed
-			if (!this.isDisposed() && previewElement) {
-				console.error('Error rendering ZAP preview:', error);
-
-				// Show error in the preview container
-				safeInnerHtml(previewElement, `
-					<style>${DEFAULT_ZAP_STYLES}</style>
-					<div class="zap-error">
-						Failed to load ZAP file: ${String(error)}
-					</div>
-				`);
-			}
-		}
-	}
 
 	override clearInput(): void {
 		// If already disposed, exit early
@@ -359,13 +306,17 @@ export class ZapEditor extends EditorPane {
 		// Clear all disposables first
 		this.inputDisposables.clear();
 
+		// Cleanup React component
+		this.cleanupZapReactComponent();
+
 		// Clear preview content safely
 		try {
 			if (this.previewContainer && this.previewContainer.dataset.previewInitialized) {
-				const previewElement = this.previewContainer.querySelector('.zap-preview-container') as HTMLElement;
-				if (previewElement) {
-					safeInnerHtml(previewElement, '');
+				// Clear the container completely
+				while (this.previewContainer.firstChild) {
+					this.previewContainer.removeChild(this.previewContainer.firstChild);
 				}
+				this.previewContainer.dataset.previewInitialized = '';
 			}
 		} catch (error) {
 			console.error('Error clearing preview content:', error);
