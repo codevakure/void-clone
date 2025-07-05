@@ -2,9 +2,12 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
 	entry: [
-		'./src/zap-widgets/index.tsx',
+		'./src/playground/index.tsx',
+		'./src/url-box/index.tsx',
+		'./src/payload-form/index.tsx',
+		'./src/response-viewer/index.tsx',
 	],
-	outDir: '../../../../../../../out/vs/workbench/contrib/zap/browser/react/out',
+	outDir: './out',
 	format: ['esm'],
 	splitting: false,
 	clean: false,
@@ -20,8 +23,5 @@ export default defineConfig({
 			.replaceAll('.', '\\.')
 			.replaceAll('*', '.*'))
 	],
-	treeshake: true,
-	esbuildOptions(options) {
-		options.outbase = 'src'  // tries copying the folder hierarchy starting at src
-	}
+	treeshake: true
 });

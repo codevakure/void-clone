@@ -25,3 +25,114 @@
   color: #007acc;
   margin-bottom: 20px;
 }
+
+/* ZapPlayground Styles */
+.zap-playground-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-foreground);
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+}
+
+.zap-playground-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.zap-playground-main-collapsed {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.zap-playground-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.zap-playground-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--vscode-panel-border);
+  background-color: var(--vscode-panel-background);
+  min-height: 40px;
+}
+
+.zap-playground-title-area {
+  flex: 1;
+}
+
+.zap-playground-options-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.zap-playground-save-options {
+  display: flex;
+  align-items: center;
+}
+
+.zap-playground-panel-horizontal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.zap-playground-panel-vertical {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* URL Box Styles */
+.zap-url-box {
+  border-bottom: 1px solid var(--vscode-panel-border);
+  background-color: var(--vscode-panel-background);
+  padding: 12px 16px;
+}
+
+.zap-url-input-container {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Payload Panel Styles */
+.zap-payload-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--vscode-editor-background);
+}
+
+/* Method Selector Styles */
+.zap-method-selector {
+  position: relative;
+  z-index: 100;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .zap-playground-panel-horizontal {
+    flex-direction: column;
+  }
+
+  .zap-playground-panel-vertical {
+    flex-direction: column;
+  }
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
-export const mountFnGenerator = (Component: (params: any) => React.ReactNode) => (rootElement: HTMLElement, accessor?: any, props?: any) => {
+export const mountFnGenerator = (Component: React.ComponentType<any>) => (rootElement: HTMLElement, accessor?: any, props?: any) => {
 	if (typeof document === 'undefined') {
 		console.error('mountFnGenerator error: document was undefined');
 		return;

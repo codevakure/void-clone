@@ -16,13 +16,14 @@ export class ReactZapIntegration {
 		// Cleanup existing React root
 		this.cleanup();
 
-		try {		// Dynamically import the built zap-widgets bundle from the global out directory
-			const zapWidgets = await import('../../../../../../out/vs/workbench/contrib/zap/browser/react/out/zap-widgets/index.js');
+		try {
+			// Import the playground component using relative path like VOID
+			const zapPlayground = await import('./react/out/playground/index.js');
 
 			// Create service accessor
 			this.instantiationService.invokeFunction(accessor => {
-				// Mount the ZapButton component
-				const res = zapWidgets.mountZapButton(container, accessor, { zapContent });
+				// Mount the ZapPlayground component
+				const res = zapPlayground.mountZapPlayground(container, accessor, { zapContent });
 				if (res) {
 					this.reactRoot = res;
 				}
